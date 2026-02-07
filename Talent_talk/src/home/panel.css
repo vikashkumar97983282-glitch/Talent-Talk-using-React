@@ -1,0 +1,18 @@
+.panel-content{
+    height: 180px;
+    width: 350px;
+    background-color: rgb(187, 128, 39);
+    margin: 26px;
+    border-radius: 10px;
+    justify-content: center;
+    display: flex;
+    align-items: end;
+}
+
+.panel-content button{
+    background-color: rgb(21, 79, 240);
+    height: 40px;
+    width: 150px;
+    margin-bottom: 12px;
+    border-radius: 22px;
+}
