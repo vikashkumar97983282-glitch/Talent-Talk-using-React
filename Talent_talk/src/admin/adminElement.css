@@ -1,0 +1,23 @@
+.menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.menu button{
+    width: 90%;
+    background-color: #007bff;
+    margin: 1px;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: center;
+}
+
+.menu img{
+    height: 30px;
+    width: 30px;
+    
+}
