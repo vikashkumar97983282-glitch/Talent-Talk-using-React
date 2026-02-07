@@ -1,5 +1,6 @@
 import React from 'react'
 import Home from './home/home'
+import Login from './login/login'
 
 function App() {
   
@@ -7,8 +8,8 @@ function App() {
   return (
     <>
       <div>
-        {/* <h1>Talent Talk</h1> */}
-        <Home/>
+        {/* <Home/> */}
+        <Login/>
       </div>
     </>
   )
