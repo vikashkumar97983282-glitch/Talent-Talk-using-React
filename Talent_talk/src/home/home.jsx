@@ -1,5 +1,4 @@
 import React from "react";
-import './home.css'
 import Panel from "./panel";
 
 
@@ -9,12 +8,12 @@ function Home(){
 
 
     return (
-        <div className="parent">
-            <div className="home">
+        <div className="h-screen w-full bg-[rgb(12,12,12)] flex items-center">
+            <div className="h-full w-full bg-[rgb(20,193,223)] flex justify-center flex-wrap m-0">
             <h1>Welcome to Talent Talk</h1>
             
         </div>
-            <div className="panel">
+            <div className="h-screen w-[416] bg-[rgb(6,37,141)]">
             {panels.map((elem,idx)=>{
                 return <Panel key={idx} panel={elem}/>
             })}

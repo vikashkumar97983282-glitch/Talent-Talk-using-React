@@ -1,5 +1,3 @@
-import React from "react";
-import './admin-panel.css'
 import AdminElement from "./adminElement";
 
 
@@ -43,10 +41,10 @@ function AdminPanel(){
 
 
     return (
-        <div className="admin-panel">
-          <div className="item-container">
-            <div className="logo-container">
-                <img src="https://t3.ftcdn.net/jpg/01/00/57/26/360_F_100572672_6eerkmT3J2ekUtGCFP54FiGRAT9VhYsd.jpg" alt="" />
+        <div className="h-screen w-[25vw] border-r border-[#ccc]">
+          <div className="flex flex-col justify-evenly">
+            <div className="flex items-center gap-2.5 p-2.5 ml-1.25">
+                <img src="https://t3.ftcdn.net/jpg/01/00/57/26/360_F_100572672_6eerkmT3J2ekUtGCFP54FiGRAT9VhYsd.jpg" alt="" className="w-10 h-10 rounded-full" />
                 <h1>Admin Panel</h1>
             
             </div>
@@ -55,8 +53,8 @@ function AdminPanel(){
                     return <AdminElement key={idx} name={elem.name} img={elem.img}/>
                 })}
             </div>
-            <div className="help-docs">
-              <button><img src="https://cdn-icons-png.flaticon.com/512/471/471664.png"/>
+            <div className="mt-[196px] flex justify-around flex-wrap items-end">
+              <button className="w-[90%] text-black bg-aliceblue m-px cursor-pointer flex justify-start gap-5 items-center"><img src="https://cdn-icons-png.flaticon.com/512/471/471664.png" className="w-7 h-7"/>
  Help and Docs</button>
             </div>
           </div>
