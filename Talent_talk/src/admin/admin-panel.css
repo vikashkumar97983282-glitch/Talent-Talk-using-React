@@ -17,3 +17,33 @@
     padding: 10px;
     margin-left: 5px;
 }
+
+.item-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.item-container button{
+    width: 90%;
+    background-color: #007bff;
+    margin: 1px;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: center;
+}
+
+.help-docs{
+    margin-top: 196px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: end;
+}
+
+.help-docs img{
+    width: 30px;
+    height: 30px;
+}

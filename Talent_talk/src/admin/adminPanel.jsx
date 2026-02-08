@@ -44,6 +44,7 @@ function AdminPanel(){
 
     return (
         <div className="admin-panel">
+          <div className="item-container">
             <div className="logo-container">
                 <img src="https://t3.ftcdn.net/jpg/01/00/57/26/360_F_100572672_6eerkmT3J2ekUtGCFP54FiGRAT9VhYsd.jpg" alt="" />
                 <h1>Admin Panel</h1>
@@ -54,6 +55,12 @@ function AdminPanel(){
                     return <AdminElement key={idx} name={elem.name} img={elem.img}/>
                 })}
             </div>
+            <div className="help-docs">
+              <button><img src="https://cdn-icons-png.flaticon.com/512/471/471664.png"/>
+ Help and Docs</button>
+            </div>
+          </div>
+            
         </div>
     )
 }
