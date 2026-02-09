@@ -53,8 +53,8 @@ function AdminPanel(){
                     return <AdminElement key={idx} name={elem.name} img={elem.img}/>
                 })}
             </div>
-            <div className="mt-[196px] flex justify-around flex-wrap items-end">
-              <button className="w-[90%] text-black bg-aliceblue m-px cursor-pointer flex justify-start gap-5 items-center"><img src="https://cdn-icons-png.flaticon.com/512/471/471664.png" className="w-7 h-7"/>
+            <div className="mt-49 flex justify-around flex-wrap items-end ">
+              <button className="h-10 w-[83%] text-black bg-aliceblue m-px cursor-pointer flex justify-start gap-5 items-center rounded-md hover:bg-gray-500 "><img src="https://cdn-icons-png.flaticon.com/512/471/471664.png" className="w-7 h-7 ml-2"/>
  Help and Docs</button>
             </div>
           </div>
