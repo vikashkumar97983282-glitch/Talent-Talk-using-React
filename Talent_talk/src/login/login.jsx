@@ -1,18 +1,22 @@
 import React from "react";
+import Dashboard from "../admin/dashboard/dashboard";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login(){
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
 
-    const handleSubmit =(e)=>{
+    const handleSubmit =()=>{
         // e.preventDefault();
 
         if (email === "admin@gmail.com" && password === "1234"){
             setMessage("login sucessful");
+            navigate("/Admin");
         } else {
             setEmail("");
             setPassword("");

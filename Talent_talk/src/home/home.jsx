@@ -1,5 +1,6 @@
 import React from "react";
 import Panel from "./panel";
+import { Outlet } from "react-router-dom";
 
 
 function Home(){
@@ -17,6 +18,7 @@ function Home(){
             {panels.map((elem,idx)=>{
                 return <Panel key={idx} panel={elem}/>
             })}
+            <Outlet/>
         </div>
         </div>
         
