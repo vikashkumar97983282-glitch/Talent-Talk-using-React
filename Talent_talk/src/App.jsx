@@ -9,10 +9,10 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className=''>
         {/* <Home/> */}
-        {/* <Login/> */}
-        <Admin/>
+        <Login/>
+        {/* <Admin/> */}
       </div>
     </>
   )
