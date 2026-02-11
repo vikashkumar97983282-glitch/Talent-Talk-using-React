@@ -3,6 +3,7 @@ import Home from './home/home'
 import Login from './login/login'
 import Admin from './admin/admin'
 import { Route, Routes } from 'react-router-dom'
+import User from './user/user'
 
 
 function App() {
@@ -14,11 +15,12 @@ function App() {
         {/* <Home/> */}
         {/* <Login/> */}
         {/* <Admin/> */}
-        <Routes>
+        <User/>
+        {/* <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/admin' element={<Admin/>}/>
-        </Routes>
+        </Routes> */}
       </div>
     </>
   )
