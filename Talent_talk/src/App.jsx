@@ -7,6 +7,7 @@ import Users from './users/users'
 import DashCont from './admin/dashboard/dashCont'
 import DashboardPage from './admin/dashboard/dashboardpage'
 import Job from './jobs/jobs'
+import Payments from './payments/payments'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path='/dashboard' element={<Dashboard/>}/>
           <Route path='/users' element={<Users/>}/>
           <Route path='/jobs' element={<Job/>}/>
+          <Route path='/payments' element={<Payments/>}/>
         </Routes>
       </div>
     </>
