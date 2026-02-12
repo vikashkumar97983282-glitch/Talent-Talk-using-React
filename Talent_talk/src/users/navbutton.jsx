@@ -17,8 +17,8 @@ function NavButton(props){
 
 
     return (
-        <div className="ml-5 ">
-            <button className="m-5 font-medium" onClick={btnclk}>{props.elem}</button>
+        <div className="ml-5 cursor-pointer">
+            <button className="m-5 font-medium cursor-pointer hover:scale-120 transition-transform duration-60" onClick={btnclk}>{props.elem}</button>
         </div>
     )
 }

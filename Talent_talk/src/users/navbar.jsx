@@ -3,7 +3,7 @@ import NavButton from "./navbutton";
 
 function Navbar(){
 
-    const button = ["Dashboard","Users","Job","Company","Invoice","Insights","Payments","Settings"]
+    const button = ["Dashboard","Users","Jobs","Company","Invoice","Insights","Payments","Settings"]
 
     return (
         <div className=" flex flex-wrap justify-between items-center border-b gray-50">
