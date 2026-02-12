@@ -1,5 +1,5 @@
 import React from "react";
-import Dashboard from "../admin/dashboard/dashboard";
+import Dashboard from "../admin/dashboard/dashboardpage";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +16,7 @@ function Login(){
 
         if (email === "admin@gmail.com" && password === "1234"){
             setMessage("login sucessful");
-            navigate("/Admin");
+            navigate("/Dashboard");
         } else {
             setEmail("");
             setPassword("");

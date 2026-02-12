@@ -8,7 +8,7 @@ import RecentActivity from "./recentActivity";
 
 
 
-function Dashboard(){
+function DashboardPage(){
 
     const userCont = [{user: "Total Users", count: 4824, growth: "+12%"},{user: "Active Users", count: 3824, growth: "+8%"},{user: "New Users", count: 1024, growth: "+20%"}]
 
@@ -35,4 +35,4 @@ function Dashboard(){
     )
 }
 
-export default Dashboard;
+export default DashboardPage;

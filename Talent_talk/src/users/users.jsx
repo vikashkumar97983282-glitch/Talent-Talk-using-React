@@ -3,7 +3,7 @@ import Navbar from "./navbar";
 import Center from "./center";
 
 
-function User(){
+function Users(){
 
     return (
         <div className="h-screen w-full ">
@@ -13,4 +13,4 @@ function User(){
     )
 }
 
-export default User;
+export default Users;

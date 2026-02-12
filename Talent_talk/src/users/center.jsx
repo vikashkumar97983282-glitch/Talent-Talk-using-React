@@ -8,7 +8,7 @@ function Center(){
 
 
     const Data = [
-        { id: 1, avatar: "/avatars/1.png", role: "Freelancer", status: "Active", department: "Content" },
+        { id: 1, avatar: "/avatars/1.png", role: "Freelancer", status: "Active", department: "Design" },
         { id: 2, avatar: "/avatars/2.png", role: "Designer", status: "Inactive", department: "Marketing" },
         { id: 3, avatar: "/avatars/3.png", role: "Developer", status: "Active", department: "Engineering" },
         { id: 4, avatar: "/avatars/4.png", role: "Project Manager", status: "Active", department: "Management" },
@@ -42,7 +42,7 @@ function Center(){
                     <Filter/>
                 </div>
                 <HistoryContent/>
-                <div>
+                <div className="mb-10">
                     {Data.map((elem,idx)=>{
                         return (
                             <div key={idx}>

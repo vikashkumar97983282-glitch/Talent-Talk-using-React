@@ -1,9 +1,11 @@
 import React from 'react'
 import Home from './home/home'
 import Login from './login/login'
-import Admin from './admin/admin'
+import Dashboard from './admin/dashboard'
 import { Route, Routes } from 'react-router-dom'
-import User from './user/user'
+import Users from './users/users'
+import DashCont from './admin/dashboard/dashCont'
+import DashboardPage from './admin/dashboard/dashboardpage'
 
 
 function App() {
@@ -14,13 +16,14 @@ function App() {
       <div className=''>
         {/* <Home/> */}
         {/* <Login/> */}
-        {/* <Admin/> */}
-        <User/>
-        {/* <Routes>
+        {/* <Dashboard/> */}
+        {/* <User/> */}
+        <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
-          <Route path='/admin' element={<Admin/>}/>
-        </Routes> */}
+          <Route path='/dashboard' element={<Dashboard/>}/>
+          <Route path='/users' element={<Users/>}/>
+        </Routes>
       </div>
     </>
   )
