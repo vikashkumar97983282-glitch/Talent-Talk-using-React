@@ -10,6 +10,7 @@ import Job from './jobs/jobs'
 import Payments from './payments/payments'
 import Invoice from './invoice/invoice'
 import Insights from './insights/insights'
+import Company from './company/company'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path='/payments' element={<Payments/>}/>
           <Route path='/invoice' element={<Invoice/>}/>
           <Route path='/insights' element={<Insights/>}/>
+          <Route path='/company' element={<Company/>}/>
         </Routes>
       </div>
     </>
