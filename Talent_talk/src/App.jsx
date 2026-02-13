@@ -9,6 +9,7 @@ import DashboardPage from './admin/dashboard/dashboardpage'
 import Job from './jobs/jobs'
 import Payments from './payments/payments'
 import Invoice from './invoice/invoice'
+import Insights from './insights/insights'
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path='/jobs' element={<Job/>}/>
           <Route path='/payments' element={<Payments/>}/>
           <Route path='/invoice' element={<Invoice/>}/>
+          <Route path='/insights' element={<Insights/>}/>
         </Routes>
       </div>
     </>
