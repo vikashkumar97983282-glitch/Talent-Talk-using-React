@@ -11,6 +11,7 @@ import Payments from './payments/payments'
 import Invoice from './invoice/invoice'
 import Insights from './insights/insights'
 import Company from './company/company'
+import Settings from './profile/settings'
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path='/invoice' element={<Invoice/>}/>
           <Route path='/insights' element={<Insights/>}/>
           <Route path='/company' element={<Company/>}/>
+          <Route path='/settings' element={<Settings/>}/>
         </Routes>
       </div>
     </>
