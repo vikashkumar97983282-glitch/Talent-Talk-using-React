@@ -1,7 +1,7 @@
 import React from "react";
 import { FaHome, FaUser, FaBriefcase, FaBell, FaEnvelope, FaDollarSign, FaCog } from "react-icons/fa";
 
-const AdminPanel = () => {
+const CompanyAdminPanel = () => {
   return (
     <div className="w-64 h-screen bg-teal-700 text-white p-6">
 
@@ -53,4 +53,4 @@ const AdminPanel = () => {
   );
 };
 
-export default AdminPanel;
+export default CompanyAdminPanel;

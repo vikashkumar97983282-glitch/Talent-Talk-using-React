@@ -1,8 +1,13 @@
 import React from "react";
+import CompanyDashboardContent from "./dashboardContent";
+
 
 function CompanyDashboard() {
   return (
-    <h1>hello</h1>
+    <div className="flex overflow-hidden">
+        <CompanyDashboardContent/>
+        
+    </div>
   );
 }
 
