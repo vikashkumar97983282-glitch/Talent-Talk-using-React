@@ -15,14 +15,17 @@ import AccountSettings from "./adminpage/profile/accountsetting";
 // company side pages
 import CompanyRegister from "./companypage/register/register";
 import CompanyLogin from "./companypage/companylogin/companylogin";
+import CompanyForgotPassword from "./companypage/register/companyforget";
 
 
 function App() {
   return (
     <div>
 
+    {/* // company side  pages */}
     {/* <CompanyRegister/> */}
-    <CompanyLogin/>
+    {/* <CompanyLogin/> */}
+    <CompanyForgotPassword/>
 
       {/* <Routes>
         <Route path="/" element={<Home/>}/>
