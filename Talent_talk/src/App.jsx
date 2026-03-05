@@ -17,7 +17,7 @@ import CompanyRegister from "./companypage/register/register";
 import CompanyLogin from "./companypage/companylogin/companylogin";
 import CompanyForgotPassword from "./companypage/register/companyforget";
 import CompanyDashboard from "./companypage/companyadmin/dashboard";
-import CompanyHeader from "./companypage/companyclient/conpanyheader";
+import CompanyClient from "./companypage/companyclient/companyClient";
 
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
     {/* <CompanyLogin/> */}
     {/* <CompanyForgotPassword/> */}
     {/* <CompanyDashboard/> */}
-    <CompanyHeader/>
+    <CompanyClient/>
 
 
 
