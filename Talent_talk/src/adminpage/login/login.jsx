@@ -1,5 +1,5 @@
 import React from "react";
-import Dashboard from "../admin/dashboard/dashboardpage";
+import Dashboard from "../admin/dashboard";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
