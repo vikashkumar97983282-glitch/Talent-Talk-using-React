@@ -12,10 +12,19 @@ import Settings from './adminpage/profile/settings'
 import AccountSettings from "./adminpage/profile/accountsetting";
 
 
+// company side pages
+import CompanyRegister from "./companypage/register/register";
+import CompanyLogin from "./companypage/companylogin/companylogin";
+
+
 function App() {
   return (
     <div>
-      <Routes>
+
+    {/* <CompanyRegister/> */}
+    <CompanyLogin/>
+
+      {/* <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
@@ -27,7 +36,7 @@ function App() {
         <Route path="/company" element={<Company />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/settings/accountsetting" element={<AccountSettings />} />
-      </Routes>
+      </Routes> */}
     </div>
   );
 }
