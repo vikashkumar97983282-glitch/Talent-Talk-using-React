@@ -12,6 +12,7 @@ import Invoice from './invoice/invoice'
 import Insights from './insights/insights'
 import Company from './company/company'
 import Settings from './profile/settings'
+import AccountSettings from './profile/accountsetting'
 
 
 function App() {
@@ -31,6 +32,9 @@ function App() {
           <Route path='/insights' element={<Insights/>}/>
           <Route path='/company' element={<Company/>}/>
           <Route path='/settings' element={<Settings/>}/>
+          <Route path='/settings/accountsetting' element={<AccountSettings/>}/> 
+          
+          
         </Routes>
       </div>
     </>

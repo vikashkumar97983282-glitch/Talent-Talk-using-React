@@ -1,7 +1,16 @@
 import React from "react";
+import AccountSettings from "./accountsetting";
+import { useNavigate } from "react-router-dom";
+
 
 
 function PersonalInfo(){
+
+    const navigate = useNavigate();
+    const accounthandle = ()=>{
+        navigate('/settings/accountsetting')
+      
+    }
 
     return (
         <div className="ml-30 mt-10 h-full w-full overflow-y-scroll">
@@ -22,7 +31,7 @@ function PersonalInfo(){
                     <h1>location:- rajkot</h1>
                 </div>
                 <div className="flex flec-wrap justify-end">
-                    <button className="h-8 w-22 bg-blue-800 items-center rounded-md text-white hover:bg-red-500 hover:text-black cursor-pointer">edit profile</button>
+                    <button className="h-8 w-22 bg-blue-800 items-center rounded-md text-white hover:bg-red-500 hover:text-black cursor-pointer" onClick={accounthandle}>edit profile</button>
                 </div>
             </div>
         </div>
