@@ -16,6 +16,7 @@ import AccountSettings from "./adminpage/profile/accountsetting";
 import CompanyRegister from "./companypage/register/register";
 import CompanyLogin from "./companypage/companylogin/companylogin";
 import CompanyForgotPassword from "./companypage/register/companyforget";
+import CompanyDashboard from "./companypage/companyadmin/dashboard";
 
 
 function App() {
@@ -25,8 +26,14 @@ function App() {
     {/* // company side  pages */}
     {/* <CompanyRegister/> */}
     {/* <CompanyLogin/> */}
-    <CompanyForgotPassword/>
+    {/* <CompanyForgotPassword/> */}
+    <CompanyDashboard/>
 
+
+
+
+
+      {/* // admin page routing  */}
       {/* <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
