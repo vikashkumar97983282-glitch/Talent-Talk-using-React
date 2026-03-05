@@ -1,12 +1,12 @@
 import React from "react";
-import CompanyAdminPanel from "./companyadminpanel";
+// import CompanyAdminPanel from "./companyadminpanel";
 
 const CompanyDashboardContent = () => {
   return (
     <div className="flex">
 
       {/* Sidebar */}
-      <CompanyAdminPanel />
+      {/* <CompanyAdminPanel /> */}
 
       {/* Main Dashboard */}
       <div className="flex-1 p-10 bg-gray-100 min-h-screen overflow-auto">
