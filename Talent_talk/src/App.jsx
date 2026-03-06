@@ -20,6 +20,7 @@ import CompanyDashboard from "./companypage/companyadmin/dashboard";
 import CompanyClient from "./companypage/companyclient/companyClient";
 import CompanyPostJob from "./companypage/companypostjob/companypostjob";
 import CompanyManageJob from "./companypage/companymanagejob/companymanagejob";
+import CompanyJobApplication from "./companypage/companyJobApplication/companyJobApplication";
 
 
 function App() {
@@ -33,7 +34,8 @@ function App() {
     {/* <CompanyDashboard/> */}
     {/* <CompanyClient/> */}
     {/* <CompanyPostJob/> */}
-    <CompanyManageJob/>
+    {/* <CompanyManageJob/> */}
+    <CompanyJobApplication/>
 
 
 
