@@ -24,6 +24,7 @@ import CompanyJobApplication from "./companypage/companyJobApplication/companyJo
 import CompanyMessage from "./companypage/message/companymessage";
 import CompanyPayment from "./companypage/companyPayment/companyPayment";
 import CompanySetting from "./companypage/companysetting/companySetting";
+import CompanyProfile from "./companypage/companyprofile/companyprofile";
 
 
 function App() {
@@ -41,7 +42,8 @@ function App() {
     {/* <CompanyJobApplication/> */}
     {/* <CompanyMessage/> */}
     {/* <CompanyPayment/> */}
-    <CompanySetting/>
+    {/* <CompanySetting/> */}
+    <CompanyProfile/>
 
 
 
