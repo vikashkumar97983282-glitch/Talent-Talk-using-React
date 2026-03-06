@@ -25,6 +25,7 @@ import CompanyMessage from "./companypage/message/companymessage";
 import CompanyPayment from "./companypage/companyPayment/companyPayment";
 import CompanySetting from "./companypage/companysetting/companySetting";
 import CompanyProfile from "./companypage/companyprofile/companyprofile";
+import CompanyEdit from "./companypage/companyEdit/companyEdit";
 
 
 function App() {
@@ -43,7 +44,8 @@ function App() {
     {/* <CompanyMessage/> */}
     {/* <CompanyPayment/> */}
     {/* <CompanySetting/> */}
-    <CompanyProfile/>
+    {/* <CompanyProfile/> */}
+    <CompanyEdit/>
 
 
 
