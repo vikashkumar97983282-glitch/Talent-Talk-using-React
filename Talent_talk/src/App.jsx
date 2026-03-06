@@ -19,6 +19,7 @@ import CompanyForgotPassword from "./companypage/register/companyforget";
 import CompanyDashboard from "./companypage/companyadmin/dashboard";
 import CompanyClient from "./companypage/companyclient/companyClient";
 import CompanyPostJob from "./companypage/companypostjob/companypostjob";
+import CompanyManageJob from "./companypage/companymanagejob/companymanagejob";
 
 
 function App() {
@@ -31,7 +32,8 @@ function App() {
     {/* <CompanyForgotPassword/> */}
     {/* <CompanyDashboard/> */}
     {/* <CompanyClient/> */}
-    <CompanyPostJob/>
+    {/* <CompanyPostJob/> */}
+    <CompanyManageJob/>
 
 
 
