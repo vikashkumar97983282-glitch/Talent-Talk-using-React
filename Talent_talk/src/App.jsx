@@ -28,6 +28,15 @@ import CompanyProfile from "./companypage/companyprofile/companyprofile";
 import CompanyEdit from "./companypage/companyEdit/companyEdit";
 
 
+
+// client side page
+import ClientRegister from "./clientpage/clientregister/clientregister";
+import ClientLogin from "./clientpage/clientlogin/clientlogin";
+import ClientForgetPassword from "./clientpage/clientlogin/clientforget";
+import ClientDashboard from "./clientpage/clientDashboard/clientDashboard";
+import ClientFindJob from "./clientpage/clientfindjob/clientfindjob";
+
+
 function App() {
   return (
     <div>
@@ -45,7 +54,16 @@ function App() {
     {/* <CompanyPayment/> */}
     {/* <CompanySetting/> */}
     {/* <CompanyProfile/> */}
-    <CompanyEdit/>
+    {/* <CompanyEdit/> */}
+
+
+
+    {/* client side page  */}
+    {/* <ClientRegister/> */}
+    {/* <ClientLogin/> */}
+    {/* <ClientForgetPassword/> */}
+    {/* <ClientDashboard/> */}
+    <ClientFindJob/>
 
 
 

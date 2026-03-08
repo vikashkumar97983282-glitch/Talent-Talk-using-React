@@ -4,7 +4,7 @@ function CompanyEditProfile() {
   return (
     <div className="flex-1 bg-gray-100 min-h-screen p-10">
 
-      {/* Profile Header */}
+      
       <div className="flex items-center gap-6 mb-8">
         <img
           src="https://randomuser.me/api/portraits/women/65.jpg"
@@ -19,7 +19,6 @@ function CompanyEditProfile() {
         </div>
       </div>
 
-      {/* Personal Information */}
       <h3 className="font-semibold mb-4">Personal Information</h3>
 
       <div className="space-y-4 max-w-md">
@@ -58,7 +57,7 @@ function CompanyEditProfile() {
 
       </div>
 
-      {/* Security */}
+      
       <h3 className="font-semibold mt-8 mb-4">Security</h3>
 
       <div className="space-y-4 max-w-md">
@@ -91,8 +90,8 @@ function CompanyEditProfile() {
 
       </div>
 
-      {/* Save Button */}
-      <button className="mt-8 bg-indigo-600 text-white px-5 py-2 rounded-lg">
+   
+      <button className="mt-8 bg-indigo-600 text-white px-5 py-2 rounded-lg" onClick={()=>{console.log("hello edit ")}}>
         Save Changes
       </button>
 
