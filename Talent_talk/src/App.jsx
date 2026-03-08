@@ -36,6 +36,7 @@ import ClientForgetPassword from "./clientpage/clientlogin/clientforget";
 import ClientDashboard from "./clientpage/clientDashboard/clientDashboard";
 import ClientFindJob from "./clientpage/clientfindjob/clientfindjob";
 import ClientProject from "./clientpage/clientproject/clientproject";
+import ClientJob from "./clientpage/clientjobapply/clientjob";
 
 
 function App() {
@@ -65,7 +66,8 @@ function App() {
     {/* <ClientForgetPassword/> */}
     {/* <ClientDashboard/> */}
     {/* <ClientFindJob/> */}
-    <ClientProject/>
+    {/* <ClientProject/> */}
+    <ClientJob/>
 
 
 
