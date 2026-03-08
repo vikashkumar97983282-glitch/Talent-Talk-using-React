@@ -41,6 +41,7 @@ import ClientMessage from "./clientpage/clientMessage/clientMessage";
 import ClientPayment from "./clientpage/clientpayment/clientpayment";
 import ClientSetting from "./clientpage/clientSetting/clientSetting";
 import ClientProfile from "./clientpage/clientProfile/clientProfile";
+import ClientProfileEdit from "./clientpage/clientProfileEdit/clientProfileEdit";
 
 
 function App() {
@@ -75,7 +76,8 @@ function App() {
     {/* <ClientMessage/> */}
     {/* <ClientPayment/> */}
     {/* <ClientSetting/> */}
-    <ClientProfile/>
+    {/* <ClientProfile/> */}
+    <ClientProfileEdit/>
 
 
 
