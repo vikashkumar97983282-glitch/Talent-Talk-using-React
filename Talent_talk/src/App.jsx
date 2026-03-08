@@ -37,6 +37,7 @@ import ClientDashboard from "./clientpage/clientDashboard/clientDashboard";
 import ClientFindJob from "./clientpage/clientfindjob/clientfindjob";
 import ClientProject from "./clientpage/clientproject/clientproject";
 import ClientJob from "./clientpage/clientjobapply/clientjob";
+import ClientMessage from "./clientpage/clientMessage/clientMessage";
 
 
 function App() {
@@ -67,7 +68,8 @@ function App() {
     {/* <ClientDashboard/> */}
     {/* <ClientFindJob/> */}
     {/* <ClientProject/> */}
-    <ClientJob/>
+    {/* <ClientJob/> */}
+    <ClientMessage/>
 
 
 
