@@ -2,10 +2,10 @@ import React from "react";
 
 function ClientFindJobContent() {
   return (
-    <div className="bg-teal-700 px-10 pb-20">
+    <div className="bg-teal-700 min-h-screen text-white py-12 px-10">
 
-        {/* Title */}
-      <div className="text-center mt-10">
+      {/* Title Section */}
+      <div className="text-center mb-10">
         <h1 className="text-4xl font-semibold">
           Find Your Next Premium Project
         </h1>
@@ -17,40 +17,39 @@ function ClientFindJobContent() {
       </div>
 
       {/* Search + Filters */}
-      <div className="flex justify-center mt-8">
+      <div className="flex justify-center mb-12">
         <div className="bg-gray-200 p-4 rounded-xl flex gap-4 w-[70%]">
 
           <input
             type="text"
             placeholder="Search users"
-            className="flex-1 p-2 rounded-md outline-none"
+            className="flex-1 p-2 rounded-md outline-none text-black"
           />
 
-          <select className="p-2 rounded-md">
+          <select className="p-2 rounded-md text-black">
             <option>Category</option>
           </select>
 
-          <select className="p-2 rounded-md">
+          <select className="p-2 rounded-md text-black">
             <option>Budget Range</option>
           </select>
 
-          <select className="p-2 rounded-md">
+          <select className="p-2 rounded-md text-black">
             <option>Job Type</option>
           </select>
 
         </div>
       </div>
 
-
       {/* Cards */}
-      <div className="grid grid-cols-3 gap-8 mt-10">
+      <div className="grid grid-cols-3 gap-8">
 
         {[1,2,3].map((item)=>(
-          <div key={item} className="bg-gray-100 rounded-xl p-6">
+          <div key={item} className="bg-white text-black rounded-xl p-6">
 
             <div className="flex justify-between">
               <div className="w-10 h-10 bg-gray-300"></div>
-              <span>♡</span>
+              <span className="text-gray-500">♡</span>
             </div>
 
             <h3 className="mt-4 font-semibold">
@@ -81,9 +80,9 @@ function ClientFindJobContent() {
 
       </div>
 
-      {/* Button */}
+      {/* Explore Button */}
       <div className="flex justify-center mt-12">
-        <button className="bg-gray-200 px-6 py-3 rounded-xl">
+        <button className="bg-gray-200 text-black px-6 py-3 rounded-xl">
           Explore More Projects
         </button>
       </div>

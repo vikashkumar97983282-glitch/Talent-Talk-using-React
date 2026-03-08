@@ -2,7 +2,7 @@ import React from "react";
 
 function ClientFindJobHeader() {
   return (
-    <div className="bg-teal-700 text-white px-8 py-4 flex justify-between items-center">
+    <div className="bg-teal-700 text-white px-8 py-4 flex justify-between items-center border-b-2">
 
       {/* Left Profile */}
       <div className="flex items-center gap-3">

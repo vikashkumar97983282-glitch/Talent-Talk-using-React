@@ -6,6 +6,7 @@ function ClientFindJob(){
     return (
         <div>
             <ClientFindJobHeader/>
+            <ClientFindJobContent/>
         </div>
     );
 }
