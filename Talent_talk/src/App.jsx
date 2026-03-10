@@ -84,8 +84,8 @@ function App() {
       <Route path="register" element={<ClientRegister/>}/>
       <Route path="forget-password" element={<ClientForgetPassword/>}/>
       
-      
       <Route path="/" element={<ClientDashboard/>}/>
+      
     </Routes>
 
 

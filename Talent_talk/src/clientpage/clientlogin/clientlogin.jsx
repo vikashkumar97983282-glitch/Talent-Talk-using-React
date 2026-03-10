@@ -3,11 +3,21 @@ import { Outlet , Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function ClientLogin() {
+  const navigate = useNavigate();
   const [remember, setRemember] = useState(false);
+  const [email , setEmail] = useState("");
+  const [password , setPassword] = useState("");
 
   const handleSubmit = (e)=>{
-    e.preventDefault()
-    console.log("login successfully!")
+    // e.preventDefault()
+   
+    if (email === "client@gmail.com" && password === "1234"){
+      navigate("/");
+      console.log("login successfully!")
+    } else{
+      setEmail("")
+      setPassword("")
+    }
   }
 
   return (
@@ -19,7 +29,7 @@ function ClientLogin() {
 
       {/* Card */}
       <div className="bg-gray-200 w-[380px] rounded-xl p-8 shadow-lg text-center">
-        <form onSubmit={handleSubmit} >
+        <form  onSubmit={handleSubmit}>
 
         <h2 className="text-2xl font-semibold">Talent Talk</h2>
         <p className="text-sm text-gray-600 mb-6">
@@ -32,6 +42,7 @@ function ClientLogin() {
           <input
             type="email"
             placeholder="enter your email Address"
+            onChange={(e)=>{setEmail(e.target.value)}}
             className="w-full mt-1 p-3 rounded-lg bg-gray-100 outline-none"
           />
         </div>
@@ -42,6 +53,7 @@ function ClientLogin() {
           <input
             type="password"
             placeholder="enter your Password"
+            onChange={(e)=>{setPassword(e.target.value)}}
             autoComplete="password"
             className="w-full mt-1 p-3 rounded-lg bg-gray-100 outline-none"
           />
@@ -64,7 +76,7 @@ function ClientLogin() {
         </div>
 
         {/* Login Button */}
-        <button className="w-40 py-3 rounded-full bg-gradient-to-r from-purple-600 to-indigo-500 text-white font-semibold">
+        <button type="submit" className="w-40 py-3 rounded-full bg-gradient-to-r from-purple-600 to-indigo-500 text-white font-semibold">
           Login
         </button>
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaWallet, FaUser, FaChevronDown } from "react-icons/fa";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 
 function ClientRegister() {
   const [purpose, setPurpose] = useState("");
@@ -102,7 +102,7 @@ function ClientRegister() {
 
               <p className="text-sm mt-2">
                 Do you have an account?{" "}
-                <span className="text-blue-600 cursor-pointer">Login</span>
+                <Link to="/login" className="text-blue-600 cursor-pointer">Login</Link>
               </p>
             </div>
 
