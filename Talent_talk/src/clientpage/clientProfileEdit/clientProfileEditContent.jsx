@@ -1,6 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function ClientProfileEditContent() {
+
+  const navigate = useNavigate();
+
+  const save = ()=>{
+    navigate("/profile")
+  }
+
+
   return (
     <div className="flex-1 bg-gray-100 p-10">
 
@@ -73,7 +82,7 @@ function ClientProfileEditContent() {
 
       {/* Save Button */}
       <div className="mt-8">
-        <button className="bg-indigo-600 text-white px-5 py-2 rounded-lg">
+        <button onClick={save} className="bg-indigo-600 text-white px-5 py-2 rounded-lg">
           Save Changes
         </button>
       </div>

@@ -1,6 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function ClientSettingsContent() {
+
+  const navigate = useNavigate();
+
+  const handle = ()=>{
+    navigate("/")
+  }
+
+
   return (
     <div className="flex-1 bg-gray-100 p-10">
 
@@ -33,7 +42,7 @@ function ClientSettingsContent() {
           Save Changes
         </button>
 
-        <button className="bg-red-600 text-white px-4 py-2 rounded-lg">
+        <button onClick={handle} className="bg-red-600 text-white px-4 py-2 rounded-lg">
           Logout
         </button>
 

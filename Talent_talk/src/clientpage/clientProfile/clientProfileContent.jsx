@@ -1,6 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function ClientProfileContent() {
+  
+  const navigate = useNavigate();
+
+  const edit = ()=>{
+    navigate("/profileEdit")
+  }
+
+
   return (
     <div className="flex-1 bg-gray-100 p-12">
 
@@ -31,7 +40,7 @@ function ClientProfileContent() {
 
       {/* Edit Button */}
       <div className="mt-10">
-        <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg">
+        <button onClick={edit} className="bg-indigo-600 text-white px-4 py-2 rounded-lg">
           Edit Profile
         </button>
       </div>

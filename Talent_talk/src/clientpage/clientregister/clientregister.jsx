@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { FaWallet, FaUser, FaChevronDown } from "react-icons/fa";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link , useNavigate} from "react-router-dom";
 
 function ClientRegister() {
   const [purpose, setPurpose] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleregister = ()=>{
+    navigate("/");
+  }
 
   return (
     <div className="min-h-screen bg-teal-700 flex items-center justify-center p-6">
@@ -11,7 +17,11 @@ function ClientRegister() {
 
         <h1 className="text-3xl font-bold text-center mb-8">Register</h1>
 
+        <form onSubmit={handleregister}>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          
 
           {/* Left Side */}
           <div className="space-y-4 border-r pr-6">
@@ -19,6 +29,7 @@ function ClientRegister() {
             <input
               type="text"
               placeholder="First Name"
+              required
               className="w-full p-3 rounded-lg bg-gray-100 outline-none"
             />
 
@@ -31,18 +42,21 @@ function ClientRegister() {
             <input
               type="email"
               placeholder="Enter your email Address"
+              required
               className="w-full p-3 rounded-lg bg-gray-100 outline-none"
             />
 
             <input
               type="password"
               placeholder="Enter Password"
+              required
               className="w-full p-3 rounded-lg bg-gray-100 outline-none"
             />
 
             <input
               type="password"
               placeholder="Confirm Password"
+              required
               className="w-full p-3 rounded-lg bg-gray-100 outline-none"
             />
 
@@ -107,8 +121,10 @@ function ClientRegister() {
             </div>
 
           </div>
+          
 
         </div>
+        </form>
       </div>
       <Outlet/>
     </div>

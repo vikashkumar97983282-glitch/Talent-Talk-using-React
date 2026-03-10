@@ -80,12 +80,20 @@ function App() {
     {/* <ClientProfileEdit/> */}
 
     <Routes>
-      <Route path="/login" element={<ClientLogin/>}/>
+      <Route path="/" element={<ClientLogin/>}/>
       <Route path="register" element={<ClientRegister/>}/>
       <Route path="forget-password" element={<ClientForgetPassword/>}/>
       
-      <Route path="/" element={<ClientDashboard/>}/>
-      
+      <Route path="/dashboard" element={<ClientDashboard/>}/>
+      <Route path="/projects" element={<ClientProject/>}/>
+      <Route path="/find jobs" element={<ClientFindJob/>}/>
+      <Route path="/message" element={<ClientMessage/>}/>
+      <Route path="/payments" element={<ClientPayment/>}/>
+      <Route path="/settings" element={<ClientSetting/>}/>
+      <Route path="/profile" element={<ClientProfile/>}/>
+      <Route path="/profileEdit" element={<ClientProfileEdit/>}/>
+
+
     </Routes>
 
 

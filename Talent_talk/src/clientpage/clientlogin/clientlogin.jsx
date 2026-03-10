@@ -12,7 +12,7 @@ function ClientLogin() {
     // e.preventDefault()
    
     if (email === "client@gmail.com" && password === "1234"){
-      navigate("/");
+      navigate("/dashboard");
       console.log("login successfully!")
     } else{
       setEmail("")
