@@ -77,7 +77,16 @@ function App() {
     {/* <ClientPayment/> */}
     {/* <ClientSetting/> */}
     {/* <ClientProfile/> */}
-    <ClientProfileEdit/>
+    {/* <ClientProfileEdit/> */}
+
+    <Routes>
+      <Route path="/login" element={<ClientLogin/>}/>
+      <Route path="register" element={<ClientRegister/>}/>
+      <Route path="forget-password" element={<ClientForgetPassword/>}/>
+      
+      
+      <Route path="/" element={<ClientDashboard/>}/>
+    </Routes>
 
 
 

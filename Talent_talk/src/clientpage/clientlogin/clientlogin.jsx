@@ -1,16 +1,25 @@
 import { useState } from "react";
+import { Outlet , Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ClientLogin() {
   const [remember, setRemember] = useState(false);
 
+  const handleSubmit = (e)=>{
+    e.preventDefault()
+    console.log("login successfully!")
+  }
+
   return (
     <div className="min-h-screen bg-teal-700 flex flex-col items-center justify-center">
 
+    
       {/* Title */}
       <h1 className="text-3xl font-bold mb-6">Login</h1>
 
       {/* Card */}
       <div className="bg-gray-200 w-[380px] rounded-xl p-8 shadow-lg text-center">
+        <form onSubmit={handleSubmit} >
 
         <h2 className="text-2xl font-semibold">Talent Talk</h2>
         <p className="text-sm text-gray-600 mb-6">
@@ -33,6 +42,7 @@ function ClientLogin() {
           <input
             type="password"
             placeholder="enter your Password"
+            autoComplete="password"
             className="w-full mt-1 p-3 rounded-lg bg-gray-100 outline-none"
           />
         </div>
@@ -48,9 +58,9 @@ function ClientLogin() {
             Remember me
           </label>
 
-          <span className="text-purple-600 cursor-pointer">
+          <Link to="/forget-password" className="text-purple-600 cursor-pointer">
             forgot password?
-          </span>
+          </Link>
         </div>
 
         {/* Login Button */}
@@ -58,18 +68,24 @@ function ClientLogin() {
           Login
         </button>
 
+        </form>
+
     
         <div className="border-t my-6"></div>
 
         {/* Signup */}
         <p className="text-sm">
           Dont have an account ?{" "}
-          <span className="text-purple-600 cursor-pointer">
+          <Link to="/register" className="text-purple-600 cursor-pointer">
             sign up for free
-          </span>
+          </Link>
         </p>
+        
+        
 
       </div>
+      
+      <Outlet/>
     </div>
   );
 }

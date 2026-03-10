@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaWallet, FaUser, FaChevronDown } from "react-icons/fa";
+import { Outlet } from "react-router-dom";
 
 function ClientRegister() {
   const [purpose, setPurpose] = useState("");
@@ -109,6 +110,7 @@ function ClientRegister() {
 
         </div>
       </div>
+      <Outlet/>
     </div>
   );
 }

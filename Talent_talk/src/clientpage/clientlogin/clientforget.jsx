@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Outlet , Link} from "react-router-dom";
 
 function ClientForgetPassword() {
   const [email, setEmail] = useState("");
@@ -51,6 +52,7 @@ function ClientForgetPassword() {
         </p>
 
       </div>
+      <Outlet/>
 
     </div>
   );
