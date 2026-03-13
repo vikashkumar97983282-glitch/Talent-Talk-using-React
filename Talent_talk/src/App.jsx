@@ -79,7 +79,26 @@ function App() {
     {/* <ClientProfile/> */}
     {/* <ClientProfileEdit/> */}
 
+
+    {/* company side routing */}
     <Routes>
+      <Route path="/" element={<CompanyLogin/>} />
+      <Route path="/register" element={<CompanyRegister/>} />
+      <Route path="/forget-password" element={<CompanyForgotPassword/>} />
+
+      <Route path="/dashboard" element={<CompanyDashboard/>} />
+      <Route path="/client" element={<CompanyClient/>} />
+      <Route path="/postjob" element={<CompanyPostJob/>} />
+      <Route path="/managejob" element={<CompanyManageJob/>} />
+      <Route path="/job-application" element={<CompanyJobApplication/>} />
+      <Route path="/message" element={<CompanyMessage/>} />
+      <Route path="/payments" element={<CompanyPayment/>} />
+      <Route path="/setting" element={<CompanySetting/>} />
+      <Route path="/profile" element={<CompanyProfile/>} />
+      <Route path="/profile-Edit" element={<CompanyEdit/>} />
+    </Routes>
+
+    {/* <Routes>
       <Route path="/" element={<ClientLogin/>}/>
       <Route path="register" element={<ClientRegister/>}/>
       <Route path="forget-password" element={<ClientForgetPassword/>}/>
@@ -92,9 +111,7 @@ function App() {
       <Route path="/settings" element={<ClientSetting/>}/>
       <Route path="/profile" element={<ClientProfile/>}/>
       <Route path="/profileEdit" element={<ClientProfileEdit/>}/>
-
-
-    </Routes>
+    </Routes> */}
 
 
 
