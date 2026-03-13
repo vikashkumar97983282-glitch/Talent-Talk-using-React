@@ -18,9 +18,13 @@ function Home(){
             {panels.map((elem,idx)=>{
                 return <Panel key={idx} panel={elem}/>
             })}
-            <Outlet/>
+            
+        </div>
+        <div className="flex-1 bg-gray-200 flex justify-center items-center">
+            <Outlet />
         </div>
         </div>
+        
         
     )
 }

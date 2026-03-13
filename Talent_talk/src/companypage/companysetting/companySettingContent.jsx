@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function CompanySettingsContent() {
 
@@ -49,13 +50,13 @@ function CompanySettingsContent() {
       {/* Buttons */}
       <div className="flex gap-4">
 
-        <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg">
+        <Link to="/company/dashboard" className="bg-indigo-600 text-white px-4 py-2 rounded-lg">
           Save Changes
-        </button>
+        </Link>
 
-        <button className="bg-red-500 text-white px-4 py-2 rounded-lg">
+        <Link to="/" className="bg-red-500 text-white px-4 py-2 rounded-lg">
           Logout
-        </button>
+        </Link>
 
       </div>
     </div>

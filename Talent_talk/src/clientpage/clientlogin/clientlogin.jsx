@@ -12,7 +12,7 @@ function ClientLogin() {
     // e.preventDefault()
    
     if (email === "client@gmail.com" && password === "1234"){
-      navigate("/dashboard");
+      navigate("/client/dashboard");
       console.log("login successfully!")
     } else{
       setEmail("")
@@ -70,7 +70,7 @@ function ClientLogin() {
             Remember me
           </label>
 
-          <Link to="/forget-password" className="text-purple-600 cursor-pointer">
+          <Link to="/client/forget-password" className="text-purple-600 cursor-pointer">
             forgot password?
           </Link>
         </div>
@@ -88,7 +88,7 @@ function ClientLogin() {
         {/* Signup */}
         <p className="text-sm">
           Dont have an account ?{" "}
-          <Link to="/register" className="text-purple-600 cursor-pointer">
+          <Link to="/client/register" className="text-purple-600 cursor-pointer">
             sign up for free
           </Link>
         </p>

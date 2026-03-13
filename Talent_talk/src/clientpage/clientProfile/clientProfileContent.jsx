@@ -1,12 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 
 function ClientProfileContent() {
   
   const navigate = useNavigate();
 
   const edit = ()=>{
-    navigate("/profileEdit")
+    navigate("/client/profileEdit")
   }
 
 

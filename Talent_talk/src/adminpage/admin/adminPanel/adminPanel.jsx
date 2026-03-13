@@ -1,4 +1,5 @@
 import AdminElement from "./adminElement";
+import { Link } from "react-router-dom";
 
 
 function AdminPanel(){
@@ -6,35 +7,43 @@ function AdminPanel(){
     const menu = [
   {
     name: "Dashboard",
-    img: "https://cdn-icons-png.flaticon.com/512/1828/1828673.png"
+    img: "https://cdn-icons-png.flaticon.com/512/1828/1828673.png",
+    path:"/admin/dashboard"
   },
   {
     name: "Users",
-    img: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png"
+    img: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+    path:"/admin/users"
   },
   {
     name: "Jobs",
-    img: "https://cdn-icons-png.flaticon.com/512/942/942799.png"
+    img: "https://cdn-icons-png.flaticon.com/512/942/942799.png",
+    path:"/admin/jobs"
   },
   {
     name: "Company Verification",
-    img: "https://cdn-icons-png.flaticon.com/512/2910/2910791.png"
+    img: "https://cdn-icons-png.flaticon.com/512/2910/2910791.png",
+    path:"/admin/company"
   },
   {
     name: "Invoices",
-    img: "https://cdn-icons-png.flaticon.com/512/3135/3135673.png"
+    img: "https://cdn-icons-png.flaticon.com/512/3135/3135673.png",
+    path:"/admin/invoice"
   },
   {
     name: "Insights",
-    img: "https://cdn-icons-png.flaticon.com/512/1828/1828884.png"
+    img: "https://cdn-icons-png.flaticon.com/512/1828/1828884.png",
+    path:"/admin/insights"
   },
   {
     name: "Payments",
-    img: "https://cdn-icons-png.flaticon.com/512/179/179457.png"
+    img: "https://cdn-icons-png.flaticon.com/512/179/179457.png",
+    path:"/admin/payments"
   },
   {
     name: "Settings",
-    img: "https://cdn-icons-png.flaticon.com/512/2099/2099058.png"
+    img: "https://cdn-icons-png.flaticon.com/512/2099/2099058.png",
+    path:"/admin/settings"
   }
 ];
 
@@ -42,15 +51,16 @@ function AdminPanel(){
 
     return (
         <div className="h-screen w-[25vw] border-r border-[#ccc]">
+
           <div className="flex flex-col justify-evenly">
-            <div className="flex items-center gap-2.5 p-2.5 ml-1.25">
+            <Link to="/admin/settings" className="flex items-center gap-2.5 p-2.5 ml-1.25">
                 <img src="https://t3.ftcdn.net/jpg/01/00/57/26/360_F_100572672_6eerkmT3J2ekUtGCFP54FiGRAT9VhYsd.jpg" alt="" className="w-10 h-10 rounded-full" />
                 <h1>Admin Panel</h1>
             
-            </div>
+            </Link>
             <div>
                 {menu.map((elem,idx)=>{
-                    return <AdminElement key={idx} name={elem.name} img={elem.img}/>
+                    return <AdminElement key={idx} name={elem.name} img={elem.img} path={elem.path}/>
                 })}
             </div>
             <div className="mt-49 flex justify-around flex-wrap items-end ">

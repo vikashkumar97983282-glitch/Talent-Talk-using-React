@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function CompanyProfileContent() {
   return (
@@ -42,16 +43,18 @@ function CompanyProfileContent() {
 
         <p className="text-lg max-w-xl">
           <span className="font-medium">Location :</span>
-          asdnjssfoshsfnso,jfhguodhg,kjshu,768930
+          Tramba,Rajkot,Ahmedabad,600034
         </p>
 
       </div>
 
       {/* Edit Button */}
       <div className="mt-8">
-        <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg">
+        <Link to="/company/profile-edit">
+        <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-green-600 cursor-pointer">
           edit profile
         </button>
+        </Link>
       </div>
 
     </div>

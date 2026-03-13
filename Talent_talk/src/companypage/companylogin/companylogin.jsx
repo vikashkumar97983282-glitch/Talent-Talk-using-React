@@ -13,7 +13,7 @@ function CompanyLogin() {
     // e.preventDefault()
     if (email === "company@gmail.com"  && password === "1234"){
       console.log("login successfully")
-      navigate("/dashboard")
+      navigate("/company/dashboard")
     }
     else{
       setemail("");
@@ -67,7 +67,7 @@ function CompanyLogin() {
 
           <p className="mt-4 text-sm">
             Dont you have an account ?
-            <Link to="/register" className="text-blue-600 ml-1 hover:underline">
+            <Link to="/company/register" className="text-blue-600 ml-1 hover:underline">
               Register
             </Link>
           </p>

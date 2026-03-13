@@ -1,17 +1,19 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , Link} from "react-router-dom";
 
 function ClientProfileEditContent() {
 
   const navigate = useNavigate();
 
   const save = ()=>{
-    navigate("/profile")
+    navigate("/client/profile")
   }
 
 
   return (
     <div className="flex-1 bg-gray-100 p-10">
+
+      <form action="">
 
       {/* Profile Header */}
       <div className="flex items-center gap-6 mb-8">
@@ -63,18 +65,21 @@ function ClientProfileEditContent() {
         <input
           type="password"
           placeholder="Current Password"
+          autoComplete=""
           className="w-full p-2 bg-gray-200 rounded-lg"
         />
 
         <input
           type="password"
           placeholder="Enter new password"
+          autoComplete=""
           className="w-full p-2 bg-gray-200 rounded-lg"
         />
 
         <input
           type="password"
           placeholder="Confirm new password"
+          autoComplete=""
           className="w-full p-2 bg-gray-200 rounded-lg"
         />
 
@@ -82,10 +87,11 @@ function ClientProfileEditContent() {
 
       {/* Save Button */}
       <div className="mt-8">
-        <button onClick={save} className="bg-indigo-600 text-white px-5 py-2 rounded-lg">
+        <Link to="/client/profile" onClick={save} className="bg-indigo-600 text-white px-5 py-2 rounded-lg">
           Save Changes
-        </button>
+        </Link>
       </div>
+    </form>
 
     </div>
   );

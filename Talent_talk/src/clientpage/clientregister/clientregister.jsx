@@ -116,7 +116,7 @@ function ClientRegister() {
 
               <p className="text-sm mt-2">
                 Do you have an account?{" "}
-                <Link to="/login" className="text-blue-600 cursor-pointer">Login</Link>
+                <Link to="/client" className="text-blue-600 cursor-pointer">Login</Link>
               </p>
             </div>
 

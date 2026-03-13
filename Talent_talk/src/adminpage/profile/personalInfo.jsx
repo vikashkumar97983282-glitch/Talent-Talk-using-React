@@ -1,6 +1,6 @@
 import React from "react";
 import AccountSettings from "./accountsetting";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 
@@ -8,7 +8,7 @@ function PersonalInfo(){
 
     const navigate = useNavigate();
     const accounthandle = ()=>{
-        navigate('/settings/accountsetting')
+        navigate('/admin/settings/accountsetting')
       
     }
 
@@ -30,9 +30,11 @@ function PersonalInfo(){
                     <h1>phone:- 9798328268</h1>
                     <h1>location:- rajkot</h1>
                 </div>
-                <div className="flex flec-wrap justify-end">
-                    <button className="h-8 w-22 bg-blue-800 items-center rounded-md text-white hover:bg-red-500 hover:text-black cursor-pointer" onClick={accounthandle}>edit profile</button>
+                <div className="flex flex-wrap justify-end gap-5">
+                    <button className="h-8 w-22 bg-blue-800 items-center rounded-md text-white hover:bg-red-500 hover:text-black cursor-pointer text-center" onClick={accounthandle}>edit profile</button>
+                    <Link to="/" className="h-8 w-22 bg-blue-800 items-center rounded-md text-white hover:bg-red-500 hover:text-black cursor-pointer text-center" onClick={accounthandle}>Logout</Link>
                 </div>
+                
             </div>
         </div>
     )

@@ -1,5 +1,6 @@
 import React from "react";
 import NavButton from "./navbutton";
+import { Link } from "react-router-dom";
 
 function Navbar(){
 
@@ -12,7 +13,9 @@ function Navbar(){
                 return <NavButton key={idx} elem={elem}/>
             })}
             </div>
+            <Link to="/admin/settings">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiil4tddZ1owesQPlnPuSmHhkwB2dPJ2ksDw&s" className="h-10.5 w-10.5 rounded-4xl mr-10"></img>
+            </Link>
         </div>
     )
 }

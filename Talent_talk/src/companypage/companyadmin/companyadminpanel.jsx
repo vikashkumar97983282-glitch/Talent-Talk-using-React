@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 const CompanyAdminPanel = () => {
 
   const panel = [
-  { name: "Dashboard", icon: FaHome, path:"/dashboard"},
-  { name: "Client", icon: FaUser ,path:"/client"},
-  { name: "Post Jobs", icon: FaBriefcase ,path:"/postjob"},
-  { name: "Manage Jobs", icon: FaBriefcase, path:"/managejob" },
-  { name: "Application", icon: FaBell ,path:"/job-application"},
-  { name: "Message", icon: FaEnvelope ,path:"/message"},
-  { name: "Payments", icon: FaDollarSign ,path:"/payments"},
-  { name: "Settings", icon: FaCog ,path:"/setting"},
+  { name: "Dashboard", icon: FaHome, path:"/company/dashboard"},
+  { name: "Client", icon: FaUser ,path:"/company/client"},
+  { name: "Post Jobs", icon: FaBriefcase ,path:"/company/postjob"},
+  { name: "Manage Jobs", icon: FaBriefcase, path:"/company/managejob" },
+  { name: "Application", icon: FaBell ,path:"/company/job-application"},
+  { name: "Message", icon: FaEnvelope ,path:"/company/message"},
+  { name: "Payments", icon: FaDollarSign ,path:"/company/payments"},
+  { name: "Settings", icon: FaCog ,path:"/company/setting"},
 ];
 
 const navigate = useNavigate("");
@@ -25,7 +25,7 @@ const handle = (path)=>{
   return (
     <div className="w-64 h-screen bg-teal-700 text-white p-6">
 
-      <button onClick={()=>navigate("/profile")} className="flex items-center gap-3 mb-10 cursor-pointer">
+      <button onClick={()=>navigate("/company/profile")} className="flex items-center gap-3 mb-10 cursor-pointer">
         <img
           src="https://randomuser.me/api/portraits/women/44.jpg"
           className="w-10 h-10 rounded-full"

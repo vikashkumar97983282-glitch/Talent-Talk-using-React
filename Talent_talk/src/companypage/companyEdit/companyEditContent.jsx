@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function CompanyEditProfile() {
   return (
@@ -90,11 +91,11 @@ function CompanyEditProfile() {
 
       </div>
 
-   
-      <button className="mt-8 bg-indigo-600 text-white px-5 py-2 rounded-lg" onClick={()=>{console.log("hello edit ")}}>
+    <Link to="/company/profile">
+      <button className="mt-8 bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-green-600 cursor-pointer" onClick={()=>{console.log("hello edit ")}}>
         Save Changes
       </button>
-
+    </Link>
     </div>
   );
 }

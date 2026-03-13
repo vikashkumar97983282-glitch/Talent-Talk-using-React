@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 function CompanyHeader() {
 
    const panel = [
-    { name: "Dashboard", path:"/dashboard"},
-    { name: "Client", path:"/client"},
-    { name: "Post Jobs" ,path:"/postjob"},
-    { name: "Manage Jobs",  path:"/managejob" },
-    { name: "Application",  path:"/job-application"},
-    { name: "Message", path:"/message"},
-    { name: "Payments",  path:"/payments"},
-    { name: "Settings",  path:"/setting"},
+    { name: "Dashboard", path:"/company/dashboard"},
+    { name: "Client", path:"/company/client"},
+    { name: "Post Jobs" ,path:"/company/postjob"},
+    { name: "Manage Jobs",  path:"/company/managejob" },
+    { name: "Application",  path:"/company/job-application"},
+    { name: "Message", path:"/company/message"},
+    { name: "Payments",  path:"/company/payments"},
+    { name: "Settings",  path:"/company/setting"},
   ];
 
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ function CompanyHeader() {
     <div className="w-full bg-teal-700 text-white flex items-center justify-between px-8 py-3 border-black border-b-1">
 
       {/* Profile */}
-      <button onClick={()=>{navigate("/profile")}} className="flex items-center gap-3 cursor-pointer">
+      <button onClick={()=>{navigate("/company/profile")}} className="flex items-center gap-3 cursor-pointer">
         <img
           src="https://randomuser.me/api/portraits/women/44.jpg"
           alt="profile"

@@ -8,9 +8,9 @@ function AdminElement(props){
     const navigate = useNavigate('')
     
     const user = ()=>{
-        let rot = props.name.toLowerCase()
-        navigate(`/${rot}`)
-        console.log(rot.toLowerCase())
+        // let rot = props.name.toLowerCase()
+        navigate(`${props.path}`)
+        // console.log(rot.toLowerCase())
     } 
 
     return (

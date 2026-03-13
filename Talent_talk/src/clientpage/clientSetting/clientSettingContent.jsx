@@ -1,13 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function ClientSettingsContent() {
 
   const navigate = useNavigate();
 
-  const handle = ()=>{
-    navigate("/")
-  }
+  // const handle = ()=>{
+  //   navigate("/")
+  // }
 
 
   return (
@@ -38,13 +39,13 @@ function ClientSettingsContent() {
       {/* Buttons */}
       <div className="flex gap-4">
 
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg">
+        <Link to="/client/dashboard" className="bg-blue-600 text-white px-4 py-2 rounded-lg">
           Save Changes
-        </button>
+        </Link>
 
-        <button onClick={handle} className="bg-red-600 text-white px-4 py-2 rounded-lg">
+        <Link to="/" className="bg-red-600 text-white px-4 py-2 rounded-lg">
           Logout
-        </button>
+        </Link>
 
       </div>
 

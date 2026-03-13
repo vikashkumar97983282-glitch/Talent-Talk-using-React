@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 function ClientAdminPanel() {
 
   const panel = [
-  { name: "Dashboard", icon: FaHome, path: "/dashboard" },
-  { name: "Projects", icon: FaProjectDiagram, path: "/projects" },
-  { name: "Find Jobs", icon: FaSearch, path: "/find jobs" },
-  { name: "Message", icon: FaEnvelope, path: "/message" },
-  { name: "Payments", icon: FaDollarSign, path: "/payments" },
-  { name: "Settings", icon: FaCog, path: "/settings" },
+  { name: "Dashboard", icon: FaHome, path: "/client/dashboard" },
+  { name: "Projects", icon: FaProjectDiagram, path: "/client/projects" },
+  { name: "Find Jobs", icon: FaSearch, path: "/client/find-jobs" },
+  { name: "Message", icon: FaEnvelope, path: "/client/message" },
+  { name: "Payments", icon: FaDollarSign, path: "/client/payments" },
+  { name: "Settings", icon: FaCog, path: "/client/settings" },
 ];
 
   const navigate = useNavigate("");
@@ -21,7 +21,7 @@ function ClientAdminPanel() {
   }
 
   const handleProfile = ()=>{
-    navigate("/profile")
+    navigate("/client/profile")
   }
 
 

@@ -48,7 +48,7 @@ function ClientForgetPassword() {
         {/* Login link */}
         <p className="text-sm">
           Do you have an account ?{" "}
-          <Link to="/login" className="text-blue-600 cursor-pointer">Login</Link>
+          <Link to="/client" className="text-blue-600 cursor-pointer">Login</Link>
         </p>
 
       </div>

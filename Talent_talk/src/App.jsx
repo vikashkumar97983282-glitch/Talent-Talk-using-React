@@ -79,58 +79,63 @@ function App() {
     {/* <ClientProfile/> */}
     {/* <ClientProfileEdit/> */}
 
+      <Routes>
 
-    {/* company side routing */}
-    <Routes>
-      <Route path="/" element={<CompanyLogin/>} />
-      <Route path="/register" element={<CompanyRegister/>} />
-      <Route path="/forget-password" element={<CompanyForgotPassword/>} />
+        <Route path="/" element={<Home/>}></Route>
 
-      <Route path="/dashboard" element={<CompanyDashboard/>} />
-      <Route path="/client" element={<CompanyClient/>} />
-      <Route path="/postjob" element={<CompanyPostJob/>} />
-      <Route path="/managejob" element={<CompanyManageJob/>} />
-      <Route path="/job-application" element={<CompanyJobApplication/>} />
-      <Route path="/message" element={<CompanyMessage/>} />
-      <Route path="/payments" element={<CompanyPayment/>} />
-      <Route path="/setting" element={<CompanySetting/>} />
-      <Route path="/profile" element={<CompanyProfile/>} />
-      <Route path="/profile-Edit" element={<CompanyEdit/>} />
-    </Routes>
+         {/* admin page routing  */}
+        <Route path="/admin">
+          <Route index element={<Login/>}/>
+          <Route path="dashboard" element={<Dashboard/>}/>
+          <Route path="users" element={<Users />} />
+          <Route path="jobs" element={<Job />} />
+          <Route path="payments" element={<Payments />} />
+          <Route path="invoice" element={<Invoice />} />
+          <Route path="insights" element={<Insights />} />
+          <Route path="company" element={<Company />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="settings/accountsetting" element={<AccountSettings />} />
+        </Route>
 
-    {/* <Routes>
-      <Route path="/" element={<ClientLogin/>}/>
-      <Route path="register" element={<ClientRegister/>}/>
-      <Route path="forget-password" element={<ClientForgetPassword/>}/>
+        {/* company side routing */}
+        <Route path="/company">
+          <Route index element={<CompanyLogin/>} />
+          <Route path="register" element={<CompanyRegister/>} />
+          <Route path="forget-password" element={<CompanyForgotPassword/>} />
+
+          <Route path="dashboard" element={<CompanyDashboard/>} />
+          <Route path="client" element={<CompanyClient/>} />
+          <Route path="postjob" element={<CompanyPostJob/>} />
+          <Route path="managejob" element={<CompanyManageJob/>} />
+          <Route path="job-application" element={<CompanyJobApplication/>} />
+          <Route path="message" element={<CompanyMessage/>} />
+          <Route path="payments" element={<CompanyPayment/>} />
+          <Route path="setting" element={<CompanySetting/>} />
+          <Route path="profile" element={<CompanyProfile/>} />
+          <Route path="profile-Edit" element={<CompanyEdit/>} />
+        </Route> 
+
+
+        {/* client side */}
+        <Route path="/client">
+          <Route index element={<ClientLogin/>}/>
+          <Route path="register" element={<ClientRegister/>}/>
+          <Route path="forget-password" element={<ClientForgetPassword/>}/>
+          <Route path="dashboard" element={<ClientDashboard/>}/>
+          <Route path="projects" element={<ClientProject/>}/>
+          <Route path="find-jobs" element={<ClientFindJob/>}/>
+          <Route path="message" element={<ClientMessage/>}/>
+          <Route path="payments" element={<ClientPayment/>}/>
+          <Route path="settings" element={<ClientSetting/>}/>
+          <Route path="profile" element={<ClientProfile/>}/>
+          <Route path="profileEdit" element={<ClientProfileEdit/>}/>
+        </Route>
+
+
+      </Routes>
       
-      <Route path="/dashboard" element={<ClientDashboard/>}/>
-      <Route path="/projects" element={<ClientProject/>}/>
-      <Route path="/find jobs" element={<ClientFindJob/>}/>
-      <Route path="/message" element={<ClientMessage/>}/>
-      <Route path="/payments" element={<ClientPayment/>}/>
-      <Route path="/settings" element={<ClientSetting/>}/>
-      <Route path="/profile" element={<ClientProfile/>}/>
-      <Route path="/profileEdit" element={<ClientProfileEdit/>}/>
-    </Routes> */}
 
 
-
-
-
-      {/* // admin page routing  */}
-      {/* <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/dashboard" element={<Dashboard/>}/>
-        <Route path="/users" element={<Users />} />
-        <Route path="/jobs" element={<Job />} />
-        <Route path="/payments" element={<Payments />} />
-        <Route path="/invoice" element={<Invoice />} />
-        <Route path="/insights" element={<Insights />} />
-        <Route path="/company" element={<Company />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/settings/accountsetting" element={<AccountSettings />} />
-      </Routes> */}
     </div>
   );
 }

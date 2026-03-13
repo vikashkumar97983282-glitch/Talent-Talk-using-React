@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 function ClientFindJobHeader() {
 
   const panel = [
-    { name: "Dashboard",  path: "/dashboard" },
-    { name: "Projects",  path: "/projects" },
-    { name: "Find Jobs",  path: "/find jobs" },
-    { name: "Message",  path: "/message" },
-    { name: "Payments",  path: "/payments" },
-    { name: "Settings",  path: "/settings" },
+    { name: "Dashboard",  path: "/client/dashboard" },
+    { name: "Projects",  path: "/client/projects" },
+    { name: "Find Jobs",  path: "/client/find-jobs" },
+    { name: "Message",  path: "/client/message" },
+    { name: "Payments",  path: "/client/payments" },
+    { name: "Settings",  path: "/client/settings" },
   ];
 
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function ClientFindJobHeader() {
   };
 
   const handleProfile = ()=>{
-    navigate("/profile")
+    navigate("/client/profile")
   }
 
 

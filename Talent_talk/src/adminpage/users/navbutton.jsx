@@ -14,7 +14,7 @@ function NavButton(props){
 
     const btnclk =()=> {
         console.log("hello")
-        navigate(`/${btn}`)
+        navigate(`/admin/${btn}`)
         setActive(true)
         
     }
