@@ -1,7 +1,7 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-function CompanyProfileContent() {
+function CompanyProfileContent({profile}) {
+
   return (
     <div className="flex-1 bg-gray-100 min-h-screen p-12">
 
@@ -29,23 +29,27 @@ function CompanyProfileContent() {
           Personal Information
         </h3>
 
-        <p className="text-lg">
-          <span className="font-medium">Full Name :</span> Sophia Carter
-        </p>
+        {profile.map((user,idx)=>{
+          return <div key={idx} className="space-y-3">
+              <p className="text-lg">
+                  <span className="font-medium">Full Name :</span> {user.name}
+                </p>
 
-        <p className="text-lg">
-          <span className="font-medium">Email :</span> sophi@gmail.com
-        </p>
+                <p className="text-lg">
+                  <span className="font-medium">Email :</span> {user.email}
+                </p>
 
-        <p className="text-lg">
-          <span className="font-medium">Phone Number :</span> 1234561230
-        </p>
+                <p className="text-lg">
+                  <span className="font-medium">Phone Number :</span> {user.phone}
+                </p>
 
-        <p className="text-lg max-w-xl">
-          <span className="font-medium">Location :</span>
-          Tramba,Rajkot,Ahmedabad,600034
-        </p>
+                <p className="text-lg max-w-xl">
+                  <span className="font-medium">Location : </span>
+                  {user.location}
+                </p>
 
+          </div>
+        })}
       </div>
 
       {/* Edit Button */}

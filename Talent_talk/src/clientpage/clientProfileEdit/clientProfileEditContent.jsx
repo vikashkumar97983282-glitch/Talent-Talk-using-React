@@ -23,6 +23,7 @@ function ClientProfileEditContent() {
           alt="profile"
           className="w-20 h-20 rounded-full"
         />
+        
 
         <div>
           <h2 className="text-xl font-semibold">Sophia Carter</h2>
@@ -87,7 +88,7 @@ function ClientProfileEditContent() {
 
       {/* Save Button */}
       <div className="mt-8">
-        <Link to="/client/profile" onClick={save} className="bg-indigo-600 text-white px-5 py-2 rounded-lg">
+        <Link to="/client/profile" onClick={save} className="bg-indigo-600 text-white px-5 py-2 rounded-lg cursor-pointer">
           Save Changes
         </Link>
       </div>

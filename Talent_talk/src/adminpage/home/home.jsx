@@ -3,10 +3,10 @@ import Panel from "./panel";
 import { Outlet } from "react-router-dom";
 
 
-function Home(){
+function Home({name}){
 
     const panels = ["student","company","admin"]
-
+    console.log("props ",name)
 
     return (
         <div className="h-screen w-full bg-[rgb(12,12,12)] flex items-center">

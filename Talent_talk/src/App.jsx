@@ -42,9 +42,23 @@ import ClientPayment from "./clientpage/clientpayment/clientpayment";
 import ClientSetting from "./clientpage/clientSetting/clientSetting";
 import ClientProfile from "./clientpage/clientProfile/clientProfile";
 import ClientProfileEdit from "./clientpage/clientProfileEdit/clientProfileEdit";
+import { useState } from "react";
 
 
 function App() {
+
+  // upload project company side
+  const [postjob,setPostjob] = useState([
+    {title:"Software Developer's",
+      category:"freelancing",
+      payment:"$2255",
+      time:"22-05-20024",
+      description:"this is simple and easy website"
+    },
+  ])
+
+
+
   return (
     <div>
 
@@ -103,9 +117,9 @@ function App() {
           <Route path="register" element={<CompanyRegister/>} />
           <Route path="forget-password" element={<CompanyForgotPassword/>} />
 
-          <Route path="dashboard" element={<CompanyDashboard/>} />
+          <Route path="dashboard" element={<CompanyDashboard postjob={postjob} setPostjob={setPostjob}/>} />
           <Route path="client" element={<CompanyClient/>} />
-          <Route path="postjob" element={<CompanyPostJob/>} />
+          <Route path="postjob" element={<CompanyPostJob setPostjob={setPostjob}/>} />
           <Route path="managejob" element={<CompanyManageJob/>} />
           <Route path="job-application" element={<CompanyJobApplication/>} />
           <Route path="message" element={<CompanyMessage/>} />

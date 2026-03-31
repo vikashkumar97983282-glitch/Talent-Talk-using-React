@@ -2,7 +2,7 @@ import React from "react";
 import CompanyDashboardContent from "./dashboardContent";
 import CompanyAdminPanel from "./companyadminpanel";
 
-function CompanyDashboard() {
+function CompanyDashboard({postjob,setPostjob}) {
   return (
     <div className="flex h-screen">
 
@@ -13,7 +13,7 @@ function CompanyDashboard() {
 
       {/* Dashboard Content */}
       <div className="flex-1 ml-64 overflow-y-auto">
-        <CompanyDashboardContent />
+        <CompanyDashboardContent postjob={postjob} setPostjob={setPostjob}/>
       </div>
 
     </div>

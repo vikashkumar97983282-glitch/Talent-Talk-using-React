@@ -56,7 +56,7 @@ function CompanyLogin() {
           />
 
           <div className="text-right text-sm mb-4">
-            <Link to="/forget-password" className="text-blue-600 hover:underline">
+            <Link to="/company/forget-password" className="text-blue-600 hover:underline">
               forgot password?
             </Link>
           </div>

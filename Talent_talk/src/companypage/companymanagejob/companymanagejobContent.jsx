@@ -1,7 +1,17 @@
 import React from "react";
 import { Search, Eye, Pencil, Trash2, PauseCircle, RotateCcw, Calendar, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function CompanyManageJobsContent() {
+
+  const navigate = useNavigate();
+
+  const btn = ()=>{
+    navigate("/company/postjob")
+  }
+  
+
+
   return (
     <div className="bg-teal-700 min-h-screen px-10 py-8">
 
@@ -14,7 +24,7 @@ function CompanyManageJobsContent() {
           </p>
         </div>
 
-        <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-5 py-2 rounded-full">
+        <button onClick={btn} className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-5 py-2 rounded-full">
           + Post New Jobs
         </button>
       </div>

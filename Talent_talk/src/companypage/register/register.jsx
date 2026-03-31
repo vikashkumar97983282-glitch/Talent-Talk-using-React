@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function CompanyRegister() {
+
+  const navigate = useNavigate();
+
+
   const [formData, setFormData] = useState({
     companyName: "",
     email: "",
@@ -16,6 +21,7 @@ function CompanyRegister() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    navigate("/company")
   };
 
   return (
@@ -144,7 +150,7 @@ function CompanyRegister() {
             {/* Login */}
             <p className="text-center text-sm text-gray-600">
               Already have a company account?{" "}
-              <span className="text-blue-600 cursor-pointer">Log in</span>
+              <Link to="/company" className="text-blue-600 cursor-pointer">Log in</Link>
             </p>
 
           </form>

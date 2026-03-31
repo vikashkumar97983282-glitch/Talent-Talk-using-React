@@ -1,6 +1,19 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const CompanyForgotPassword = () => {
+
+  const navigate = useNavigate();
+
+  const [email,setEmail] = useState();
+
+  const handlelg = ()=>{
+    if(email != null){
+      navigate("/company")
+    }
+  }
+
   return (
     <div
       className="h-screen w-full flex items-center justify-center bg-cover bg-center"
@@ -18,11 +31,13 @@ const CompanyForgotPassword = () => {
 
           <input
             type="email"
+            onChange={(e)=>setEmail(e.target.value)}
             placeholder="Email"
             className="w-full p-3 rounded-lg bg-gray-200 outline-none mb-5"
           />
 
           <button
+            onClick={handlelg}
             className="w-full py-3 text-white font-semibold rounded-lg 
             bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90"
           >
