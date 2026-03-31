@@ -4,6 +4,17 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 
+// local modules import 
+const adminRoutes = require('./admin/adminroutes');
+const clientRoutes = require('./client/clientroutes');
+const companyRoutes = require('./company/companyroutes');
+
+// using local modules 
+app.use(adminRoutes);
+app.use(clientRoutes);
+app.use(companyRoutes);
+
+
 app.use(cors());
 app.use(bodyParser.json({extended:true}));
 
