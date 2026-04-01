@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -24,8 +25,8 @@ app.get("/",(req,res)=>{
 })
 
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 app.listen(PORT,()=>{
-    console.log(`server is running on address http://localhost:${PORT}`);
+    console.log(`server is running on address http://localhost:${PORT}`)
 })
