@@ -28,7 +28,7 @@ function Graph() {
   });
 
   return (
-    <div className="ml-5 bg-amber-50 w-[90%] h-[90%] ">
+    <div className="min-h-[360px] w-full rounded-2xl bg-white p-4 shadow-sm ring-1 ring-indigo-100">
       <AgCharts options={chartOptions} />
     </div>
   );

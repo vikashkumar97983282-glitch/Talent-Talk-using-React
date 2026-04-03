@@ -7,10 +7,10 @@ function AdminElement({ name, img, path }){
             <NavLink
                 to={path}
                 className={({ isActive }) =>
-                    `h-10 w-[83%] m-px flex justify-start gap-5 items-center rounded-md px-2 transition-colors ${
+                    `h-10 w-[83%] m-px flex justify-start gap-5 items-center rounded-md px-2 transition-colors whitespace-nowrap ${
                         isActive
-                            ? "bg-blue-600 text-white font-semibold shadow-sm"
-                            : "bg-slate-100 text-black hover:bg-gray-200"
+                            ? "bg-indigo-200 text-slate-900 font-semibold shadow-sm"
+                            : "bg-white/80 text-slate-700 hover:bg-indigo-100"
                     }`
                 }
             >

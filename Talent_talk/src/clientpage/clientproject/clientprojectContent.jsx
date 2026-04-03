@@ -48,11 +48,11 @@ function ClientProjectContent() {
   // If deleted
   if (!project) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-teal-700 text-white">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-800 text-white">
         <p className="mb-4">No Project Available</p>
         <button
           onClick={createProject}
-          className="bg-blue-500 px-4 py-2 rounded"
+          className="bg-sky-600 px-4 py-2 rounded"
         >
           Create Project
         </button>
@@ -61,14 +61,14 @@ function ClientProjectContent() {
   }
 
   return (
-    <div className="bg-teal-700 min-h-screen px-8 py-6 text-white">
+    <div className="bg-slate-50 min-h-screen px-8 py-6 text-slate-900">
 
       {/* Title */}
       <h1 className="text-2xl font-bold">{project.title}</h1>
 
-      <p className="text-gray-200 mt-1">
+      <p className="text-slate-500 mt-1">
         Posted 2 hours ago · Remote, Global ·
-        <span className="text-blue-300"> FEATURED</span>
+        <span className="text-sky-700"> FEATURED</span>
       </p>
 
       {/* Buttons */}
@@ -94,7 +94,7 @@ function ClientProjectContent() {
         {/* Left */}
         <div className="col-span-2 space-y-6">
 
-          <div className="bg-gray-200 text-black p-6 rounded-xl">
+          <div className="bg-white text-black p-6 rounded-xl shadow-sm ring-1 ring-sky-100">
             <h2 className="font-semibold text-lg mb-3">
               Project Description
             </h2>
@@ -105,9 +105,9 @@ function ClientProjectContent() {
         </div>
 
         {/* Right */}
-        <div className="bg-gray-200 text-black rounded-xl overflow-hidden">
+        <div className="bg-white text-black rounded-xl overflow-hidden shadow-sm ring-1 ring-sky-100">
 
-          <div className="bg-teal-600 text-white p-5">
+          <div className="bg-gradient-to-r from-indigo-700 to-sky-700 text-white p-5">
             <h2 className="font-semibold mb-2">Estimated Budget</h2>
             <p className="text-xl font-bold">{project.budget}</p>
             <p className="text-sm mt-1">
@@ -125,11 +125,11 @@ function ClientProjectContent() {
               <strong>Weekly Commitment:</strong> {project.commitment}
             </p>
 
-            <button className="w-full bg-blue-600 text-white py-2 rounded-lg">
+            <button className="w-full bg-sky-700 text-white py-2 rounded-lg">
               Apply Now
             </button>
 
-            <button className="w-full bg-green-400 py-2 rounded-lg">
+            <button className="w-full bg-sky-100 text-sky-950 py-2 rounded-lg">
               Save Job
             </button>
 

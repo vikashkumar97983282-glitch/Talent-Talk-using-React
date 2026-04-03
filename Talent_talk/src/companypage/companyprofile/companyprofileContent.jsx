@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function CompanyProfileContent({profile}) {
 
   return (
-    <div className="flex-1 bg-gray-100 min-h-screen p-12">
+    <div className="flex-1 min-h-screen bg-[#f7f4ea] p-12 text-slate-900">
 
       {/* Profile Header */}
       <div className="flex items-center gap-6 mb-8">
@@ -16,8 +16,8 @@ function CompanyProfileContent({profile}) {
 
         <div>
           <h2 className="text-xl font-semibold">Sophia Carter</h2>
-          <p className="text-gray-500 text-sm">Company Name</p>
-          <p className="text-gray-400 text-sm">Joined in 2021</p>
+          <p className="text-sm text-[#5a7368]">Company Name</p>
+          <p className="text-sm text-[#7b8d84]">Joined in 2021</p>
         </div>
 
       </div>
@@ -25,7 +25,7 @@ function CompanyProfileContent({profile}) {
       {/* Personal Info */}
       <div className="space-y-4">
 
-        <h3 className="font-semibold text-gray-700">
+        <h3 className="font-semibold text-[#35584a]">
           Personal Information
         </h3>
 
@@ -55,7 +55,7 @@ function CompanyProfileContent({profile}) {
       {/* Edit Button */}
       <div className="mt-8">
         <Link to="/company/profile-edit">
-        <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-green-600 cursor-pointer">
+        <button className="cursor-pointer rounded-lg bg-gradient-to-r from-[#1f5a49] to-[#3c7a63] px-4 py-2 text-white hover:opacity-90">
           edit profile
         </button>
         </Link>

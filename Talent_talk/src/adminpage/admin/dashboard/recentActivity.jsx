@@ -14,9 +14,9 @@ function RecentActivity(){
 ];
 
     return (
-        <div className=" ml-2.5">
-            <div className="p-2 w-40">
-                <h1 className="text-sm">Recent Activity</h1>
+        <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-indigo-100">
+            <div className="mb-3">
+                <h1 className="text-base font-semibold">Recent Activity</h1>
             </div>
             {history.map((ele,idx)=>{
                 return <History key={idx} project={ele.project} status={ele.status} time={ele.time}/>

@@ -62,7 +62,7 @@ function ClientFindJobContent() {
   );
 
   return (
-    <div className="bg-teal-700 min-h-screen text-white py-12 px-10">
+    <div className="min-h-screen bg-slate-50 px-10 py-12 text-slate-900">
 
       {/* Title */}
       <div className="text-center mb-10">
@@ -70,14 +70,14 @@ function ClientFindJobContent() {
           Find Your Next Premium Project
         </h1>
 
-        <p className="mt-3 text-gray-200">
+        <p className="mt-3 text-slate-500">
           Connect with top-tier companies and work on high-impact projects
         </p>
       </div>
 
       {/* Search + Add */}
       <div className="flex justify-center mb-6">
-        <div className="bg-gray-200 p-4 rounded-xl flex gap-4 w-[70%]">
+        <div className="flex w-[70%] gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-sky-100">
 
           <input
             type="text"
@@ -97,7 +97,7 @@ function ClientFindJobContent() {
 
           <button
             onClick={addJob}
-            className="bg-blue-600 text-white px-4 rounded"
+            className="rounded bg-sky-700 px-4 text-white"
           >
             Add
           </button>
@@ -109,7 +109,7 @@ function ClientFindJobContent() {
       <div className="grid grid-cols-3 gap-8">
 
         {filteredJobs.map((job) => (
-          <div key={job.id} className="bg-white text-black rounded-xl p-6">
+          <div key={job.id} className="rounded-xl bg-white p-6 text-black shadow-sm ring-1 ring-slate-200">
 
             <div className="flex justify-between">
               <div className="w-10 h-10 bg-gray-300"></div>
@@ -118,7 +118,7 @@ function ClientFindJobContent() {
 
             <h3 className="mt-4 font-semibold">{job.title}</h3>
 
-            <p className="text-blue-600 font-semibold">
+            <p className="text-sky-700 font-semibold">
               {job.salary}
             </p>
 
@@ -129,7 +129,7 @@ function ClientFindJobContent() {
             {/* Tags */}
             <div className="flex gap-2 mt-3 text-xs">
               {job.tags.map((tag, i) => (
-                <span key={i} className="bg-purple-200 px-2 py-1 rounded">
+                <span key={i} className="rounded bg-purple-200 px-2 py-1">
                   {tag}
                 </span>
               ))}
@@ -152,7 +152,7 @@ function ClientFindJobContent() {
               </button>
             </div>
 
-            <button className="mt-4 w-full bg-blue-700 text-white py-2 rounded-lg">
+            <button className="mt-4 w-full rounded-lg bg-sky-700 py-2 text-white">
               Quick Apply
             </button>
 
@@ -163,7 +163,7 @@ function ClientFindJobContent() {
 
       {/* Explore */}
       <div className="flex justify-center mt-12">
-        <button className="bg-gray-200 text-black px-6 py-3 rounded-xl">
+        <button className="rounded-xl bg-sky-100 px-6 py-3 text-sky-950">
           Explore More Projects
         </button>
       </div>

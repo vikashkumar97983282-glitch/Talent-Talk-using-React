@@ -26,15 +26,15 @@ const messages = [
 
 function CompanyMessageContent() {
   return (
-    <div className="p-6 bg-teal-700 min-h-screen">
+    <div className="min-h-screen bg-[#f7f4ea] p-6 text-slate-900">
       
-      <h2 className="text-2xl font-bold text-black mb-6">Messages</h2>
+      <h2 className="mb-6 text-2xl font-bold text-slate-900">Messages</h2>
 
       <div className="space-y-6">
         {messages.map((msg, index) => (
           <div
             key={index}
-            className="flex items-center justify-between bg-gray-200 rounded-full px-6 py-4"
+            className="flex items-center justify-between rounded-2xl bg-[#fffdf8] px-6 py-4 shadow-sm ring-1 ring-[#e7dfcc]"
           >
             
             {/* Left */}
@@ -47,19 +47,19 @@ function CompanyMessageContent() {
 
               <div>
                 <h3 className="font-semibold">{msg.name}</h3>
-                <p className="text-sm text-gray-500">{msg.time}</p>
+                <p className="text-sm text-slate-500">{msg.time}</p>
               </div>
             </div>
 
             {/* Message */}
-            <div className="text-gray-700">
+            <div className="text-slate-700">
               {msg.text}
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-4">
-              <Eye className="cursor-pointer" />
-              <Pencil className="cursor-pointer" />
+            <div className="flex items-center gap-4 text-[#1f5a49]">
+              <Eye className="cursor-pointer text-[#2d6b58]" />
+              <Pencil className="cursor-pointer text-[#3c7a63]" />
               <Trash className="cursor-pointer text-red-600" />
             </div>
 

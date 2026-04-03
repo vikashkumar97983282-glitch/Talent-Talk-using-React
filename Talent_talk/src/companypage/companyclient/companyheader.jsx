@@ -9,19 +9,19 @@ const panel = [
   { name: "Application",  path:"/company/job-application"},
   { name: "Message", path:"/company/message"},
   { name: "Payments",  path:"/company/payments"},
-  { name: "Settings",  path:"/company/setting"},
+  { name: "Settings",  path:"/company/settings"},
 ];
 
 function CompanyHeader() {
   return (
-    <div className="w-full bg-teal-700 text-white flex items-center justify-between px-8 py-3 border-black border-b-1">
+    <div className="w-full bg-gradient-to-r from-[#0f2d24] via-[#18493a] to-[#276254] text-[#eef7f1] flex items-center justify-between px-8 py-3 border-b border-[#dcebdd]/20 shadow-lg">
 
       {/* Profile */}
-      <NavLink to="/company/profile" className="flex items-center gap-3 cursor-pointer">
+      <NavLink to="/company/profile" className="flex items-center gap-3 rounded-full border border-[#dcebdd]/20 bg-white/10 p-1.5 transition-colors hover:bg-white/15 cursor-pointer">
         <img
           src="https://randomuser.me/api/portraits/women/44.jpg"
           alt="profile"
-          className="w-10 h-10 rounded-full"
+          className="w-10 h-10 rounded-full ring-2 ring-[#dcebdd]/40"
         />
       </NavLink>
 
@@ -33,10 +33,10 @@ function CompanyHeader() {
               key={idx}
               to={elem.path}
               className={({ isActive }) =>
-                `rounded-md px-3 py-2 transition-colors ${
+                `rounded-full border px-4 py-2 transition-all duration-200 ${
                   isActive
-                    ? "bg-white text-teal-700"
-                    : "text-white hover:bg-teal-600"
+                    ? "border-[#f0e8d6] bg-[#f3efe3] text-[#16362b] shadow-md"
+                    : "border-transparent text-[#eef7f1] hover:border-[#dcebdd]/20 hover:bg-white/10"
                 }`
               }
             >

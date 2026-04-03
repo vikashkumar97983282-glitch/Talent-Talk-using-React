@@ -2,22 +2,22 @@ import React from "react";
 
 function ClientJobContent() {
   return (
-    <div className="bg-teal-700 min-h-screen py-10 px-6 flex justify-center">
+    <div className="bg-slate-50 min-h-screen py-10 px-6 flex justify-center text-slate-900">
       <div className="w-[750px]">
 
         {/* Title */}
-        <div className="text-white mb-6">
-          <p className="text-sm text-gray-200">APPLICATION PROCESS</p>
+        <div className="mb-6">
+          <p className="text-sm text-slate-500">APPLICATION PROCESS</p>
           <h1 className="text-3xl font-bold">Submit Proposal</h1>
-          <p className="text-gray-200">
+          <p className="text-slate-500">
             Apply for this professional opportunity
           </p>
         </div>
 
         {/* Job Info */}
-        <div className="bg-gray-200 rounded-xl p-5 mb-6 flex justify-between items-center">
+        <div className="bg-white rounded-xl p-5 mb-6 flex justify-between items-center shadow-sm ring-1 ring-sky-100">
           <div>
-            <p className="text-blue-600 text-sm">PROJECT FOCUS</p>
+            <p className="text-sky-700 text-sm">PROJECT FOCUS</p>
             <h3 className="font-semibold">
               Senior UI/UX Designer for Fintech App
             </h3>
@@ -30,20 +30,20 @@ function ClientJobContent() {
             </div>
           </div>
 
-          <button className="bg-white px-4 py-2 rounded-lg shadow">
+          <button className="bg-sky-100 text-sky-950 px-4 py-2 rounded-lg">
             View Job Details
           </button>
         </div>
 
         {/* Proposal Form */}
-        <div className="bg-gray-200 rounded-xl p-6">
+        <div className="bg-white rounded-xl p-6 shadow-sm ring-1 ring-sky-100">
 
           <h2 className="font-semibold mb-2">Proposal Details</h2>
 
           {/* Cover Letter */}
           <textarea
             placeholder="Write your professional cover letter here..."
-            className="w-full h-32 p-3 rounded-lg mb-4 outline-none"
+            className="w-full h-32 p-3 rounded-lg mb-4 bg-slate-50 outline-none"
           ></textarea>
 
           {/* Bid + Timeline */}
@@ -52,10 +52,10 @@ function ClientJobContent() {
             <input
               type="text"
               placeholder="Your Bid Amount"
-              className="p-2 rounded-lg"
+              className="p-2 rounded-lg bg-slate-50"
             />
 
-            <select className="p-2 rounded-lg">
+            <select className="p-2 rounded-lg bg-slate-50">
               <option>Less than 1 month</option>
               <option>1-3 months</option>
               <option>3-6 months</option>
@@ -64,7 +64,7 @@ function ClientJobContent() {
           </div>
 
           {/* File Upload */}
-          <div className="border-2 border-dashed border-gray-400 p-6 rounded-lg text-center mb-4">
+          <div className="border-2 border-dashed border-sky-200 p-6 rounded-lg text-center mb-4">
             <p className="text-gray-600">
               Drag and drop files here or browse files
             </p>
@@ -85,7 +85,7 @@ function ClientJobContent() {
               Cancel
             </button>
 
-            <button className="bg-blue-600 text-white px-5 py-2 rounded">
+            <button className="bg-sky-700 text-white px-5 py-2 rounded">
               Submit Proposal
             </button>
           </div>

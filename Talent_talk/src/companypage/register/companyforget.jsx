@@ -23,23 +23,22 @@ const CompanyForgotPassword = () => {
     >
       <div className="text-center">
 
-        <h1 className="text-4xl font-bold text-black mb-12">
+        <h1 className="mb-12 text-4xl font-bold text-[#16362b]">
           Forget Password
         </h1>
 
-        <div className="w-[350px] mx-auto">
+        <div className="mx-auto w-[350px] rounded-2xl bg-[#fffdf8]/90 p-8 shadow-xl ring-1 ring-[#e7dfcc]">
 
           <input
             type="email"
             onChange={(e)=>setEmail(e.target.value)}
             placeholder="Email"
-            className="w-full p-3 rounded-lg bg-gray-200 outline-none mb-5"
+            className="mb-5 w-full rounded-lg bg-[#f7f4ea] p-3 outline-none ring-1 ring-[#e7dfcc]"
           />
 
           <button
             onClick={handlelg}
-            className="w-full py-3 text-white font-semibold rounded-lg 
-            bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90"
+            className="w-full rounded-lg bg-gradient-to-r from-[#1f5a49] to-[#3c7a63] py-3 font-semibold text-white hover:opacity-90"
           >
             Send to email
           </button>

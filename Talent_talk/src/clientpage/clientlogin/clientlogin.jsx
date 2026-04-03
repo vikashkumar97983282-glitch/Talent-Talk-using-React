@@ -22,18 +22,18 @@ function ClientLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-teal-700 flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-800 flex flex-col items-center justify-center text-sky-50">
 
     
       {/* Title */}
       <h1 className="text-3xl font-bold mb-6">Login</h1>
 
       {/* Card */}
-      <div className="bg-gray-200 w-[380px] rounded-xl p-8 shadow-lg text-center">
+      <div className="bg-white/95 w-[380px] rounded-xl p-8 shadow-xl text-center text-slate-900">
         <form  onSubmit={handleSubmit}>
 
         <h2 className="text-2xl font-semibold">Talent Talk</h2>
-        <p className="text-sm text-gray-600 mb-6">
+        <p className="text-sm text-slate-500 mb-6">
           welcome back! please enter your details
         </p>
 
@@ -44,7 +44,7 @@ function ClientLogin() {
             type="email"
             placeholder="enter your email Address"
             onChange={(e)=>{setEmail(e.target.value)}}
-            className="w-full mt-1 p-3 rounded-lg bg-gray-100 outline-none"
+            className="w-full mt-1 p-3 rounded-lg bg-slate-100 outline-none"
           />
         </div>
 
@@ -56,7 +56,7 @@ function ClientLogin() {
             placeholder="enter your Password"
             onChange={(e)=>{setPassword(e.target.value)}}
             autoComplete="password"
-            className="w-full mt-1 p-3 rounded-lg bg-gray-100 outline-none"
+            className="w-full mt-1 p-3 rounded-lg bg-slate-100 outline-none"
           />
         </div>
 
@@ -71,13 +71,13 @@ function ClientLogin() {
             Remember me
           </label>
 
-          <Link to="/client/forget-password" className="text-purple-600 cursor-pointer">
+          <Link to="/client/forget-password" className="text-sky-700 cursor-pointer">
             forgot password?
           </Link>
         </div>
 
         {/* Login Button */}
-        <button type="submit" className="w-40 py-3 rounded-full bg-gradient-to-r from-purple-600 to-indigo-500 text-white font-semibold">
+        <button type="submit" className="w-40 py-3 rounded-full bg-gradient-to-r from-indigo-700 to-sky-700 text-white font-semibold">
           Login
         </button>
 
@@ -89,7 +89,7 @@ function ClientLogin() {
         {/* Signup */}
         <p className="text-sm">
           Dont have an account ?{" "}
-          <Link to="/client/register" className="text-purple-600 cursor-pointer">
+          <Link to="/client/register" className="text-sky-700 cursor-pointer">
             sign up for free
           </Link>
         </p>

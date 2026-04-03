@@ -11,7 +11,7 @@ function ClientProfileContent() {
 
 
   return (
-    <div className="flex-1 bg-gray-100 p-12">
+    <div className="flex-1 bg-slate-50 p-12 text-slate-900">
 
       {/* Profile Header */}
       <div className="flex items-center gap-6 mb-10">
@@ -24,7 +24,7 @@ function ClientProfileContent() {
 
         <div>
           <h2 className="text-xl font-semibold">Sophia Carter</h2>
-          <p className="text-gray-500 text-sm">Joined in 2021</p>
+          <p className="text-slate-500 text-sm">Joined in 2021</p>
         </div>
 
       </div>
@@ -40,7 +40,7 @@ function ClientProfileContent() {
 
       {/* Edit Button */}
       <div className="mt-10">
-        <button onClick={edit} className="bg-indigo-600 text-white px-4 py-2 rounded-lg">
+        <button onClick={edit} className="bg-gradient-to-r from-indigo-700 to-sky-700 text-white px-4 py-2 rounded-lg">
           Edit Profile
         </button>
       </div>

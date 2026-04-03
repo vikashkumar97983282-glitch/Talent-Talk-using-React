@@ -2,18 +2,18 @@ import React from "react";
 
 function ClientPaymentContent() {
   return (
-    <div className="bg-teal-700 min-h-screen p-8 text-white">
+    <div className="bg-slate-50 min-h-screen p-8 text-slate-900">
 
       {/* Title */}
       <h1 className="text-2xl font-bold">Payout Portal</h1>
-      <p className="text-gray-200 mb-6">
+      <p className="text-slate-500 mb-6">
         Monitor your revenue and manage instant withdrawals.
       </p>
 
       {/* Top Cards */}
       <div className="grid grid-cols-3 gap-6 mb-8">
 
-        <div className="bg-blue-300 text-black p-6 rounded-xl">
+        <div className="bg-gradient-to-br from-sky-100 to-cyan-100 text-black p-6 rounded-xl">
           <p className="text-sm">AVAILABLE NOW</p>
           <h2 className="text-lg font-semibold mt-2">
             Available for Withdrawal
@@ -21,7 +21,7 @@ function ClientPaymentContent() {
           <p className="text-xl font-bold">$12,450.00</p>
         </div>
 
-        <div className="bg-blue-500 p-6 rounded-xl">
+        <div className="bg-gradient-to-br from-indigo-700 to-sky-700 text-white p-6 rounded-xl">
           <p className="text-sm">PROCESSING</p>
           <h2 className="text-lg font-semibold mt-2">
             Pending Clearance
@@ -29,7 +29,7 @@ function ClientPaymentContent() {
           <p className="text-xl font-bold">$3,200.00</p>
         </div>
 
-        <div className="bg-orange-400 text-black p-6 rounded-xl">
+        <div className="bg-gradient-to-br from-amber-200 to-orange-200 text-black p-6 rounded-xl">
           <p className="text-sm">LIFETIME</p>
           <h2 className="text-lg font-semibold mt-2">
             Total Earned
@@ -43,7 +43,7 @@ function ClientPaymentContent() {
       <div className="grid grid-cols-3 gap-6">
 
         {/* Chart Section */}
-        <div className="col-span-2 bg-gray-200 text-black p-6 rounded-xl">
+        <div className="col-span-2 bg-white text-black p-6 rounded-xl shadow-sm ring-1 ring-sky-100">
 
           <div className="flex justify-between mb-4">
             <h3 className="font-semibold">Monthly Income Trends</h3>
@@ -52,7 +52,7 @@ function ClientPaymentContent() {
             </span>
           </div>
 
-          <p className="text-xl font-bold text-purple-600">
+          <p className="text-xl font-bold text-sky-700">
             $8,240
           </p>
 
@@ -63,7 +63,7 @@ function ClientPaymentContent() {
         </div>
 
         {/* Withdraw Section */}
-        <div className="bg-gray-200 text-black p-6 rounded-xl">
+        <div className="bg-white text-black p-6 rounded-xl shadow-sm ring-1 ring-sky-100">
 
           <h3 className="font-semibold mb-4">Withdraw Funds</h3>
 
@@ -78,7 +78,7 @@ function ClientPaymentContent() {
             Convert to EUR (€) : €4,642.50
           </p>
 
-          <button className="w-full bg-indigo-500 text-white py-2 rounded-lg mb-4">
+          <button className="w-full bg-gradient-to-r from-indigo-700 to-sky-700 text-white py-2 rounded-lg mb-4">
             Withdraw $5,000.00
           </button>
 
@@ -97,7 +97,7 @@ function ClientPaymentContent() {
       </div>
 
       {/* Recent Payouts */}
-      <div className="bg-gray-200 text-black p-6 rounded-xl mt-6">
+      <div className="bg-white text-black p-6 rounded-xl mt-6 shadow-sm ring-1 ring-sky-100">
 
         <h3 className="font-semibold mb-4">Recent Payouts</h3>
 
@@ -124,7 +124,7 @@ function ClientPaymentContent() {
 
       {/* Add Account */}
       <div className="mt-6 flex justify-end">
-        <button className="bg-gray-300 text-black px-4 py-2 rounded">
+        <button className="bg-sky-100 text-sky-950 px-4 py-2 rounded">
           Add Account
         </button>
       </div>

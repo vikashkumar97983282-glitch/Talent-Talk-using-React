@@ -32,11 +32,11 @@ function CompanyLogin() {
     >
       <div className="text-center">
         
-        <h1 className="text-4xl font-bold text-black mb-10">
+        <h1 className="mb-10 text-4xl font-bold text-[#16362b]">
           Company Login
         </h1>
 
-        <div className="w-[350px] border border-black/40 p-8 backdrop-blur-md bg-white/10">
+        <div className="w-[350px] rounded-2xl border border-[#e7dfcc] bg-[#fffdf8]/90 p-8 backdrop-blur-md shadow-xl">
 
         <form onSubmit={handlelogin}>
 
@@ -44,7 +44,7 @@ function CompanyLogin() {
             type="email"
             placeholder="Email"
             onChange={(e)=>setemail(e.target.value)}
-            className="w-full p-3 mb-4 rounded bg-gray-200 outline-none"
+            className="mb-4 w-full rounded bg-[#f7f4ea] p-3 outline-none ring-1 ring-[#e7dfcc]"
           />
 
           <input
@@ -52,22 +52,22 @@ function CompanyLogin() {
             placeholder="Password"
             onChange={(e)=>setPassword(e.target.value)}
             autoComplete=""
-            className="w-full p-3 mb-3 rounded bg-gray-200 outline-none"
+            className="mb-3 w-full rounded bg-[#f7f4ea] p-3 outline-none ring-1 ring-[#e7dfcc]"
           />
 
           <div className="text-right text-sm mb-4">
-            <Link to="/company/forget-password" className="text-blue-600 hover:underline">
+            <Link to="/company/forget-password" className="text-[#2d6b58] hover:underline">
               forgot password?
             </Link>
           </div>
 
-          <button className="w-full py-3 rounded text-white font-semibold bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90">
+          <button className="w-full rounded bg-gradient-to-r from-[#1f5a49] to-[#3c7a63] py-3 font-semibold text-white hover:opacity-90">
             Login
           </button>
 
           <p className="mt-4 text-sm">
             Dont you have an account ?
-            <Link to="/company/register" className="text-blue-600 ml-1 hover:underline">
+            <Link to="/company/register" className="ml-1 text-[#2d6b58] hover:underline">
               Register
             </Link>
           </p>

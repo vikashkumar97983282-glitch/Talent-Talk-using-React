@@ -13,7 +13,7 @@ function PersonalInfo(){
     }
 
     return (
-        <div className="ml-30 mt-10 h-full w-full overflow-y-scroll">
+        <div className="h-full flex-1 min-w-0 overflow-y-scroll px-10 pt-10">
             <div className="flex flex-wrap items-center">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxnsgAbYVaKCxUrJ9-dnMi0RvQ5I2mPAFIlw&s" alt="" className="h-40 w-40 rounded-full"/>
                 <div className="ml-5">

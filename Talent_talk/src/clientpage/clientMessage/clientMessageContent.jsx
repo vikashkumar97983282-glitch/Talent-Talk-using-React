@@ -3,7 +3,7 @@ import { FaEye, FaTrash } from "react-icons/fa";
 
 function ClientMessageContent() {
   return (
-    <div className="bg-teal-700 min-h-screen px-10 py-8 text-white">
+    <div className="bg-slate-50 min-h-screen px-10 py-8 text-slate-900">
 
       {/* Title + Search */}
       <div className="flex justify-between items-center mb-6">
@@ -12,20 +12,20 @@ function ClientMessageContent() {
         <input
           type="text"
           placeholder="Search"
-          className="w-72 p-2 rounded-lg text-black"
+          className="w-72 p-2 rounded-lg border border-sky-100 bg-white text-black"
         />
       </div>
 
-      <hr className="mb-6 border-gray-300"/>
+      <hr className="mb-6 border-sky-100"/>
 
       {/* Message List */}
       <div className="space-y-4">
 
         {/* Message Item */}
-        <div className="bg-gray-200 text-black p-4 rounded-xl flex justify-between items-center">
+        <div className="bg-white text-black p-4 rounded-xl flex justify-between items-center shadow-sm ring-1 ring-sky-100">
 
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-bold">
+            <div className="w-12 h-12 bg-sky-700 flex items-center justify-center text-white font-bold">
               T.A
             </div>
 
@@ -45,10 +45,10 @@ function ClientMessageContent() {
         </div>
 
         {/* Message Item */}
-        <div className="bg-gray-200 text-black p-4 rounded-xl flex justify-between items-center">
+        <div className="bg-white text-black p-4 rounded-xl flex justify-between items-center shadow-sm ring-1 ring-sky-100">
 
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-yellow-200 flex items-center justify-center text-black font-bold">
+            <div className="w-12 h-12 bg-sky-100 flex items-center justify-center text-sky-950 font-bold">
               CM
             </div>
 

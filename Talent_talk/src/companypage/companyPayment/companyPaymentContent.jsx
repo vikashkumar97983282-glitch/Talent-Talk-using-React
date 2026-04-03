@@ -38,14 +38,14 @@ function CompanyPaymentContent() {
 
   const statusStyle = (status) => {
     if (status === "Completed")
-      return "bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm";
+      return "rounded-full bg-[#e7f1ea] px-3 py-1 text-sm text-[#2d6b58]";
     if (status === "Pending")
-      return "bg-yellow-200 text-yellow-800 px-3 py-1 rounded-full text-sm";
-    return "bg-red-200 text-red-800 px-3 py-1 rounded-full text-sm";
+      return "rounded-full bg-[#f4ecd8] px-3 py-1 text-sm text-[#8a6a2f]";
+    return "rounded-full bg-[#f6dfdb] px-3 py-1 text-sm text-[#a54a3d]";
   };
 
   return (
-    <div className="bg-teal-700 min-h-screen p-8">
+    <div className="min-h-screen bg-[#f7f4ea] p-8 text-slate-900">
 
       {/* Title */}
       <h2 className="text-2xl font-bold mb-4">Payment Management</h2>
@@ -54,23 +54,23 @@ function CompanyPaymentContent() {
       <input
         type="text"
         placeholder="Search"
-        className="w-full p-2 rounded-lg mb-4 bg-white"
+        className="mb-4 w-full rounded-lg bg-[#fffdf8] p-2 ring-1 ring-[#e7dfcc]"
       />
 
       {/* Filter */}
-      <button className="bg-gray-200 px-3 py-1 rounded mb-6">
+      <button className="mb-6 rounded bg-[#efe8d8] px-3 py-1 text-[#16362b]">
         Date Range
       </button>
 
       {/* Cards */}
       <div className="flex gap-6 mb-6">
         
-        <div className="bg-gray-200 p-6 rounded-lg w-64">
+        <div className="w-64 rounded-lg bg-[#fffdf8] p-6 shadow-sm ring-1 ring-[#e7dfcc]">
           <p className="text-sm">Total Payment</p>
           <h3 className="text-xl font-bold">$1,250,000</h3>
         </div>
 
-        <div className="bg-gray-200 p-6 rounded-lg w-64">
+        <div className="w-64 rounded-lg bg-[#fffdf8] p-6 shadow-sm ring-1 ring-[#e7dfcc]">
           <p className="text-sm">Pending Payment</p>
           <h3 className="text-xl font-bold">$25,000</h3>
         </div>
@@ -78,11 +78,11 @@ function CompanyPaymentContent() {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-lg overflow-hidden">
+      <div className="overflow-hidden rounded-lg bg-[#fffdf8] shadow-sm ring-1 ring-[#e7dfcc]">
 
         <table className="w-full text-left">
 
-          <thead className="bg-gray-400">
+          <thead className="bg-[#efe8d8] text-[#16362b]">
             <tr>
               <th className="p-3">Transaction ID</th>
               <th className="p-3">Client</th>
@@ -95,7 +95,7 @@ function CompanyPaymentContent() {
 
           <tbody>
             {payments.map((pay, index) => (
-              <tr key={index} className="border-t">
+              <tr key={index} className="border-t border-[#efe6d4]">
                 <td className="p-3">{pay.id}</td>
                 <td className="p-3">{pay.client}</td>
                 <td className="p-3">{pay.role}</td>

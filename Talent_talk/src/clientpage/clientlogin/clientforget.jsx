@@ -10,9 +10,9 @@ function ClientForgetPassword() {
   };
 
   return (
-    <div className="min-h-screen bg-teal-700 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-800 flex items-center justify-center">
       
-      <div className="bg-gray-200 w-[380px] p-10 rounded-xl shadow-lg text-center">
+      <div className="bg-white/95 w-[380px] p-10 rounded-xl shadow-xl text-center">
         
         {/* Title */}
         <h1 className="text-3xl font-bold mb-8">Forget Password</h1>
@@ -25,7 +25,7 @@ function ClientForgetPassword() {
             <input
               type="email"
               placeholder="enter your email Address"
-              className="w-full mt-2 p-3 rounded-lg bg-gray-100 outline-none"
+              className="w-full mt-2 p-3 rounded-lg bg-slate-100 outline-none"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -35,7 +35,7 @@ function ClientForgetPassword() {
           <div className="text-center pt-2">
             <button
               type="submit"
-              className="px-8 py-3 rounded-full text-white font-semibold bg-gradient-to-r from-purple-600 to-indigo-500"
+              className="px-8 py-3 rounded-full text-white font-semibold bg-gradient-to-r from-indigo-700 to-sky-700"
             >
               Send to email
             </button>
@@ -48,7 +48,7 @@ function ClientForgetPassword() {
         {/* Login link */}
         <p className="text-sm">
           Do you have an account ?{" "}
-          <Link to="/client" className="text-blue-600 cursor-pointer">Login</Link>
+          <Link to="/client" className="text-sky-700 cursor-pointer">Login</Link>
         </p>
 
       </div>

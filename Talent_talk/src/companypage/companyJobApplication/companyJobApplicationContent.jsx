@@ -12,28 +12,28 @@ const candidates = [
 
 const CompanyJobApplicationsContent = () => {
   return (
-    <div className="bg-teal-700 min-h-screen px-10 py-8">
+    <div className="min-h-screen bg-[#f7f4ea] px-10 py-8 text-slate-900">
 
       {/* Top Section */}
       <div className="flex justify-between items-center mb-6">
 
         <div>
-          <p className="text-xs uppercase text-blue-900">
+          <p className="text-xs uppercase text-[#3c7a63]">
             Open Position: Senior Product Designer
           </p>
 
-          <h1 className="text-3xl font-bold text-black">
+          <h1 className="text-3xl font-bold text-slate-900">
             Job Applications
           </h1>
 
-          <p className="text-sm text-black">
+          <p className="text-sm text-[#5a7368]">
             Reviewing 24 top-tier candidates curated for your team
           </p>
         </div>
 
         {/* Search */}
-        <div className="flex items-center bg-gray-200 rounded px-3 w-[350px]">
-          <Search size={18} className="text-gray-600"/>
+        <div className="flex w-[350px] items-center rounded bg-[#fffdf8] px-3 ring-1 ring-[#e7dfcc]">
+          <Search size={18} className="text-slate-500"/>
           <input
             type="text"
             placeholder="Search for job title, keywords..."
@@ -44,14 +44,14 @@ const CompanyJobApplicationsContent = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-8 text-sm border-b pb-2 mb-6">
-        <button className="font-semibold">All Applications (24)</button>
+      <div className="mb-6 flex gap-8 border-b border-[#e7dfcc] pb-2 text-sm">
+        <button className="font-semibold text-[#1f5a49]">All Applications (24)</button>
         <button>Shortlisted (8)</button>
         <button>Interviewing (3)</button>
         <button>Rejected</button>
 
         <div className="ml-auto">
-          <button className="bg-gray-200 px-4 py-1 rounded">
+          <button className="rounded bg-[#efe8d8] px-4 py-1 text-[#16362b]">
             Filter
           </button>
         </div>
@@ -63,7 +63,7 @@ const CompanyJobApplicationsContent = () => {
         {candidates.map((candidate) => (
           <div
             key={candidate.id}
-            className="bg-gray-200 rounded-2xl p-5"
+            className="rounded-2xl bg-[#fffdf8] p-5 shadow-sm ring-1 ring-[#e7dfcc]"
           >
 
             {/* Profile */}
@@ -81,7 +81,7 @@ const CompanyJobApplicationsContent = () => {
                     {candidate.name}
                   </h3>
 
-                  <p className="text-blue-600 text-sm">
+                  <p className="text-sm text-[#3c7a63]">
                     {candidate.role}
                   </p>
                 </div>
@@ -89,7 +89,7 @@ const CompanyJobApplicationsContent = () => {
 
               {/* Score */}
               <div className="text-center">
-                <div className="w-12 h-12 rounded-full border-4 border-blue-500 flex items-center justify-center text-blue-600 font-semibold">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border-4 border-[#4f8c73] bg-[#edf5ef] text-[#2d6b58] font-semibold">
                   {candidate.score}%
                 </div>
                 <p className="text-xs">Match Score</p>
@@ -99,24 +99,24 @@ const CompanyJobApplicationsContent = () => {
 
             {/* Skills */}
             <div className="flex gap-2 mt-4 text-xs">
-              <span className="bg-purple-200 px-2 py-1 rounded">
+              <span className="rounded bg-[#e7f1ea] px-2 py-1 text-[#16362b]">
                 Figma
               </span>
-              <span className="bg-pink-200 px-2 py-1 rounded">
+              <span className="rounded bg-[#eef3de] px-2 py-1 text-[#42543b]">
                 UI/UX
               </span>
-              <span className="bg-green-200 px-2 py-1 rounded">
+              <span className="rounded bg-[#f4ecd8] px-2 py-1 text-[#6a5530]">
                 Mobile app
               </span>
             </div>
 
             {/* Buttons */}
             <div className="flex justify-between mt-5">
-              <button className="bg-gray-300 px-4 py-1 rounded">
+              <button className="rounded bg-[#efe8d8] px-4 py-1 text-[#16362b]">
                 View Profile
               </button>
 
-              <button className="bg-blue-600 text-white px-4 py-1 rounded">
+              <button className="rounded bg-gradient-to-r from-[#1f5a49] to-[#3c7a63] px-4 py-1 text-white">
                 Shortlist
               </button>
             </div>
@@ -128,7 +128,7 @@ const CompanyJobApplicationsContent = () => {
 
       {/* Load More */}
       <div className="text-center mt-8">
-        <button className="text-blue-800">
+        <button className="text-[#1f5a49]">
           Load More Candidates...
         </button>
       </div>

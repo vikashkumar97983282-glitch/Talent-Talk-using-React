@@ -11,7 +11,7 @@ function ClientProfileEditContent() {
 
 
   return (
-    <div className="flex-1 bg-gray-100 p-10">
+    <div className="flex-1 bg-slate-50 p-10 text-slate-900">
 
       <form action="">
 
@@ -27,8 +27,8 @@ function ClientProfileEditContent() {
 
         <div>
           <h2 className="text-xl font-semibold">Sophia Carter</h2>
-          <p className="text-gray-500 text-sm">Company Name</p>
-          <p className="text-gray-400 text-sm">Joined in 2021</p>
+          <p className="text-slate-500 text-sm">Company Name</p>
+          <p className="text-slate-400 text-sm">Joined in 2021</p>
         </div>
 
       </div>
@@ -41,19 +41,19 @@ function ClientProfileEditContent() {
         <input
           type="text"
           placeholder="Full Name"
-          className="w-full p-2 bg-gray-200 rounded-lg"
+          className="w-full p-2 bg-white rounded-lg ring-1 ring-sky-100"
         />
 
         <input
           type="email"
           placeholder="Email"
-          className="w-full p-2 bg-gray-200 rounded-lg"
+          className="w-full p-2 bg-white rounded-lg ring-1 ring-sky-100"
         />
 
         <input
           type="text"
           placeholder="Phone Number"
-          className="w-full p-2 bg-gray-200 rounded-lg"
+          className="w-full p-2 bg-white rounded-lg ring-1 ring-sky-100"
         />
 
       </div>
@@ -67,28 +67,28 @@ function ClientProfileEditContent() {
           type="password"
           placeholder="Current Password"
           autoComplete=""
-          className="w-full p-2 bg-gray-200 rounded-lg"
+          className="w-full p-2 bg-white rounded-lg ring-1 ring-sky-100"
         />
 
         <input
           type="password"
           placeholder="Enter new password"
           autoComplete=""
-          className="w-full p-2 bg-gray-200 rounded-lg"
+          className="w-full p-2 bg-white rounded-lg ring-1 ring-sky-100"
         />
 
         <input
           type="password"
           placeholder="Confirm new password"
           autoComplete=""
-          className="w-full p-2 bg-gray-200 rounded-lg"
+          className="w-full p-2 bg-white rounded-lg ring-1 ring-sky-100"
         />
 
       </div>
 
       {/* Save Button */}
       <div className="mt-8">
-        <Link to="/client/profile" onClick={save} className="bg-indigo-600 text-white px-5 py-2 rounded-lg cursor-pointer">
+        <Link to="/client/profile" onClick={save} className="bg-gradient-to-r from-indigo-700 to-sky-700 text-white px-5 py-2 rounded-lg cursor-pointer">
           Save Changes
         </Link>
       </div>

@@ -9,29 +9,29 @@ function CompanyDashboardContent({postjob}) {
     <div className="flex">
 
       {/* Main Dashboard */}
-      <div className="flex-1 p-10 bg-gray-100 min-h-screen overflow-auto">
+      <div className="flex-1 min-h-screen overflow-auto bg-[#f7f4ea] p-10 text-slate-900">
 
         <h1 className="text-3xl font-bold mb-2">DASHBOARD</h1>
-        <p className="text-gray-600 mb-8">
+        <p className="mb-8 text-[#35584a]">
           Welcome back, here's what's happening with your company today
         </p>
 
         {/* Top Cards */}
-        <div className="flex gap-8 mb-10">
+        <div className="mb-10 flex gap-8">
 
-          <div className="bg-teal-700 text-white p-6 rounded-xl w-52 text-center">
+          <div className="w-52 rounded-2xl bg-gradient-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-6 text-center text-white shadow-lg shadow-[#14392e]/15">
             <h3 className="text-lg">Active Jobs</h3>
             {/* ✅ dynamic count */}
             <p className="text-3xl font-bold mt-3">{postjob.length}</p>
-            <span className="text-blue-300">Updated</span>
+            <span className="text-[#d9efe2]">Updated</span>
           </div>
 
-          <div className="bg-teal-700 text-white p-6 rounded-xl w-52 text-center">
+          <div className="w-52 rounded-2xl bg-gradient-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-6 text-center text-white shadow-lg shadow-[#14392e]/15">
             <h3 className="text-lg">Recent Notification</h3>
             <p className="text-3xl font-bold mt-3">24</p>
           </div>
 
-          <div className="bg-teal-700 text-white p-6 rounded-xl w-52 text-center">
+          <div className="w-52 rounded-2xl bg-gradient-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-6 text-center text-white shadow-lg shadow-[#14392e]/15">
             <h3 className="text-lg">Rating</h3>
             <p className="text-3xl font-bold mt-3">4/5</p>
           </div>
@@ -39,26 +39,26 @@ function CompanyDashboardContent({postjob}) {
         </div>
 
         {/* Recent Applications */}
-        <div className="bg-teal-700 text-white p-6 rounded-xl w-96 mb-10">
+        <div className="mb-10 w-96 rounded-2xl bg-gradient-to-br from-[#102a22] via-[#184739] to-[#2d6b58] p-6 text-white shadow-lg shadow-[#14392e]/15">
 
           <h2 className="text-xl mb-6">Recent Application</h2>
 
           <div className="space-y-5">
             <div className="flex justify-between">
               <span>Olivia Hayes</span>
-              <span className="text-blue-300">90%</span>
+              <span className="text-[#d9efe2]">90%</span>
             </div>
             <div className="flex justify-between">
               <span>Liam Harper</span>
-              <span className="text-blue-300">94%</span>
+              <span className="text-[#d9efe2]">94%</span>
             </div>
             <div className="flex justify-between">
               <span>Ethan Bennett</span>
-              <span className="text-blue-300">89%</span>
+              <span className="text-[#d9efe2]">89%</span>
             </div>
           </div>
 
-          <button className="mt-6 w-full py-2 bg-blue-600 rounded-lg">
+          <button className="mt-6 w-full rounded-lg bg-[#f3efe3] py-2 text-[#16362b]">
             View All
           </button>
         </div>
@@ -69,36 +69,36 @@ function CompanyDashboardContent({postjob}) {
         <div className="space-y-4">
 
           {postjob.length === 0 ? (
-            <p className="text-gray-500">No Jobs Posted Yet</p>
+            <p className="text-[#5a7368]">No Jobs Posted Yet</p>
           ) : (
             postjob.map((job, idx) => (
               <div
                 key={idx}
-                className="bg-gray-200 p-4 rounded-lg flex justify-between"
+                className="flex justify-between rounded-lg bg-[#fffdf8] p-4 shadow-sm ring-1 ring-[#e7dfcc]"
               >
                 <div>
                   <h3 className="font-semibold text-lg">
                     {job.title}
                   </h3>
 
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-slate-600">
                     Category: {job.category}
                   </p>
 
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-slate-600">
                     Payment: {job.payment}
                   </p>
 
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-slate-600">
                     Time: {job.time}
                   </p>
 
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-slate-600">
                     {job.description}
                   </p>
                 </div>
 
-                <span className="bg-green-500 w-25 text-white px-4 py-1 rounded-lg text-center ">
+                <span className="w-25 rounded-lg bg-gradient-to-r from-[#2d6b58] to-[#4f8c73] px-4 py-1 text-center text-white">
                   Active
                 </span>
               </div>

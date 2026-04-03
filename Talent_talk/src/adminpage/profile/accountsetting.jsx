@@ -30,8 +30,8 @@ function AccountSettings() {
     <div className="flex h-screen w-screen overflow-hidden">
         <AdminPanel />
 
-    <div className="ml-30 mb-10 h-full w-full overflow-y-scroll">
-      <div className="flex-1 p-10 bg-white">
+    <div className="h-full flex-1 min-w-0 overflow-y-scroll">
+      <div className="min-h-full p-10 bg-white">
         {/* Profile Header */}
         <div className="flex items-center mb-10">
           <img

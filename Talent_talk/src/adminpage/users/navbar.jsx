@@ -15,14 +15,14 @@ const buttons = [
 
 function Navbar(){
     return (
-        <div className=" flex flex-wrap justify-between items-center border-b gray-50">
+        <div className="flex flex-wrap justify-between items-center border-b border-indigo-100 bg-indigo-50/80 shadow-sm">
             <div className="flex flex-wrap justify-between items-center">
                 {buttons.map((button,idx)=>{
                 return <NavButton key={idx} elem={button.name} path={button.path}/>
             })}
             </div>
             <Link to="/admin/settings">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiil4tddZ1owesQPlnPuSmHhkwB2dPJ2ksDw&s" className="h-10.5 w-10.5 rounded-4xl mr-10"></img>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiil4tddZ1owesQPlnPuSmHhkwB2dPJ2ksDw&s" className="h-10.5 w-10.5 rounded-4xl mr-10 ring-2 ring-indigo-200"></img>
             </Link>
         </div>
     )

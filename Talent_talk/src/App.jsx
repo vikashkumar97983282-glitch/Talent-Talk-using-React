@@ -62,37 +62,6 @@ function App() {
   return (
     <div>
 
-    {/* // company side  pages */}
-    {/* <CompanyRegister/> */}
-    {/* <CompanyLogin/> */}
-    {/* <CompanyForgotPassword/> */}
-    {/* <CompanyDashboard/> */}
-    {/* <CompanyClient/> */}
-    {/* <CompanyPostJob/> */}
-    {/* <CompanyManageJob/> */}
-    {/* <CompanyJobApplication/> */}
-    {/* <CompanyMessage/> */}
-    {/* <CompanyPayment/> */}
-    {/* <CompanySetting/> */}
-    {/* <CompanyProfile/> */}
-    {/* <CompanyEdit/> */}
-
-
-
-    {/* client side page  */}
-    {/* <ClientRegister/> */}
-    {/* <ClientLogin/> */}
-    {/* <ClientForgetPassword/> */}
-    {/* <ClientDashboard/> */}
-    {/* <ClientFindJob/> */}
-    {/* <ClientProject/> */}
-    {/* <ClientJob/> */}
-    {/* <ClientMessage/> */}
-    {/* <ClientPayment/> */}
-    {/* <ClientSetting/> */}
-    {/* <ClientProfile/> */}
-    {/* <ClientProfileEdit/> */}
-
       <Suspense fallback={<div className="p-4">Loading...</div>}>
         <Routes>
 
@@ -125,7 +94,7 @@ function App() {
             <Route path="job-application" element={<CompanyJobApplication/>} />
             <Route path="message" element={<CompanyMessage/>} />
             <Route path="payments" element={<CompanyPayment/>} />
-            <Route path="setting" element={<CompanySetting/>} />
+            <Route path="settings" element={<CompanySetting/>} />
             <Route path="profile" element={<CompanyProfile/>} />
             <Route path="profile-Edit" element={<CompanyEdit/>} />
           </Route> 

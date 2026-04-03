@@ -25,10 +25,10 @@ function CompanyRegister() {
   };
 
   return (
-    <div className="flex h-screen w-full bg-gray-100">
+    <div className="flex h-screen w-full bg-[#f7f4ea]">
 
       {/* Left Section */}
-      <div className="hidden md:flex w-1/2 bg-teal-500 text-white p-12 flex-col justify-center">
+      <div className="hidden w-1/2 flex-col justify-center bg-gradient-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-12 text-white md:flex">
         <h1 className="text-4xl font-bold leading-tight mb-6">
           Scale your <br /> buisiness with <br /> confidence
         </h1>
@@ -44,7 +44,7 @@ function CompanyRegister() {
         <div className="w-full max-w-md">
 
           <h2 className="text-3xl font-bold mb-2">Create Account</h2>
-          <p className="text-gray-500 mb-8">
+          <p className="mb-8 text-[#5a7368]">
             Let’s get your business set up for success.
           </p>
 
@@ -52,7 +52,7 @@ function CompanyRegister() {
 
             {/* Company Name */}
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-sm font-medium text-[#35584a]">
                 Company Legal Name
               </label>
               <input
@@ -61,13 +61,13 @@ function CompanyRegister() {
                 placeholder="Company Name"
                 value={formData.companyName}
                 onChange={handleChange}
-                className="w-full mt-1 px-4 py-2 rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="mt-1 w-full rounded-md bg-[#fffdf8] px-4 py-2 ring-1 ring-[#e7dfcc] focus:outline-none focus:ring-2 focus:ring-[#3c7a63]"
               />
             </div>
 
             {/* Email */}
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-sm font-medium text-[#35584a]">
                 Work Email Address
               </label>
               <input
@@ -76,13 +76,13 @@ function CompanyRegister() {
                 placeholder="Company Email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full mt-1 px-4 py-2 rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="mt-1 w-full rounded-md bg-[#fffdf8] px-4 py-2 ring-1 ring-[#e7dfcc] focus:outline-none focus:ring-2 focus:ring-[#3c7a63]"
               />
             </div>
 
             {/* Password */}
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-sm font-medium text-[#35584a]">
                 Create Password
               </label>
               <input
@@ -91,7 +91,7 @@ function CompanyRegister() {
                 placeholder="Create Password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full mt-1 px-4 py-2 rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="mt-1 w-full rounded-md bg-[#fffdf8] px-4 py-2 ring-1 ring-[#e7dfcc] focus:outline-none focus:ring-2 focus:ring-[#3c7a63]"
               />
             </div>
 
@@ -99,14 +99,14 @@ function CompanyRegister() {
             <div className="grid grid-cols-2 gap-4">
 
               <div>
-                <label className="text-sm font-medium text-gray-700">
+                <label className="text-sm font-medium text-[#35584a]">
                   Industry
                 </label>
                 <select
                   name="industry"
                   value={formData.industry}
                   onChange={handleChange}
-                  className="w-full mt-1 px-4 py-2 rounded-md bg-gray-100 focus:outline-none"
+                  className="mt-1 w-full rounded-md bg-[#fffdf8] px-4 py-2 ring-1 ring-[#e7dfcc] focus:outline-none"
                 >
                   <option value="">Select industry</option>
                   <option>IT</option>
@@ -116,7 +116,7 @@ function CompanyRegister() {
               </div>
 
               <div>
-                <label className="text-sm font-medium text-gray-700">
+                <label className="text-sm font-medium text-[#35584a]">
                   Headquarters
                 </label>
                 <input
@@ -125,7 +125,7 @@ function CompanyRegister() {
                   placeholder="Search city..."
                   value={formData.city}
                   onChange={handleChange}
-                  className="w-full mt-1 px-4 py-2 rounded-md bg-gray-100 focus:outline-none"
+                  className="mt-1 w-full rounded-md bg-[#fffdf8] px-4 py-2 ring-1 ring-[#e7dfcc] focus:outline-none"
                 />
               </div>
 
@@ -134,23 +134,23 @@ function CompanyRegister() {
             {/* Button */}
             <button
               type="submit"
-              className="w-full bg-blue-700 text-white py-3 rounded-lg font-semibold hover:bg-blue-800 transition"
+              className="w-full rounded-lg bg-gradient-to-r from-[#1f5a49] to-[#3c7a63] py-3 font-semibold text-white transition hover:opacity-90"
             >
               Create Account
             </button>
 
             {/* Terms */}
-            <p className="text-xs text-gray-500 text-center">
+            <p className="text-center text-xs text-[#5a7368]">
               By clicking “Create Account”, you agree to our
-              <span className="text-blue-600 cursor-pointer"> Terms of Service </span>
+              <span className="cursor-pointer text-[#2d6b58]"> Terms of Service </span>
               and
-              <span className="text-blue-600 cursor-pointer"> Privacy Policy</span>.
+              <span className="cursor-pointer text-[#2d6b58]"> Privacy Policy</span>.
             </p>
 
             {/* Login */}
-            <p className="text-center text-sm text-gray-600">
+            <p className="text-center text-sm text-[#5a7368]">
               Already have a company account?{" "}
-              <Link to="/company" className="text-blue-600 cursor-pointer">Log in</Link>
+              <Link to="/company" className="cursor-pointer text-[#2d6b58]">Log in</Link>
             </p>
 
           </form>

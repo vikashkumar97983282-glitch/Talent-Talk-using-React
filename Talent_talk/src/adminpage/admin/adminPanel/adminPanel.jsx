@@ -47,15 +47,15 @@ const menu = [
 
 function AdminPanel(){
     return (
-        <div className="h-screen w-[25vw] min-w-64 border-r border-[#ccc] bg-white">
+        <div className="h-screen w-[25vw] min-w-64 shrink-0 border-r border-indigo-200/30 bg-gradient-to-b from-indigo-50 via-sky-50 to-white">
           <div className="flex h-full flex-col gap-6 py-4">
             <Link to="/admin/settings" className="flex items-center gap-3 px-4">
                 <img
                   src="https://t3.ftcdn.net/jpg/01/00/57/26/360_F_100572672_6eerkmT3J2ekUtGCFP54FiGRAT9VhYsd.jpg"
                   alt="Admin profile"
-                  className="h-10 w-10 rounded-full object-cover"
+                  className="h-10 w-10 rounded-full object-cover ring-2 ring-indigo-200/70"
                 />
-                <h1 className="text-lg font-semibold">Admin Panel</h1>
+                <h1 className="text-lg font-semibold text-stone-800">Admin Panel</h1>
             </Link>
             <div className="flex flex-col gap-1">
                 {menu.map((elem,idx)=>{
@@ -63,7 +63,7 @@ function AdminPanel(){
                 })}
             </div>
             <div className="mt-auto flex justify-center px-2">
-              <button type="button" className="h-10 w-[83%] cursor-pointer rounded-md bg-slate-100 px-2 text-left text-black hover:bg-gray-200">
+              <button type="button" className="h-10 w-[83%] cursor-pointer rounded-md bg-white/80 px-2 text-left text-slate-700 hover:bg-indigo-100">
                 <span className="flex items-center gap-5">
                   <img src="https://cdn-icons-png.flaticon.com/512/471/471664.png" alt="" className="h-7 w-7"/>
                   <span>Help and Docs</span>
