@@ -1,10 +1,8 @@
+import React from "react";
 import AdminElement from "./adminElement";
 import { Link } from "react-router-dom";
 
-
-function AdminPanel(){
-
-    const menu = [
+const menu = [
   {
     name: "Dashboard",
     img: "https://cdn-icons-png.flaticon.com/512/1828/1828673.png",
@@ -47,25 +45,30 @@ function AdminPanel(){
   }
 ];
 
-
-
+function AdminPanel(){
     return (
-        <div className="h-screen w-[25vw] border-r border-[#ccc]">
-
-          <div className="flex flex-col justify-evenly">
-            <Link to="/admin/settings" className="flex items-center gap-2.5 p-2.5 ml-1.25">
-                <img src="https://t3.ftcdn.net/jpg/01/00/57/26/360_F_100572672_6eerkmT3J2ekUtGCFP54FiGRAT9VhYsd.jpg" alt="" className="w-10 h-10 rounded-full" />
-                <h1>Admin Panel</h1>
-            
+        <div className="h-screen w-[25vw] min-w-64 border-r border-[#ccc] bg-white">
+          <div className="flex h-full flex-col gap-6 py-4">
+            <Link to="/admin/settings" className="flex items-center gap-3 px-4">
+                <img
+                  src="https://t3.ftcdn.net/jpg/01/00/57/26/360_F_100572672_6eerkmT3J2ekUtGCFP54FiGRAT9VhYsd.jpg"
+                  alt="Admin profile"
+                  className="h-10 w-10 rounded-full object-cover"
+                />
+                <h1 className="text-lg font-semibold">Admin Panel</h1>
             </Link>
-            <div>
+            <div className="flex flex-col gap-1">
                 {menu.map((elem,idx)=>{
                     return <AdminElement key={idx} name={elem.name} img={elem.img} path={elem.path}/>
                 })}
             </div>
-            <div className="mt-49 flex justify-around flex-wrap items-end ">
-              <button className="h-10 w-[83%] text-black bg-aliceblue m-px cursor-pointer flex justify-start gap-5 items-center rounded-md hover:bg-gray-500 "><img src="https://cdn-icons-png.flaticon.com/512/471/471664.png" className="w-7 h-7 ml-2"/>
- Help and Docs</button>
+            <div className="mt-auto flex justify-center px-2">
+              <button type="button" className="h-10 w-[83%] cursor-pointer rounded-md bg-slate-100 px-2 text-left text-black hover:bg-gray-200">
+                <span className="flex items-center gap-5">
+                  <img src="https://cdn-icons-png.flaticon.com/512/471/471664.png" alt="" className="h-7 w-7"/>
+                  <span>Help and Docs</span>
+                </span>
+              </button>
             </div>
           </div>
             

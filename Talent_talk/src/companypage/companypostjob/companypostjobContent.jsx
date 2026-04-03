@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const CompanyPostJobContent = ({ setPostjob }) => {
-
-  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");

@@ -9,8 +9,8 @@ function CompanyLogin() {
   const [email,setemail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handlelogin = ()=>{
-    // e.preventDefault()
+  const handlelogin = (e)=>{
+    e.preventDefault();
     if (email === "company@gmail.com"  && password === "1234"){
       console.log("login successfully")
       navigate("/company/dashboard")

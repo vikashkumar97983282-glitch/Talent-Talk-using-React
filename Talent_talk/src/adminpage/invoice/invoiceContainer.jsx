@@ -1,6 +1,6 @@
 import React from "react";
 
-function InvoiceContainer(props){
+function InvoiceContainer(){
 
     return (
         <div className="mt-20 flex flex-wrap gap-5">

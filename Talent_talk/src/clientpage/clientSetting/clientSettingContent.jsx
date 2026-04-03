@@ -1,10 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 function ClientSettingsContent() {
-
-  const navigate = useNavigate();
 
   // const handle = ()=>{
   //   navigate("/")

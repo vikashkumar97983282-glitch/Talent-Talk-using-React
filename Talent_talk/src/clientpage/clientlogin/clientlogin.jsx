@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { Outlet , Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +10,7 @@ function ClientLogin() {
   const [password , setPassword] = useState("");
 
   const handleSubmit = (e)=>{
-    // e.preventDefault()
+    e.preventDefault();
    
     if (email === "client@gmail.com" && password === "1234"){
       navigate("/client/dashboard");

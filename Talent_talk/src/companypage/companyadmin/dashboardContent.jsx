@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function CompanyDashboardContent({postjob,setPostjob}) {
+function CompanyDashboardContent({postjob}) {
 
 
 

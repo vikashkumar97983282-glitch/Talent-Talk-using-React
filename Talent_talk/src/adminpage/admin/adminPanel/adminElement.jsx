@@ -1,23 +1,21 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-
-
-function AdminElement(props){
-
-    const navigate = useNavigate('')
-    
-    const user = ()=>{
-        // let rot = props.name.toLowerCase()
-        navigate(`${props.path}`)
-        // console.log(rot.toLowerCase())
-    } 
+function AdminElement({ name, img, path }){
 
     return (
         <div className="flex flex-col items-center">
-            <button onClick={user} className="h-10 w-[83%] text-black bg-aliceblue m-px cursor-pointer flex justify-start gap-5 items-center rounded-md hover:bg-gray-500">
-                <img src={props.img} alt="" className="h-4.5 w-4.5 ml-2"/>{props.name}
-            </button>
+            <NavLink
+                to={path}
+                className={({ isActive }) =>
+                    `h-10 w-[83%] m-px flex justify-start gap-5 items-center rounded-md px-2 text-black transition-colors ${
+                        isActive ? "bg-blue-200 font-semibold" : "bg-slate-100 hover:bg-gray-200"
+                    }`
+                }
+            >
+                <img src={img} alt="" className="h-5 w-5" />
+                <span>{name}</span>
+            </NavLink>
         </div>
     )
 }

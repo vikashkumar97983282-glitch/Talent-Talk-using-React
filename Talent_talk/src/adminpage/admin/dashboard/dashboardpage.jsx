@@ -2,7 +2,6 @@ import React from "react";
 import DashCont from "./dashCont";
 import EarnOverview from "./earnOverview";
 import Graph from "./graph";
-import { AllCommunityModule, ModuleRegistry } from "ag-charts-community";
 import RecentActivity from "./recentActivity";
 
 
