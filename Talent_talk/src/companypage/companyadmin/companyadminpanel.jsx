@@ -1,10 +1,8 @@
 import React from "react";
 import { FaHome, FaUser, FaBriefcase, FaBell, FaEnvelope, FaDollarSign, FaCog } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-const CompanyAdminPanel = () => {
-
-  const panel = [
+const panel = [
   { name: "Dashboard", icon: FaHome, path:"/company/dashboard"},
   { name: "Client", icon: FaUser ,path:"/company/client"},
   { name: "Post Jobs", icon: FaBriefcase ,path:"/company/postjob"},
@@ -15,32 +13,38 @@ const CompanyAdminPanel = () => {
   { name: "Settings", icon: FaCog ,path:"/company/setting"},
 ];
 
-const navigate = useNavigate("");
-
-const handle = (path)=>{
-  navigate(path)
-}
-
-
+const CompanyAdminPanel = () => {
   return (
     <div className="w-64 h-screen bg-teal-700 text-white p-6">
 
-      <button onClick={()=>navigate("/company/profile")} className="flex items-center gap-3 mb-10 cursor-pointer">
+      <NavLink to="/company/profile" className="mb-10 flex items-center gap-3">
         <img
           src="https://randomuser.me/api/portraits/women/44.jpg"
+          alt="Company profile"
           className="w-10 h-10 rounded-full"
         />
         <span className="font-semibold">Sophi carter</span>
-      </button>
+      </NavLink>
 
       <ul className="space-y-6 text-sm">
 
         {panel.map((elem,idx)=>{
           const Icon = elem.icon
           return (
-            <button onClick={()=>handle(elem.path)} key={idx} className="flex items-center gap-3 cursor-pointer hover:text-gray-200">
-            <Icon /> {elem.name}
-        </button>
+            <li key={idx}>
+              <NavLink
+                to={elem.path}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 rounded-md px-3 py-2 transition-colors ${
+                    isActive
+                      ? "bg-white text-teal-700 font-semibold"
+                      : "text-white hover:bg-teal-600"
+                  }`
+                }
+              >
+                <Icon /> {elem.name}
+              </NavLink>
+            </li>
           )
         })}
 

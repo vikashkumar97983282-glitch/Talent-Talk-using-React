@@ -2,15 +2,23 @@ import React from "react";
 import NavButton from "./navbutton";
 import { Link } from "react-router-dom";
 
+const buttons = [
+    { name: "Dashboard", path: "/admin/dashboard" },
+    { name: "Users", path: "/admin/users" },
+    { name: "Jobs", path: "/admin/jobs" },
+    { name: "Company", path: "/admin/company" },
+    { name: "Invoice", path: "/admin/invoice" },
+    { name: "Insights", path: "/admin/insights" },
+    { name: "Payments", path: "/admin/payments" },
+    { name: "Settings", path: "/admin/settings" },
+];
+
 function Navbar(){
-
-    const button = ["Dashboard","Users","Jobs","Company","Invoice","Insights","Payments","Settings"]
-
     return (
         <div className=" flex flex-wrap justify-between items-center border-b gray-50">
             <div className="flex flex-wrap justify-between items-center">
-                {button.map((elem,idx)=>{
-                return <NavButton key={idx} elem={elem}/>
+                {buttons.map((button,idx)=>{
+                return <NavButton key={idx} elem={button.name} path={button.path}/>
             })}
             </div>
             <Link to="/admin/settings">
