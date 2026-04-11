@@ -30,11 +30,6 @@ const adminRoutes = require('./routes/adminroutes');
 const companyRoutes = require('./routes/companyroutes');
 const clientRoutes = require('./routes/clientroutes')
 
-// using local modules 
-app.use(adminRoutes);
-app.use(companyRoutes);
-app.use(clientRoutes);
-
 
 
 app.get("/",(req,res)=>{
@@ -42,8 +37,22 @@ app.get("/",(req,res)=>{
 })
 
 
-const PORT = process.env.PORT;
 
+// using local modules 
+app.use(adminRoutes);
+app.use(companyRoutes);
+app.use(clientRoutes);
+
+
+// error handling middleware
+app.use((req,res)=>{
+    res.send("file not found")
+})
+
+
+
+
+const PORT = process.env.PORT;
 app.listen(PORT,()=>{
     console.log(`server is running on address http://localhost:${PORT}`)
 })
