@@ -1,49 +1,41 @@
-import React, { Suspense, lazy, useState } from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./adminpage/home/home";
-
-
-// company side pages
-const Login = lazy(() => import("./adminpage/login/login"));
-const Dashboard = lazy(() => import("./adminpage/admin/dashboard"));
-const Users = lazy(() => import("./adminpage/users/users"));
-const Job = lazy(() => import("./adminpage/jobs/jobs"));
-const Payments = lazy(() => import("./adminpage/payments/payments"));
-const Invoice = lazy(() => import("./adminpage/invoice/invoice"));
-const Insights = lazy(() => import("./adminpage/insights/insights"));
-const Company = lazy(() => import("./adminpage/company/company"));
-const Settings = lazy(() => import("./adminpage/profile/settings"));
-const AccountSettings = lazy(() => import("./adminpage/profile/accountsetting"));
-const CompanyRegister = lazy(() => import("./companypage/register/register"));
-const CompanyLogin = lazy(() => import("./companypage/companylogin/companylogin"));
-const CompanyForgotPassword = lazy(() => import("./companypage/register/companyforget"));
-const CompanyDashboard = lazy(() => import("./companypage/companyadmin/dashboard"));
-const CompanyClient = lazy(() => import("./companypage/companyclient/companyClient"));
-const CompanyPostJob = lazy(() => import("./companypage/companypostjob/companypostjob"));
-const CompanyManageJob = lazy(() => import("./companypage/companymanagejob/companymanagejob"));
-const CompanyJobApplication = lazy(() => import("./companypage/companyJobApplication/companyJobApplication"));
-const CompanyMessage = lazy(() => import("./companypage/message/companymessage"));
-const CompanyPayment = lazy(() => import("./companypage/companyPayment/companyPayment"));
-const CompanySetting = lazy(() => import("./companypage/companysetting/companySetting"));
-const CompanyProfile = lazy(() => import("./companypage/companyprofile/companyprofile"));
-const CompanyEdit = lazy(() => import("./companypage/companyEdit/companyEdit"));
-
-
-
-// client side page
-const ClientRegister = lazy(() => import("./clientpage/clientregister/clientregister"));
-const ClientLogin = lazy(() => import("./clientpage/clientlogin/clientlogin"));
-const ClientForgetPassword = lazy(() => import("./clientpage/clientlogin/clientforget"));
-const ClientDashboard = lazy(() => import("./clientpage/clientDashboard/clientDashboard"));
-const ClientFindJob = lazy(() => import("./clientpage/clientfindjob/clientfindjob"));
-const ClientProject = lazy(() => import("./clientpage/clientproject/clientproject"));
-const ClientJob = lazy(() => import("./clientpage/clientjobapply/clientjob"));
-const ClientMessage = lazy(() => import("./clientpage/clientMessage/clientMessage"));
-const ClientPayment = lazy(() => import("./clientpage/clientpayment/clientpayment"));
-const ClientSetting = lazy(() => import("./clientpage/clientSetting/clientSetting"));
-const ClientProfile = lazy(() => import("./clientpage/clientProfile/clientProfile"));
-const ClientProfileEdit = lazy(() => import("./clientpage/clientProfileEdit/clientProfileEdit"));
-
+import Login from "./adminpage/login/login";
+import Dashboard from "./adminpage/admin/dashboard";
+import Users from "./adminpage/users/users";
+import Job from "./adminpage/jobs/jobs";
+import Payments from "./adminpage/payments/payments";
+import Invoice from "./adminpage/invoice/invoice";
+import Insights from "./adminpage/insights/insights";
+import Company from "./adminpage/company/company";
+import Settings from "./adminpage/profile/settings";
+import AccountSettings from "./adminpage/profile/accountsetting";
+import CompanyRegister from "./companypage/register/register";
+import CompanyLogin from "./companypage/companylogin/companylogin";
+import CompanyForgotPassword from "./companypage/register/companyforget";
+import CompanyDashboard from "./companypage/companyadmin/dashboard";
+import CompanyClient from "./companypage/companyclient/companyClient";
+import CompanyPostJob from "./companypage/companypostjob/companypostjob";
+import CompanyManageJob from "./companypage/companymanagejob/companymanagejob";
+import CompanyJobApplication from "./companypage/companyJobApplication/companyJobApplication";
+import CompanyMessage from "./companypage/message/companymessage";
+import CompanyPayment from "./companypage/companyPayment/companyPayment";
+import CompanySetting from "./companypage/companysetting/companySetting";
+import CompanyProfile from "./companypage/companyprofile/companyprofile";
+import CompanyEdit from "./companypage/companyEdit/companyEdit";
+import ClientRegister from "./clientpage/clientregister/clientregister";
+import ClientLogin from "./clientpage/clientlogin/clientlogin";
+import ClientForgetPassword from "./clientpage/clientlogin/clientforget";
+import ClientDashboard from "./clientpage/clientDashboard/clientDashboard";
+import ClientFindJob from "./clientpage/clientfindjob/clientfindjob";
+import ClientProject from "./clientpage/clientproject/clientproject";
+import ClientJob from "./clientpage/clientjobapply/clientjob";
+import ClientMessage from "./clientpage/clientMessage/clientMessage";
+import ClientPayment from "./clientpage/clientpayment/clientpayment";
+import ClientSetting from "./clientpage/clientSetting/clientSetting";
+import ClientProfile from "./clientpage/clientProfile/clientProfile";
+import ClientProfileEdit from "./clientpage/clientProfileEdit/clientProfileEdit";
 
 function App() {
 
@@ -61,66 +53,60 @@ function App() {
 
   return (
     <div>
+      <Routes>
 
-      <Suspense fallback={<div className="p-4">Loading...</div>}>
-        <Routes>
+        <Route path="/" element={<Home/>}></Route>
 
-          <Route path="/" element={<Home/>}></Route>
+        {/* admin page routing  */}
+        <Route path="/admin">
+          <Route index element={<Login/>}/>
+          <Route path="dashboard" element={<Dashboard/>}/>
+          <Route path="users" element={<Users />} />
+          <Route path="jobs" element={<Job />} />
+          <Route path="payments" element={<Payments />} />
+          <Route path="invoice" element={<Invoice />} />
+          <Route path="insights" element={<Insights />} />
+          <Route path="company" element={<Company />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="settings/accountsetting" element={<AccountSettings />} />
+        </Route>
 
-           {/* admin page routing  */}
-          <Route path="/admin">
-            <Route index element={<Login/>}/>
-            <Route path="dashboard" element={<Dashboard/>}/>
-            <Route path="users" element={<Users />} />
-            <Route path="jobs" element={<Job />} />
-            <Route path="payments" element={<Payments />} />
-            <Route path="invoice" element={<Invoice />} />
-            <Route path="insights" element={<Insights />} />
-            <Route path="company" element={<Company />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="settings/accountsetting" element={<AccountSettings />} />
-          </Route>
+        {/* company side routing */}
+        <Route path="/company">
+          <Route index element={<CompanyLogin/>} />
+          <Route path="register" element={<CompanyRegister/>} />
+          <Route path="forget-password" element={<CompanyForgotPassword/>} />
 
-          {/* company side routing */}
-          <Route path="/company">
-            <Route index element={<CompanyLogin/>} />
-            <Route path="register" element={<CompanyRegister/>} />
-            <Route path="forget-password" element={<CompanyForgotPassword/>} />
-
-            <Route path="dashboard" element={<CompanyDashboard postjob={postjob} setPostjob={setPostjob}/>} />
-            <Route path="client" element={<CompanyClient/>} />
-            <Route path="postjob" element={<CompanyPostJob setPostjob={setPostjob}/>} />
-            <Route path="managejob" element={<CompanyManageJob/>} />
-            <Route path="job-application" element={<CompanyJobApplication/>} />
-            <Route path="message" element={<CompanyMessage/>} />
-            <Route path="payments" element={<CompanyPayment/>} />
-            <Route path="settings" element={<CompanySetting/>} />
-            <Route path="profile" element={<CompanyProfile/>} />
-            <Route path="profile-Edit" element={<CompanyEdit/>} />
-          </Route> 
+          <Route path="dashboard" element={<CompanyDashboard postjob={postjob} setPostjob={setPostjob}/>} />
+          <Route path="client" element={<CompanyClient/>} />
+          <Route path="postjob" element={<CompanyPostJob setPostjob={setPostjob}/>} />
+          <Route path="managejob" element={<CompanyManageJob/>} />
+          <Route path="job-application" element={<CompanyJobApplication/>} />
+          <Route path="message" element={<CompanyMessage/>} />
+          <Route path="payments" element={<CompanyPayment/>} />
+          <Route path="settings" element={<CompanySetting/>} />
+          <Route path="profile" element={<CompanyProfile/>} />
+          <Route path="profile-Edit" element={<CompanyEdit/>} />
+        </Route> 
 
 
-          {/* client side */}
-          <Route path="/client">
-            <Route index element={<ClientLogin/>}/>
-            <Route path="register" element={<ClientRegister/>}/>
-            <Route path="forget-password" element={<ClientForgetPassword/>}/>
-            <Route path="dashboard" element={<ClientDashboard/>}/>
-            <Route path="projects" element={<ClientProject/>}/>
-            <Route path="find-jobs" element={<ClientFindJob/>}/>
-            <Route path="message" element={<ClientMessage/>}/>
-            <Route path="payments" element={<ClientPayment/>}/>
-            <Route path="settings" element={<ClientSetting/>}/>
-            <Route path="profile" element={<ClientProfile/>}/>
-            <Route path="profileEdit" element={<ClientProfileEdit/>}/>
-          </Route>
+        {/* client side */}
+        <Route path="/client">
+          <Route index element={<ClientLogin/>}/>
+          <Route path="register" element={<ClientRegister/>}/>
+          <Route path="forget-password" element={<ClientForgetPassword/>}/>
+          <Route path="dashboard" element={<ClientDashboard/>}/>
+          <Route path="projects" element={<ClientProject/>}/>
+          <Route path="find-jobs" element={<ClientFindJob/>}/>
+          <Route path="message" element={<ClientMessage/>}/>
+          <Route path="payments" element={<ClientPayment/>}/>
+          <Route path="settings" element={<ClientSetting/>}/>
+          <Route path="profile" element={<ClientProfile/>}/>
+          <Route path="profileEdit" element={<ClientProfileEdit/>}/>
+        </Route>
 
 
-        </Routes>
-      </Suspense>
-      
-
-
+      </Routes>
     </div>
   );
 }

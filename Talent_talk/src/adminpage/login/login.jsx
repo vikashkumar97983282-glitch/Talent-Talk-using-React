@@ -1,18 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 function Login(){
 
+    const [users,setUsers] = useState([]);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit =(e)=>{
+
+    useEffect(()=>{
+        const fetchUsers = async ()=>{
+            try {
+                const res = await axios.get("http://localhost:3000/admin");
+                setUsers(res.data)
+            } catch (error){
+                console.error(error)
+            }
+        };
+        fetchUsers();
+    },[])
+
+
+
+    const handleSubmit = async (e)=>{
         e.preventDefault();
 
-        if (email === "admin@gmail.com" && password === "1234"){
+        // console.log(users[0].email);
+        
+
+        if (email === users[0].email && password === users[0].password){
             setMessage("login sucessful");
             navigate("/admin/dashboard");
         } else {
