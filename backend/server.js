@@ -1,23 +1,33 @@
-require('dotenv').config();
+require('dotenv').config({quiet: true});
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
 
-// local modules import 
-const adminRoutes = require('./admin/adminroutes');
-const clientRoutes = require('./client/clientroutes');
-const companyRoutes = require('./company/companyroutes');
-
-// using local modules 
-app.use(adminRoutes);
-app.use(clientRoutes);
-app.use(companyRoutes);
-
 
 app.use(cors());
 app.use(bodyParser.json({extended:true}));
+app
+
+
+
+
+
+// database connection
+require('./config/db');
+
+
+// local modules import 
+const adminRoutes = require('./routes/adminroutes');
+const companyRoutes = require('./routes/companyroutes');
+const clientRoutes = require('./routes/clientroutes')
+
+// using local modules 
+app.use(adminRoutes);
+app.use(companyRoutes);
+app.use(clientRoutes);
+
 
 
 app.get("/",(req,res)=>{
