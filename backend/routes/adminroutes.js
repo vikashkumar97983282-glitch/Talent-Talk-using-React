@@ -17,8 +17,8 @@ router.post('/register', async (req,res)=>{
     if(admin.length > 0) return res.status(401).send("Permission denied!");
     try{
         bcrypt.genSalt(10, function(err,salt){
-            bcrypt.hash(password, salt, function(err,hash){
-                let user = AdminModel.create({
+            bcrypt.hash(password, salt, async function(err,hash){
+                let user = await AdminModel.create({
                     name,
                     email,
                     password:hash,
@@ -33,6 +33,22 @@ router.post('/register', async (req,res)=>{
         res.send(err)
     }
 });
+
+
+router.post('/login', async (req,res)=>{
+    let {email, password} = req.body;
+    const admin = await AdminModel.findOne({email});
+
+    if(!admin) return res.status(401).send(" admin something went wrong");
+    bcrypt.compare(password, admin.password, function(err,result){
+        if(!result){
+            return res.status(401).send("something went wrong!")
+        }
+
+        res.status(200).send("user login sucessfully!")
+        
+    })
+})
 
 
 
