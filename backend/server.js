@@ -5,10 +5,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 
-
+// internal models
 app.use(cors());
-app.use(bodyParser.json({extended:true}));
-app
+app.use(express())
+app.use(express.urlencoded({extended:true}));
 
 
 
@@ -16,6 +16,13 @@ app
 
 // database connection
 require('./config/db');
+
+
+
+// models imports 
+const AdminModel = require('./models/adminmodels');
+const CompanyModel = require('./models/companymodels');
+const ClientModel = require('./models/clientmodels');
 
 
 // local modules import 
