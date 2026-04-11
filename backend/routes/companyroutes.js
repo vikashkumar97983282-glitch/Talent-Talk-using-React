@@ -32,6 +32,27 @@ router.post("/register", async (req,res)=>{
         console.log(err);
         res.send(err);
     }
+});
+
+
+router.post('/login', async (req,res)=>{
+    let {email,password} = req.body;
+    const company = await CompanyModel.findOne({email})
+
+    if(!company) return res.status(404).send("company doesn't exists!");
+
+    try{
+        bcrypt.compare(password, company.password, function(err,result){
+            if(!result){
+                return res.status(401).send("something went wrong!")
+            }
+            res.status(200).send("login sucessfully!")
+        })
+    } 
+    catch(err){
+        console.log(err);
+        res.status(404).send(err);
+    }
 })
 
 
