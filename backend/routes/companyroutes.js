@@ -53,7 +53,7 @@ router.post('/login', async (req,res)=>{
         console.log(err);
         res.status(404).send(err);
     }
-})
+});
 
 
 
