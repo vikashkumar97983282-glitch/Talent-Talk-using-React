@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/company', (req,res)=>{
+router.get('/', (req,res)=>{
     console.log("this is company")
     res.send("this is company routes");
 })

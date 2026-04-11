@@ -39,14 +39,14 @@ app.get("/",(req,res)=>{
 
 
 // using local modules 
-app.use(adminRoutes);
-app.use(companyRoutes);
-app.use(clientRoutes);
+app.use('/admin',adminRoutes);
+app.use('/company',companyRoutes);
+app.use('/client',clientRoutes);
 
 
 // error handling middleware
 app.use((req,res)=>{
-    res.send("file not found")
+    res.status(401).send("something went wrong!")
 })
 
 
