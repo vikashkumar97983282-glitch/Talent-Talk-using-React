@@ -9,7 +9,7 @@ router.get('/', (req,res)=>{
     res.send('this is admin routes');
 });
 
-
+// register page
 router.post('/register', async (req,res)=>{
     let {name,email,password,age} = req.body;
 
@@ -34,7 +34,7 @@ router.post('/register', async (req,res)=>{
     }
 });
 
-
+// login page
 router.post('/login', async (req,res)=>{
     let {email, password} = req.body;
     const admin = await AdminModel.findOne({email});

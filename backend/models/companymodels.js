@@ -2,10 +2,19 @@ const mongoose = require('mongoose');
 
 
 const companyModel = mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        trim: true
+    },
     email: String,
     password: String,
-    age: Number
+    age: Number,
+    posts: [
+        {
+           type: mongoose.Schema.Types.ObjectId,
+           ref: "" 
+        }
+    ]
 })
 
 

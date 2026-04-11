@@ -11,18 +11,9 @@ app.use(express())
 app.use(express.urlencoded({extended:true}));
 
 
-
-
-
 // database connection
 require('./config/db');
 
-
-
-// models imports 
-const AdminModel = require('./models/adminmodels');
-const CompanyModel = require('./models/companymodels');
-const ClientModel = require('./models/clientmodels');
 
 
 // local modules import 
