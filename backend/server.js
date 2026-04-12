@@ -3,12 +3,14 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const cookieparser = require('cookie-parser');
 
 
 // internal models
 app.use(cors());
 app.use(express())
 app.use(express.urlencoded({extended:true}));
+app.use(cookieparser());
 
 
 // database connection

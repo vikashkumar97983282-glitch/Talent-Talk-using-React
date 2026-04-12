@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const CompanyModel = require('../models/companymodels');
 const JobModel = require('../models/jobsmodel');
 const jwt = require('jsonwebtoken');
+const isLogin = require('../utils/registerCookies');
+
 
 
 
@@ -51,12 +53,12 @@ router.post('/login', async (req,res)=>{
     try{
         bcrypt.compare(password, company.password, function(err,result){
             if(!result){
-                
+
                 return res.status(401).send("something went wrong!")
             }
 
             let token = jwt.sign({email:email}, process.env.JWT_KEY);
-            res.cookie("token",token);
+            res.cookie("token", token)
 
             res.status(200).send("login sucessfully!")
         })
@@ -68,7 +70,7 @@ router.post('/login', async (req,res)=>{
 });
 
 // get post jobs
-router.get('/postjob', async (req,res)=>{
+router.get('/postjob', isLogin, async (req,res)=>{
     const job = await JobModel.find();
     res.send(job);
 });
