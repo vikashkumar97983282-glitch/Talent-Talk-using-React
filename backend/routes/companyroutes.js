@@ -59,7 +59,6 @@ router.post('/login', async (req,res)=>{
 
             let token = jwt.sign({email:email}, process.env.JWT_KEY);
             res.cookie("token", token)
-
             res.status(200).send("login sucessfully!")
         })
     } 
@@ -68,6 +67,43 @@ router.post('/login', async (req,res)=>{
         res.status(404).send(err);
     }
 });
+
+
+// update company side
+router.post('/update', isLogin, async (req,res)=>{
+    try{
+        let {name,password,} = req.body;
+
+        bcrypt.genSalt(10, function(err,salt){
+            bcrypt.hash(password, salt, async function(err,hash){
+
+                let company = await CompanyModel.findOneAndUpdate(
+                    {email:req.user.email},
+
+                    {
+                        name:name,
+                        password:hash
+                    },
+
+                    {returnDocument: "after" , runValidators: true}
+
+                );
+                console.log(hash)
+                res.send(company)
+            })
+        })
+
+
+    }
+    catch(err){
+        console.log(err);
+        res.send(err);
+    }
+})
+
+
+
+
 
 // get postjobs
 router.get('/postjob', isLogin, async (req,res)=>{
@@ -95,6 +131,18 @@ router.post('/postjob', isLogin, async (req,res)=>{
         await company.save();
         res.send("sucessfully")
 
+    }
+    catch(err){
+        console.log(err);
+        res.send(err);
+    }
+});
+
+// logout company
+router.post('/logout', (req,res)=>{
+    try{
+        res.clearCookie("token");
+        res.send("user logout sucessfully!")
     }
     catch(err){
         console.log(err);
