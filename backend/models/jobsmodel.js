@@ -10,7 +10,7 @@ const jobsModel = mongoose.Schema({
     payment: Number,
     time: Date,
     description: String,
-    company: [
+    companyid: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "company"
