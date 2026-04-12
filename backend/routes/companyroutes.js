@@ -1,7 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const CompanyModel = require('../models/companymodels');
 const bcrypt = require('bcrypt');
+const CompanyModel = require('../models/companymodels');
+const JobModel = require('../models/jobsmodel');
+const jwt = require('jsonwebtoken');
+
+
+
+
+
 
 router.get('/', (req,res)=>{
     console.log("this is company")
@@ -44,8 +51,13 @@ router.post('/login', async (req,res)=>{
     try{
         bcrypt.compare(password, company.password, function(err,result){
             if(!result){
+                
                 return res.status(401).send("something went wrong!")
             }
+
+            let token = jwt.sign({email:email}, process.env.JWT_KEY);
+            res.cookie("token",token);
+
             res.status(200).send("login sucessfully!")
         })
     } 
@@ -54,6 +66,39 @@ router.post('/login', async (req,res)=>{
         res.status(404).send(err);
     }
 });
+
+// get post jobs
+router.get('/postjob', async (req,res)=>{
+    const job = await JobModel.find();
+    res.send(job);
+});
+
+// post jobs
+router.post('/postjob', async (req,res)=>{
+    let {title, project, payment, time, description} = req.body;
+
+    const company = await CompanyModel.find();
+
+    try{
+        let job = await JobModel.create({
+            title,
+            project,
+            payment,
+            time,
+            description,
+            company: company._id,
+        })
+        console.log(job)
+        company.posts.push(job._id);
+        await company.save();
+        res.send("sucessfully")
+
+    }
+    catch(err){
+        console.log(err);
+        res.send(err);
+    }
+})
 
 
 

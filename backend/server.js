@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended:true}));
 
 // database connection
 require('./config/db');
-
+const jobs = require('./models/jobsmodel');
 
 
 // local modules import 

@@ -3,12 +3,14 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const ClientModel = require('../models/clientmodels')
 
-
+// home routes
 router.get('/', (req,res)=>{
     console.log('client route');
     res.send('this is client routes')
 })
 
+
+// register routes
 router.post('/register', async (req,res)=>{
     let {name,email,password,age} = req.body;
     const client = await ClientModel.findOne({email});
@@ -25,7 +27,7 @@ router.post('/register', async (req,res)=>{
                     age
                 })
             })
-            res.send("user create")
+            res.status(201).send("user create")
         })
     }
     catch(err){
@@ -34,7 +36,7 @@ router.post('/register', async (req,res)=>{
     }
 });
 
-
+// login routes 
 router.post('/login', async (req,res)=>{
     let {email, password} = req.body;
     const user = await ClientModel.findOne({email});
@@ -44,9 +46,9 @@ router.post('/login', async (req,res)=>{
     try{
         bcrypt.compare(password, user.password, function(err,result){
             if(!result){
-                return res.status(401).send("invalid credentials!")
+                return res.status(401).send("invalid credentials!");
             }
-            res.send("login sucessfully!")
+            res.status(200).send("login sucessfully!");
         })
 
     }

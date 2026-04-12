@@ -12,7 +12,7 @@ const companyModel = mongoose.Schema({
     posts: [
         {
            type: mongoose.Schema.Types.ObjectId,
-           ref: "" 
+           ref: "job" 
         }
     ]
 })
