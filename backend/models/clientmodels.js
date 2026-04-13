@@ -14,7 +14,8 @@ const clientModel = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "job"
         }
-    ]
+    ],
+    avatar: String,
 })
 
 

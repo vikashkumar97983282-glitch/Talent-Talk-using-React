@@ -11,9 +11,11 @@ const upload = require('../middleware/fileupload')
 
 
 // home routes
-router.get('/', (req,res)=>{
+router.get('/', async (req,res)=>{
+    let user = await ClientModel.find();
+
     console.log('client route');
-    res.send('this is client routes')
+    res.send(user)
 })
 
 
@@ -119,52 +121,18 @@ router.post('/job', isLogin, async (req,res)=>{
 
 
 // fileuploads
-router.post("/upload", isLogin, upload.single("image"), async (req, res) => {
-    try {
-      const { name, password, age } = req.body;
+router.post("/upload", isLogin, upload.single("image"), async (req, res) =>{
+    let client = await ClientModel.findOne({email:req.user.email});
 
-      let updateData = {
-        name,
-        age
-      };
+    let data = await ClientModel.findOneAndUpdate({email:req.user.email},
+        {avatar:req.file.filename},
+        {returnDocument: true, runValidators: true}
+    )
 
-      // update image
-      if (req.file) {
-        updateData.image = req.file.filename;
-      }
 
-      // update password
-      if (password && password.trim() !== "") {
-        const salt = await bcrypt.genSalt(10);
-        const hash = await bcrypt.hash(password, salt);
-
-        updateData.password = hash;
-      }
-
-      const client = await ClientModel.findOneAndUpdate(
-        { email: req.user.email },
-        updateData,
-        {
-          new: true,
-          runValidators: true
-        }
-      );
-
-      if (!client) {
-        return res.status(404).send("User not found");
-      }
-
-      res.send({
-        message: "Updated successfully",
-        client
-      });
-
-    } catch (err) {
-      console.log(err);
-      res.status(500).send(err.message);
-    }
-  }
-);
+    console.log(client)
+    res.send(data)
+})
 
 
 
