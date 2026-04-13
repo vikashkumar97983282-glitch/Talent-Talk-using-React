@@ -8,7 +8,13 @@ const clientModel = mongoose.Schema({
     },
     email: String,
     password: String,
-    age: Number
+    age: Number,
+    job:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "job"
+        }
+    ]
 })
 
 

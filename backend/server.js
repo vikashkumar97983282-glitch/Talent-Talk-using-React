@@ -5,6 +5,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieparser = require('cookie-parser');
 
+const path = require('path');
+
 
 // internal models
 app.use(cors());
@@ -17,6 +19,8 @@ app.use(cookieparser());
 require('./config/db');
 const jobs = require('./models/jobsmodel');
 
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // local modules import 
 const adminRoutes = require('./routes/adminroutes');

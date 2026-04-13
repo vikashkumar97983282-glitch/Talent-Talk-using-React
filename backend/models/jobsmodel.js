@@ -15,6 +15,12 @@ const jobsModel = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "company"
         }
+    ],
+    clientid:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "client"
+        }
     ]
 
 })
