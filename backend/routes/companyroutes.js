@@ -121,7 +121,7 @@ router.post('/update', isLogin, async (req,res)=>{
 // get postjobs
 router.get('/postjob', isLogin, async (req,res)=>{
     const company = await CompanyModel.findOne({email:req.user.email}).populate('posts');
-    res.send(company.posts);
+    res.json(company.posts);
 });
 
 // post jobs

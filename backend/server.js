@@ -20,7 +20,7 @@ app.use(cookieparser());
 
 // database connection
 require('./config/db');
-const jobs = require('./models/jobsmodel');
+// const jobs = require('./models/jobsmodel');
 
 
 app.use("/uploads", express.static(path.join(__dirname, "public/temp/")));
@@ -28,7 +28,8 @@ app.use("/uploads", express.static(path.join(__dirname, "public/temp/")));
 // local modules import 
 const adminRoutes = require('./routes/adminroutes');
 const companyRoutes = require('./routes/companyroutes');
-const clientRoutes = require('./routes/clientroutes')
+const clientRoutes = require('./routes/clientroutes');
+const jobRoutes = require('./routes/jobroutes');
 
 
 
@@ -42,6 +43,7 @@ app.get("/",(req,res)=>{
 app.use('/admin',adminRoutes);
 app.use('/company',companyRoutes);
 app.use('/client',clientRoutes);
+app.use('/job',jobRoutes);
 
 
 // error handling middleware
