@@ -1,9 +1,24 @@
-import React from "react";
+import React, {  useEffect, useState } from "react";
+import axios from 'axios'
 
 
-function CompanyDashboardContent({postjob}) {
+function CompanyDashboardContent() {
 
+  const [job,setJob] = useState([]);
 
+  useEffect(()=>{
+    const postjob = async ()=>{
+      try{
+          const res = await axios.get("http://localhost:3000/company/postjob",{withCredentials:true});
+          setJob(res.data)
+      }
+      catch(err){
+        console.log(err)
+      }
+    }
+    postjob();
+  },[])
+  console.log(job)
 
   return (
     <div className="flex">
@@ -19,19 +34,19 @@ function CompanyDashboardContent({postjob}) {
         {/* Top Cards */}
         <div className="mb-10 flex gap-8">
 
-          <div className="w-52 rounded-2xl bg-gradient-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-6 text-center text-white shadow-lg shadow-[#14392e]/15">
+          <div className="w-52 rounded-2xl bg-linear-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-6 text-center text-white shadow-lg shadow-[#14392e]/15">
             <h3 className="text-lg">Active Jobs</h3>
             {/* ✅ dynamic count */}
-            <p className="text-3xl font-bold mt-3">{postjob.length}</p>
+            <p className="text-3xl font-bold mt-3">{job?.length || 0}</p>
             <span className="text-[#d9efe2]">Updated</span>
           </div>
 
-          <div className="w-52 rounded-2xl bg-gradient-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-6 text-center text-white shadow-lg shadow-[#14392e]/15">
+          <div className="w-52 rounded-2xl bg-linear-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-6 text-center text-white shadow-lg shadow-[#14392e]/15">
             <h3 className="text-lg">Recent Notification</h3>
             <p className="text-3xl font-bold mt-3">24</p>
           </div>
 
-          <div className="w-52 rounded-2xl bg-gradient-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-6 text-center text-white shadow-lg shadow-[#14392e]/15">
+          <div className="w-52 rounded-2xl bg-linear-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-6 text-center text-white shadow-lg shadow-[#14392e]/15">
             <h3 className="text-lg">Rating</h3>
             <p className="text-3xl font-bold mt-3">4/5</p>
           </div>
@@ -39,7 +54,7 @@ function CompanyDashboardContent({postjob}) {
         </div>
 
         {/* Recent Applications */}
-        <div className="mb-10 w-96 rounded-2xl bg-gradient-to-br from-[#102a22] via-[#184739] to-[#2d6b58] p-6 text-white shadow-lg shadow-[#14392e]/15">
+        <div className="mb-10 w-96 rounded-2xl bg-linear-to-br from-[#102a22] via-[#184739] to-[#2d6b58] p-6 text-white shadow-lg shadow-[#14392e]/15">
 
           <h2 className="text-xl mb-6">Recent Application</h2>
 
@@ -68,10 +83,10 @@ function CompanyDashboardContent({postjob}) {
 
         <div className="space-y-4">
 
-          {postjob.length === 0 ? (
+          {job?.length === 0 ? (
             <p className="text-[#5a7368]">No Jobs Posted Yet</p>
           ) : (
-            postjob.map((job, idx) => (
+            job.map((job, idx) => (
               <div
                 key={idx}
                 className="flex justify-between rounded-lg bg-[#fffdf8] p-4 shadow-sm ring-1 ring-[#e7dfcc]"
@@ -98,7 +113,7 @@ function CompanyDashboardContent({postjob}) {
                   </p>
                 </div>
 
-                <span className="w-25 rounded-lg bg-gradient-to-r from-[#2d6b58] to-[#4f8c73] px-4 py-1 text-center text-white">
+                <span className="w-25 rounded-lg bg-linear-to-r from-[#2d6b58] to-[#4f8c73] px-4 py-1 text-center text-white">
                   Active
                 </span>
               </div>

@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios'
 
 function ClientDashboardContent() {
+
+  const [job, setJob] = useState([]);
+
+  useEffect(()=>{
+    const jobs = async ()=>{
+      const res = await axios.get("http://localhost:3000/job",{withCredentials:true});
+      setJob(res.data);
+    }
+    jobs();
+  },[]);
+
   return (
     <div className="flex-1 bg-slate-50 p-8 text-slate-900">
 
@@ -79,23 +91,17 @@ function ClientDashboardContent() {
 
           <div className="space-y-4">
 
-            <div className="rounded-xl bg-gradient-to-r from-sky-700 to-indigo-700 p-4 text-white">
-              <h4 className="font-semibold">Senior Product Designer</h4>
-              <p className="text-sm">Airbnb · $120-$150/hr</p>
-              <p className="text-xs">2 days ago · 12 applicants</p>
-            </div>
+            {job.map((job,idx)=>{
+              return (
+                <div key={idx} className="rounded-xl bg-linear-to-r from-sky-700 to-indigo-700 p-4 text-white">
+                  <h4 className="font-semibold">{job.title}</h4>
+                  <p className="text-sm">{job.payment}</p>
+                  <p className="text-xs">{job.time}</p>
+                </div>
+              )
+            })}
 
-            <div className="rounded-xl bg-gradient-to-r from-sky-700 to-indigo-700 p-4 text-white">
-              <h4 className="font-semibold">Web3 Interface Architect</h4>
-              <p className="text-sm">Coinbase · $140-$180/hr</p>
-              <p className="text-xs">5 days ago · 8 applicants</p>
-            </div>
-
-            <div className="rounded-xl bg-gradient-to-r from-sky-700 to-indigo-700 p-4 text-white">
-              <h4 className="font-semibold">Brand Identity Lead</h4>
-              <p className="text-sm">Notion · $90-$120/hr</p>
-              <p className="text-xs">4 days ago · 34 applicants</p>
-            </div>
+            
 
           </div>
 

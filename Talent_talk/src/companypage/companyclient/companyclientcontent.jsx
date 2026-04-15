@@ -1,6 +1,9 @@
 import React from "react";
+import axios from 'axios';
 
 function CompanyClientContent() {
+
+
   return (
     <div className="min-h-screen bg-[#f7f4ea] px-6 py-12 text-slate-900">
       <div className="mx-auto flex w-full max-w-4xl flex-col items-center">
