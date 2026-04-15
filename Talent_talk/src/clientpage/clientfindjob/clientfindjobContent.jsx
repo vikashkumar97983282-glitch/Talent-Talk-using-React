@@ -1,15 +1,6 @@
-import React, { useEffect, useState } from "react";
-import axios from 'axios'
+import React, { useState } from "react";
 
 function ClientFindJobContent() {
-
-  const [job, setJob] = useState([]);
-
-  useEffect(()=>{
-    const jobs = async ()=>{
-      let res = await axios.get("http://localhost:3000/job",{})
-    }
-  })
 
   // STATE (jobs)
   const [jobs, setJobs] = useState([

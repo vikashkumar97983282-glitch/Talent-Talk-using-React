@@ -51,7 +51,7 @@ function ClientDashboardContent() {
 
         <div className="rounded-xl bg-gradient-to-br from-indigo-700 to-sky-700 p-6 text-white">
           <p>Active Applications</p>
-          <h2 className="text-2xl font-bold">24</h2>
+          <h2 className="text-2xl font-bold">{job.length}</h2>
         </div>
 
         <div className="rounded-xl bg-gradient-to-br from-indigo-700 to-sky-700 p-6 text-white">
