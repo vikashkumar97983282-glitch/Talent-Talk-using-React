@@ -45,26 +45,39 @@ router.post("/register", async (req,res)=>{
 
 // login router
 router.post('/login', async (req,res)=>{
-    let {email,password} = req.body;
-    const company = await CompanyModel.findOne({email})
-
-    if(!company) return res.status(404).send("company doesn't exists!");
-
+    
     try{
-        bcrypt.compare(password, company.password, function(err,result){
+        let {email,password} = req.body;
+        const company = await CompanyModel.findOne({email});
+
+        if(!company) return res.status(404).json({
+            message: "company doesn't exists!",
+            success: false,
+        });
+
+        let result = await bcrypt.compare(password, company.password)
             if(!result){
 
-                return res.status(401).send("something went wrong!")
+                return res.status(401).json({
+                    message: "something went wrong!",
+                    success: false,
+                })
             }
 
-            let token = jwt.sign({email:email}, process.env.JWT_KEY);
-            res.cookie("token", token)
-            res.status(200).send("login sucessfully!")
+        let token = jwt.sign({email:email}, process.env.JWT_KEY);
+        res.cookie("token", token)
+        res.status(200).json({
+            message: "login sucessfully!",
+            success: true,
         })
+        
     } 
     catch(err){
         console.log(err);
-        res.status(404).send(err);
+        res.status(404).json({
+            message: "invalid users",
+            success: true,
+        });
     }
 });
 
@@ -141,8 +154,16 @@ router.post('/postjob', isLogin, async (req,res)=>{
 // logout company
 router.post('/logout', (req,res)=>{
     try{
-        res.clearCookie("token");
-        res.send("user logout sucessfully!")
+        res.clearCookie("token", {
+        httpOnly: true,
+        secure: false,     
+        sameSite: "lax"
+        });
+
+        res.json({
+            message: "user logout sucessfully!",
+            success: true,
+        })
     }
     catch(err){
         console.log(err);

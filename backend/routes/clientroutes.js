@@ -46,26 +46,44 @@ router.post('/register', async (req,res)=>{
 });
 
 // login routes 
-router.post('/login', async (req,res)=>{
-    let {email, password} = req.body;
-    const user = await ClientModel.findOne({email});
-
-    if(!user) return res.status(409).send("user doesn't exists!");
+router.post('/login', async (req,res)=>{ 
 
     try{
-        bcrypt.compare(password, user.password, function(err,result){
+        let {email, password} = req.body;
+        const user = await ClientModel.findOne({email});
+
+        if(!user) return res.status(409).json({
+            message: "user doesn't exists!",
+            success : false,
+        });
+
+
+        let result = await bcrypt.compare(password, user.password)
             if(!result){
-                return res.status(401).send("invalid credentials!");
+                return res.status(401).json({
+                    message: "invalid credentials!",
+                    success : false,
+                });
             }
             let token = jwt.sign({email:email}, process.env.JWT_KEY);
-            res.cookie("token", token);
-            res.status(200).send("login sucessfully!");
-        })
+            res.cookie("token", token, {
+                httpOnly:true,
+                secure:false,
+                sameSite: "lax"
+            });
+            res.status(200).send({
+                message: "login sucessfully",
+                success: true,
+            });
+
 
     }
     catch(err){
-        console.log(err);
-        res.send(err)
+        console.log("login failed", err);
+        res.json({
+            message:"invalid users",
+            success: true,
+        })
     }
 });
 
@@ -98,8 +116,16 @@ router.post('/update', isLogin, async (req,res)=>{
 
 // client logout
 router.post('/logout', isLogin, (req,res)=>{
-    res.clearCookie("token");
-    res.send("client logout sucessfully !")
+    res.clearCookie("token",{
+        httpOnly: true,
+        secure: false,     
+        sameSite: "lax"
+        });
+        
+    res.json({
+        message: "client logout sucessfully !",
+        success: true,
+    })
 });
 
 
@@ -130,7 +156,7 @@ router.post("/upload", isLogin, upload.single("image"), async (req, res) =>{
     )
 
 
-    console.log(client)
+    console.log(client);
     res.send(data)
 })
 

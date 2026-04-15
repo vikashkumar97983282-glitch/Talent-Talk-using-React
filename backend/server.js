@@ -9,9 +9,12 @@ const path = require('path');
 
 
 // internal models
-app.use(cors());
-app.use(express())
-app.use(express.urlencoded({extended:true}));
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
+app.use(express.json())
+app.use(express.urlencoded({ extended : true }));
 app.use(cookieparser());
 
 
@@ -20,7 +23,7 @@ require('./config/db');
 const jobs = require('./models/jobsmodel');
 
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "public/temp/")));
 
 // local modules import 
 const adminRoutes = require('./routes/adminroutes');

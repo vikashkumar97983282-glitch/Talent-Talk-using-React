@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const AdminModel = require('../models/adminmodels')
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const isLogin = require('../utils/registerCookies');
 
 
 router.get('/', (req,res)=>{
@@ -36,17 +38,53 @@ router.post('/register', async (req,res)=>{
 
 // login page
 router.post('/login', async (req,res)=>{
-    let {email, password} = req.body;
-    const admin = await AdminModel.findOne({email});
+    try{
+        const {email,password} = req.body;
+        console.log(email,password)
+        const admin = await AdminModel.findOne({email});
 
-    if(!admin) return res.status(401).send(" admin something went wrong");
-    bcrypt.compare(password, admin.password, function(err,result){
-        if(!result){
-            return res.status(401).send("something went wrong!")
-        }
+        if(!admin) return res.status(401).json({
+            message: " admin something went wrong",
+            success: false,
+        });
 
-        res.status(200).send("user login sucessfully!")
-        
+        let result = await bcrypt.compare(password, admin.password);
+            if(!result){
+                return res.status(401).json({
+                    message: "something went wrong!",
+                    success: false,
+                })
+            }
+            let token = jwt.sign("token",process.env.JWT_KEY)
+            res.cookie("token", token, {
+                httpOnly: true,
+                secure: false,       
+                sameSite: "lax"
+            });
+
+            return res.status(200).json({
+                message: "user login sucessfully!",
+                success: true,
+            });
+            
+    }
+    catch(err){
+        res.send({
+            message: "invalid user",
+            sucess: false,
+        })
+    }
+});
+
+router.post('/logout', isLogin, (req,res)=>{
+    res.clearCookie("token",{
+        httpOnly: true,
+        secure: false,       // true only on HTTPS
+        sameSite: "lax"
+    });
+    res.status(200).json({
+        message: "logout successfully ",
+        success: true,
     })
 })
 
