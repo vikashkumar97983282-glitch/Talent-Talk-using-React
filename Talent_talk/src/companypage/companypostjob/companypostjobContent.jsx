@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
-const CompanyPostJobContent = ({ setPostjob }) => {
+
+const CompanyPostJobContent = () => {
+
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
@@ -8,32 +13,28 @@ const CompanyPostJobContent = ({ setPostjob }) => {
   const [time, setTime] = useState("");
   const [description, setDescription] = useState("");
 
-  const JobPost = () => {
+  const handlejob = async ()=>{
+    try{
+      let res = await axios.post("http://localhost:3000/company/postjob",{
+        title,
+        category,
+        payment,
+        time,
+        description
+      }
+      ,{withCredentials:true})
+      
 
-    const formdata = {
-      title:title,
-      category:category,
-      payment:payment,
-      time:time,
-      description:description
-    };
+      if(res.data.success){
+        navigate("/company/dashboard")
+      }
 
-    
-    setPostjob(prev => [...prev, formdata]);
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
 
-    console.log("New Job:", formdata);
-
-    alert("job added sucessfully");
-
-    
-    // navigate("/company/dashboard");
-
-    setTitle("");
-    setCategory("");
-    setPayment("");
-    setTime("");
-    setDescription("");
-  };
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-[#f7f4ea] py-10 text-slate-900">
@@ -42,7 +43,7 @@ const CompanyPostJobContent = ({ setPostjob }) => {
         Post a New Job
       </h1>
 
-      <div className="w-[600px] rounded-2xl bg-[#fffdf8] p-8 shadow-sm ring-1 ring-[#e7dfcc]">
+      <div className="w-150 rounded-2xl bg-[#fffdf8] p-8 shadow-sm ring-1 ring-[#e7dfcc]">
 
         <label className="mb-1 block text-sm text-slate-700">Job Title</label>
         <input
@@ -97,8 +98,8 @@ const CompanyPostJobContent = ({ setPostjob }) => {
 
         <div className="flex justify-end mt-6">
           <button
-            onClick={JobPost}
-            className="rounded-full bg-gradient-to-r from-[#1f5a49] to-[#3c7a63] px-10 py-2 text-lg text-white"
+            onClick={handlejob}
+            className="rounded-full bg-linear-to-r from-[#1f5a49] to-[#3c7a63] px-10 py-2 text-lg text-white"
           >
             Post
           </button>
