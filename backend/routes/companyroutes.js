@@ -126,14 +126,14 @@ router.get('/postjob', isLogin, async (req,res)=>{
 
 // post jobs
 router.post('/postjob', isLogin, async (req,res)=>{
-    let {title, project, payment, time, description} = req.body;
+    let {title, category, payment, time, description} = req.body;
 
     const company = await CompanyModel.findOne({email:req.user.email});
 
     try{
         let job = await JobModel.create({
             title,
-            project,
+            category,
             payment,
             time,
             description,
@@ -142,7 +142,10 @@ router.post('/postjob', isLogin, async (req,res)=>{
     
         company.posts.push(job._id);
         await company.save();
-        res.send("sucessfully")
+        res.json({
+            message: "sucessfully",
+            success: true,
+        })
 
     }
     catch(err){

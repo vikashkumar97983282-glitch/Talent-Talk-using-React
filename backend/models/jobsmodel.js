@@ -6,7 +6,7 @@ const jobsModel = mongoose.Schema({
         type: String,
         trim: true
     },
-    project: String,
+    category: String,
     payment: Number,
     time: Date,
     description: String,

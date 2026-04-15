@@ -40,7 +40,6 @@ router.post('/register', async (req,res)=>{
 router.post('/login', async (req,res)=>{
     try{
         const {email,password} = req.body;
-        console.log(email,password)
         const admin = await AdminModel.findOne({email});
 
         if(!admin) return res.status(401).json({
@@ -79,7 +78,7 @@ router.post('/login', async (req,res)=>{
 router.post('/logout', isLogin, (req,res)=>{
     res.clearCookie("token",{
         httpOnly: true,
-        secure: false,       // true only on HTTPS
+        secure: false,      
         sameSite: "lax"
     });
     res.status(200).json({
