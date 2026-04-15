@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Outlet , Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 function ClientLogin() {
   const navigate = useNavigate();
@@ -9,10 +10,12 @@ function ClientLogin() {
   const [email , setEmail] = useState("");
   const [password , setPassword] = useState("");
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = async (e)=>{
     e.preventDefault();
+
+    let res = await axios.post("http://localhost:3000/client/login",{email,password},{withCredentials:true})
    
-    if (email === "client@gmail.com" && password === "1234"){
+    if (res.data.success){
       navigate("/client/dashboard");
       console.log("login successfully!")
     } else{
@@ -22,7 +25,7 @@ function ClientLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-800 flex flex-col items-center justify-center text-sky-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-950 via-indigo-950 to-sky-800 flex flex-col items-center justify-center text-sky-50">
 
     
       {/* Title */}
@@ -77,7 +80,7 @@ function ClientLogin() {
         </div>
 
         {/* Login Button */}
-        <button type="submit" className="w-40 py-3 rounded-full bg-gradient-to-r from-indigo-700 to-sky-700 text-white font-semibold">
+        <button type="submit" className="w-40 py-3 rounded-full bg-linear-to-r from-indigo-700 to-sky-700 text-white font-semibold">
           Login
         </button>
 

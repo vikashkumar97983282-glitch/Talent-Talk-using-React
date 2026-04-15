@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 function CompanySettingsContent() {
 
+  const navigate = useNavigate()
+
   const [darkMode, setDarkMode] = useState(false);
   const [emailAlert, setEmailAlert] = useState(false);
+
+  const handlelogout = async ()=>{
+    let res = await axios.post("http://localhost:3000/company/logout",{},{withCredentials:true});
+    console.log(res.data);
+    if(res.data.success){
+      navigate("/company")
+    }
+  }
 
   return (
     <div className="flex-1 min-h-screen bg-[#f7f4ea] p-10 text-slate-900">
@@ -54,9 +66,9 @@ function CompanySettingsContent() {
           Save Changes
         </Link>
 
-        <Link to="/" className="rounded-lg bg-rose-500 px-4 py-2 text-white">
+        <button onClick={handlelogout} className="rounded-lg bg-rose-500 px-4 py-2 text-white">
           Logout
-        </Link>
+        </button>
 
       </div>
     </div>

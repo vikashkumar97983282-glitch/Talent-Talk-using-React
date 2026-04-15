@@ -5,48 +5,41 @@ import axios from "axios"
 
 function Login(){
 
-    const [users,setUsers] = useState([]);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
 
-    useEffect(()=>{
-        const fetchUsers = async ()=>{
-            try {
-                const res = await axios.get("http://localhost:3000/admin");
-                setUsers(res.data)
-            } catch (error){
-                console.error(error)
-            }
-        };
-        fetchUsers();
-    },[])
-
-
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
 
-        // console.log(users[0].email);
-        
+        try{
+            const res = await axios.post("http://localhost:3000/admin/login",{email,password},
+                {withCredentials: true});
 
-        if (email === users[0].email && password === users[0].password){
-            setMessage("login sucessful");
+            if (res.data.success){
+            setMessage(res.data.message);
             navigate("/admin/dashboard");
-        } else {
-            setEmail("");
-            setPassword("");
-            setMessage("invalid email or password !");
+            } else {
+                setEmail("");
+                setPassword("");
+                setMessage("invalid email or password !");
+            }
         }
+        catch(err){
+            console.log(err)
+        }
+    
+        
     }
 
 
 
     return (
         <div className="w-full h-screen flex justify-center items-center bg-gray-400">
-            <div className="h-92.5 w-155 p-7.5 bg-gradient-to-br from-blue-500 via-sky-400 to-blue-300 rounded-lg mb-8 flex justify-center shadow-lg ring-1 ring-blue-400">
+            <div className="h-92.5 w-155 p-7.5 bg-linear-to-br from-blue-500 via-sky-400 to-blue-300 rounded-lg mb-8 flex justify-center shadow-lg ring-1 ring-blue-400">
                 <form onSubmit={handleSubmit}>
                     <h2 className="text-stone-800 mb-10 text-center">Admin Login</h2>
                     <input type="email" placeholder="email" required onChange={(e)=>{setEmail(e.target.value)}} value={email} className="w-64 h-10 mb-5 px-2 rounded-lg border border-gray-300 bg-white"/>

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';
 
 function CompanyLogin() {
 
@@ -9,9 +10,14 @@ function CompanyLogin() {
   const [email,setemail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handlelogin = (e)=>{
+  const handlelogin = async (e)=>{
     e.preventDefault();
-    if (email === "company@gmail.com"  && password === "1234"){
+
+    let res = await axios.post("http://localhost:3000/company/login",{email,password},{withCredentials:true})
+    console.log(res.data)
+
+
+    if (res.data.success){
       console.log("login successfully")
       navigate("/company/dashboard")
     }

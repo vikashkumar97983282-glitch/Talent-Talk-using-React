@@ -1,6 +1,7 @@
 import React from "react";
 import AccountSettings from "./accountsetting";
 import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';
 
 
 
@@ -9,7 +10,14 @@ function PersonalInfo(){
     const navigate = useNavigate();
     const accounthandle = ()=>{
         navigate('/admin/settings/accountsetting')
-      
+    }
+
+    const handlelogout = async ()=>{
+        let res = await axios.post("http://localhost:3000/admin/logout",{},{withCredentials:true});
+        console.log(res)
+        if(res.data.success){
+            navigate('/admin')
+        }
     }
 
     return (
@@ -32,7 +40,7 @@ function PersonalInfo(){
                 </div>
                 <div className="flex flex-wrap justify-end gap-5">
                     <button className="h-8 w-22 bg-blue-800 items-center rounded-md text-white hover:bg-red-500 hover:text-black cursor-pointer text-center" onClick={accounthandle}>edit profile</button>
-                    <Link to="/" className="h-8 w-22 bg-blue-800 items-center rounded-md text-white hover:bg-red-500 hover:text-black cursor-pointer text-center" onClick={accounthandle}>Logout</Link>
+                    <button onClick={handlelogout} className="h-8 w-22 bg-blue-800 items-center rounded-md text-white hover:bg-red-500 hover:text-black cursor-pointer text-center">Logout</button>
                 </div>
                 
             </div>
