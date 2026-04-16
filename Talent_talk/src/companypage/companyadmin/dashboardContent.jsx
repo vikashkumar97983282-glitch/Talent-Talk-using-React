@@ -11,6 +11,7 @@ function CompanyDashboardContent() {
       try{
           const res = await axios.get("http://localhost:3000/company/postjob",{withCredentials:true});
           setJob(res.data)
+          
       }
       catch(err){
         console.log(err)
@@ -18,7 +19,7 @@ function CompanyDashboardContent() {
     }
     postjob();
   },[])
-  console.log(job)
+
 
   return (
     <div className="flex">

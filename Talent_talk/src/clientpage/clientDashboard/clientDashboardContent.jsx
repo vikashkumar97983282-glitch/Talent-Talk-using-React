@@ -7,11 +7,13 @@ function ClientDashboardContent() {
 
   useEffect(()=>{
     const jobs = async ()=>{
-      const res = await axios.get("http://localhost:3000/job",{withCredentials:true});
+      const res = await axios.get("http://localhost:3000/client/applyjob",{withCredentials:true});
+      console.log(res.data)
       setJob(res.data);
     }
     jobs();
   },[]);
+  console.log(job)
 
   return (
     <div className="flex-1 bg-slate-50 p-8 text-slate-900">
@@ -91,9 +93,9 @@ function ClientDashboardContent() {
 
           <div className="space-y-4">
 
-            {job.map((job,idx)=>{
+            {job.map((job)=>{
               return (
-                <div key={idx} className="rounded-xl bg-linear-to-r from-sky-700 to-indigo-700 p-4 text-white">
+                <div key={job._id} className="rounded-xl bg-linear-to-r from-sky-700 to-indigo-700 p-4 text-white">
                   <h4 className="font-semibold">{job.title}</h4>
                   <p className="text-sm">{job.payment}</p>
                   <p className="text-xs">{job.time}</p>

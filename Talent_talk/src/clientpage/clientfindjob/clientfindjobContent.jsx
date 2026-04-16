@@ -1,6 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios'
 
 function ClientFindJobContent() {
+
+  const [job , setJob] = useState([]);
+
+  useEffect(()=>{
+    const jobs = async ()=>{
+      const res = await axios.get("http://localhost:3000/client/alljobs",{withCredentials:true});
+      setJob(res.data)
+    }
+    jobs();
+  },[])
+  console.log(job)
 
   // STATE (jobs)
   const [jobs, setJobs] = useState([
@@ -108,8 +120,8 @@ function ClientFindJobContent() {
       {/* Cards */}
       <div className="grid grid-cols-3 gap-8">
 
-        {filteredJobs.map((job) => (
-          <div key={job.id} className="rounded-xl bg-white p-6 text-black shadow-sm ring-1 ring-slate-200">
+        {job.map((job) => (
+          <div key={job._id} className="rounded-xl bg-white p-6 text-black shadow-sm ring-1 ring-slate-200">
 
             <div className="flex justify-between">
               <div className="w-10 h-10 bg-gray-300"></div>
@@ -119,21 +131,21 @@ function ClientFindJobContent() {
             <h3 className="mt-4 font-semibold">{job.title}</h3>
 
             <p className="text-sky-700 font-semibold">
-              {job.salary}
+              ${job.payment}
             </p>
 
             <p className="text-sm text-gray-500 mt-2">
-              {job.type}
+              {job.category}
             </p>
 
-            {/* Tags */}
-            <div className="flex gap-2 mt-3 text-xs">
-              {job.tags.map((tag, i) => (
-                <span key={i} className="rounded bg-purple-200 px-2 py-1">
-                  {tag}
-                </span>
-              ))}
-            </div>
+            {/* Tags
+            // <div className="flex gap-2 mt-3 text-xs">
+            //   {job.tags.map((tag, i) => (
+            //     <span key={i} className="rounded bg-purple-200 px-2 py-1">
+            //       {tag}
+            //     </span>
+            //   ))}
+            // </div> */}
 
             {/* Buttons */}
             <div className="flex gap-2 mt-4">
