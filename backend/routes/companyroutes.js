@@ -112,7 +112,7 @@ router.post('/update', isLogin, async (req,res)=>{
         console.log(err);
         res.send(err);
     }
-})
+});
 
 
 
@@ -120,9 +120,16 @@ router.post('/update', isLogin, async (req,res)=>{
 
 // get postjobs
 router.get('/postjob', isLogin, async (req,res)=>{
-    const company = await CompanyModel.findOne({email:req.user.email}).populate('posts');
-    res.json(company.posts);
+    try{
+        const company = await CompanyModel.findOne({email:req.user.email}).populate('posts');
+        res.json(company.posts);
+    }
+    catch(err){
+        res.send(err)
+    }
 });
+
+
 
 // post jobs
 router.post('/postjob', isLogin, async (req,res)=>{

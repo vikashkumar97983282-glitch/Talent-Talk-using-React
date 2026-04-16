@@ -71,7 +71,7 @@ router.post('/login', async (req,res)=>{
                 secure:false,
                 sameSite: "lax"
             });
-            res.status(200).send({
+            res.status(200).json({
                 message: "login sucessfully",
                 success: true,
             });
@@ -130,18 +130,39 @@ router.post('/logout', isLogin, (req,res)=>{
 
 
 // apply job
-router.post('/job', isLogin, async (req,res)=>{
+router.post('/applyjob', isLogin, async (req,res)=>{
     try{
+        let {job_id} = req.body;
         let client = await ClientModel.findOne({email: req.user.email});
-        
-        let job = JobModel.create({
-            
+
+        if(!client) return res.json({message:"something went wroong", success: false});
+        let valid = await JobModel.findOne({clientid:client._id});
+        if(valid) return res.json({message:"job already added", success: true});
+
+        let job = await JobModel.findOneAndUpdate({_id:job_id},{clientid:client._id},{returnDocument: true, runValidators: true})
+        client.job.push(job_id);
+        await client.save();
+
+        res.json({
+            message: "job applied successfully",
+            sucess: true
         })
 
     }
     catch(err){
         console.log(err);
         res.send(err);
+    };
+});
+
+router.get('/applyjob', isLogin, async (req,res)=>{
+    try{
+        let jobs = await ClientModel.findOne({email:req.user.email}).populate('job');
+        res.json(jobs.job)
+    }
+    catch(err){
+        console.log(err)
+        res.send(err)
     }
 });
 
@@ -158,6 +179,24 @@ router.post("/upload", isLogin, upload.single("image"), async (req, res) =>{
 
     console.log(client);
     res.send(data)
+});
+
+
+
+router.get('/alljobs', isLogin, async (req, res)=>{
+    try{
+        const job =  await JobModel.find();
+        if(!job) return res.send("job not available");
+
+        res.json(job)
+    }
+    catch(err){
+        console.log(err);
+        res.json({
+            message: err,
+            success: false,
+        })
+    }
 })
 
 
