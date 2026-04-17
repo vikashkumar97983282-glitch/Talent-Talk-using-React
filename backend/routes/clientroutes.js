@@ -15,7 +15,7 @@ router.get('/profile', isLogin, async (req,res)=>{
     try{
         let user = await ClientModel.findOne({email:req.user.email});
 
-        if(!user) return res.status(404).json({
+        if(!user) return res.json({
             message: "user not found",
             success: false
         })
@@ -105,32 +105,45 @@ router.post('/login', async (req,res)=>{
     }
 });
 
-// update client
-router.post('/update', isLogin, async (req,res)=>{
-    try{
-        let {name, password, age} = req.body;
-        
-        bcrypt.genSalt(10, function(err,salt){
-            bcrypt.hash(password, salt, async function(err,hash){
-                const client = await ClientModel.findOneAndUpdate(
-                    {email:req.user.email},
-                    {
-                        name,
-                        password:hash,
-                        age
-                    },
-                    {returnDocument: true, runValidators: true}
-                )
-            })
-            res.send("user update sucessfully!")
-        })
-    }
-    catch(err){
-        console.log(err);
-        res.send(err);
-    }
-});
 
+router.post('/update', isLogin, async (req, res) => {
+  try {
+    let { fullname, newpassword, phone } = req.body;
+
+    // 🔹 Split name safely
+    const parts = fullname?.trim().split(" ") || [];
+    const firstName = parts[0] || "";
+    const lastName = parts.slice(1).join(" ") || "";
+
+    // 🔹 Prepare update object
+    let updateData = {
+      firstname: firstName,
+      lastname: lastName,
+      phone
+    };
+
+    // 🔐 Only hash if password provided
+    if (newpassword && newpassword.length > 0) {
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(newpassword, salt);
+
+      updateData.password = hash;
+    }
+
+    // 🔹 Update user
+    const client = await ClientModel.findOneAndUpdate(
+      { email: req.user.email },
+      updateData,
+      {returnDocument: true, runValidators: true}
+    );
+
+    res.json({message: "user update successfully", success: true});
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+});
 
 // client logout
 router.post('/logout', isLogin, (req,res)=>{
