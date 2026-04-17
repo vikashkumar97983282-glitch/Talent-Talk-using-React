@@ -14,7 +14,11 @@ const companyModel = mongoose.Schema({
            type: mongoose.Schema.Types.ObjectId,
            ref: "job" 
         },
-    ]
+    ],
+    role: {
+        type: String,
+        default: "Company"
+    }
 })
 
 

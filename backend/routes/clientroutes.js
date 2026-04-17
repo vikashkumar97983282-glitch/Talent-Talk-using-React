@@ -10,33 +10,51 @@ const isLogin = require('../utils/registerCookies');
 const upload = require('../middleware/fileupload')
 
 
-// home routes
-router.get('/', async (req,res)=>{
-    let user = await ClientModel.find();
+// profile routes
+router.get('/profile', isLogin, async (req,res)=>{
+    try{
+        let user = await ClientModel.findOne({email:req.user.email});
 
-    console.log('client route');
-    res.send(user)
+        if(!user) return res.status(404).json({
+            message: "user not found",
+            success: false
+        })
+        res.status(200).json(user)
+    }
+    catch(err){
+        console.log(err)
+        res.status(401).json({
+            message: "something went wrong",
+            success: true
+        })
+    }
 })
 
 
 // register routes
 router.post('/register', async (req,res)=>{
-    let {name,email,password,age} = req.body;
-    const client = await ClientModel.findOne({email});
-
-    if(client) return res.status(409).send("user already exists!");
-
     try{
+         let {firstname,lastname,email,password,confirmpassword,address,purpose,phone,profession} = req.body;
+        const client = await ClientModel.findOne({email});
+
+        if(client) return res.json({message: "user already exists!", success: false});
+
+        if(password !== confirmpassword) return res.json({message: "password not matched", success: false})
+
         bcrypt.genSalt(10, function(err,salt){
             bcrypt.hash(password, salt, async function(err,hash){
                 let user = await ClientModel.create({
-                    name,
+                    firstname,
+                    lastname,
                     email,
                     password:hash,
-                    age
+                    address,
+                    purpose,
+                    phone,
+                    profession
                 })
             })
-            res.status(201).send("user create")
+            res.status(201).json({message: "user create successfully!", success: true})
         })
     }
     catch(err){
@@ -60,7 +78,7 @@ router.post('/login', async (req,res)=>{
 
         let result = await bcrypt.compare(password, user.password)
             if(!result){
-                return res.status(401).json({
+                return res.json({
                     message: "invalid credentials!",
                     success : false,
                 });
@@ -123,7 +141,7 @@ router.post('/logout', isLogin, (req,res)=>{
         });
         
     res.json({
-        message: "client logout sucessfully !",
+        message: "user logout sucessfully !",
         success: true,
     })
 });
@@ -136,7 +154,7 @@ router.post('/applyjob', isLogin, async (req,res)=>{
         let client = await ClientModel.findOne({email: req.user.email});
 
         if(!client) return res.json({message:"something went wroong", success: false});
-        let valid = await JobModel.findOne({clientid:client._id});
+        let valid = await JobModel.findOne({_id: job_id,clientid: client._id});
         if(valid) return res.json({message:"job already added", success: true});
 
         let job = await JobModel.findOneAndUpdate({_id:job_id},{clientid:client._id},{returnDocument: true, runValidators: true})

@@ -1,15 +1,39 @@
 const mongoose = require('mongoose');
 
-
+// firstname,lastname,email,password,address,phone
 const adminModel = mongoose.Schema({
-    name: {
+    firstname: {
+            type: String,
+            trim: true
+        },
+    lastname: {
         type: String,
         trim: true
     },
-    email: String,
-    password: String,
-    age: Number,
-})
+    email: {
+        type: String,
+        trim: true
+    },
+    password: {
+        type: String,
+        trim: true
+    },
+    address: {
+        type: String,
+        trim: true
+    },
+    phone: {
+        type: String,
+        required: true,
+        match: [/^\d{10}$/, "Phone number must be 10 digits"]
+    },
+    avatar: String,
+    role: {
+        type: String,
+        enum: ["Admin"],
+        default: "Admin"
+    }
+},{ timestamps: true })
 
 
 
