@@ -9,7 +9,6 @@ function ClientDashboardContent() {
     const jobs = async ()=>{
       try{
         const res = await axios.get("http://localhost:3000/client/applyjob",{withCredentials:true});
-        
         setJob(res.data);
       }
       catch(err){
@@ -50,17 +49,17 @@ function ClientDashboardContent() {
       {/* Cards */}
       <div className="grid grid-cols-3 gap-6 mb-8">
 
-        <div className="rounded-xl bg-gradient-to-br from-indigo-700 to-sky-700 p-6 text-white">
+        <div className="rounded-xl bg-linear-to-br from-indigo-700 to-sky-700 p-6 text-white">
           <p>Total Earning</p>
           <h2 className="text-2xl font-bold">$24,343</h2>
         </div>
 
-        <div className="rounded-xl bg-gradient-to-br from-indigo-700 to-sky-700 p-6 text-white">
+        <div className="rounded-xl bg-linear-to-br from-indigo-700 to-sky-700 p-6 text-white">
           <p>Active Applications</p>
-          <h2 className="text-2xl font-bold">{job.length}</h2>
+          <h2 className="text-2xl font-bold">{job?.length || 0}</h2>
         </div>
 
-        <div className="rounded-xl bg-gradient-to-br from-indigo-700 to-sky-700 p-6 text-white">
+        <div className="rounded-xl bg-linear-to-br from-indigo-700 to-sky-700 p-6 text-white">
           <p>Average Rating</p>
           <h2 className="text-2xl font-bold">4.9 / 5.0</h2>
         </div>
@@ -71,7 +70,7 @@ function ClientDashboardContent() {
       <div className="grid grid-cols-3 gap-6">
 
         {/* Chart */}
-        <div className="col-span-2 rounded-2xl bg-gradient-to-br from-slate-900 to-indigo-900 p-6 text-white">
+        <div className="col-span-2 rounded-2xl bg-linear-to-br from-slate-900 to-indigo-900 p-6 text-white">
 
           <h3 className="text-lg font-semibold mb-4">
             Earnings Growth
@@ -97,7 +96,7 @@ function ClientDashboardContent() {
 
           <div className="space-y-4">
 
-            {job.map((job)=>{
+            {job && job.length > 0 && job.map((job)=>{
               return (
                 <div key={job._id} className="rounded-xl bg-linear-to-r from-sky-700 to-indigo-700 p-4 text-white">
                   <h4 className="font-semibold">{job.title}</h4>
