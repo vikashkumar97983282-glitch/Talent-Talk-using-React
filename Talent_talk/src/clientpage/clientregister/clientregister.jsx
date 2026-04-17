@@ -1,18 +1,48 @@
 import { useState } from "react";
 import { FaWallet, FaUser, FaChevronDown } from "react-icons/fa";
 import { Outlet, Link , useNavigate} from "react-router-dom";
+import axios from 'axios';
+import { toast } from "react-toastify";
 
 function ClientRegister() {
-  const [purpose, setPurpose] = useState("");
 
   const navigate = useNavigate();
+  
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState();
+  const [address, setAddress] = useState();
+  const [phone, setPhone] = useState();
+  const [purpose, setPurpose] = useState("");
+  const [profession, setProfession] = useState("");
 
-  const handleregister = ()=>{
-    navigate("/");
+
+  const user = {firstname,lastname,email,password,confirmpassword,address,phone,purpose,profession}
+
+  const handleregister = async (e)=>{
+    e.preventDefault()
+
+    try{
+      let res = await axios.post("http://localhost:3000/client/register", user ,{withCredentials:true});
+      
+      if(res.data.success){
+        toast.success(res.data.message);
+        navigate("/");
+      } else{
+        toast.success(res.data.message);
+      }
+
+    }
+    catch(err){
+      console.log(err)
+    }
+    
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-800 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-linear-to-br from-slate-950 via-indigo-950 to-sky-800 flex items-center justify-center p-6">
       <div className="bg-white/95 w-full max-w-5xl rounded-xl p-8 shadow-xl">
 
         <h1 className="text-3xl font-bold text-center mb-8">Register</h1>
@@ -29,6 +59,7 @@ function ClientRegister() {
             <input
               type="text"
               placeholder="First Name"
+              onChange={(e)=>setFirstName(e.target.value)}
               required
               className="w-full p-3 rounded-lg bg-slate-100 outline-none"
             />
@@ -36,12 +67,14 @@ function ClientRegister() {
             <input
               type="text"
               placeholder="Last Name"
+              onChange={(e)=>setLastName(e.target.value)}
               className="w-full p-3 rounded-lg bg-slate-100 outline-none"
             />
 
             <input
               type="email"
               placeholder="Enter your email Address"
+              onChange={(e)=>setEmail(e.target.value)}
               required
               className="w-full p-3 rounded-lg bg-slate-100 outline-none"
             />
@@ -49,6 +82,7 @@ function ClientRegister() {
             <input
               type="password"
               placeholder="Enter Password"
+              onChange={(e)=>setPassword(e.target.value)}
               required
               className="w-full p-3 rounded-lg bg-slate-100 outline-none"
             />
@@ -56,12 +90,22 @@ function ClientRegister() {
             <input
               type="password"
               placeholder="Confirm Password"
+              onChange={(e)=>setConfirmPassword(e.target.value)}
               required
               className="w-full p-3 rounded-lg bg-slate-100 outline-none"
             />
 
+            {/* <input
+              type="number"
+              placeholder="Enter your Phone number"
+              onChange={(e)=>setPhone(e.target.value)}
+              required
+              className="w-full p-3 rounded-lg bg-slate-100 outline-none"
+            /> */}
+
             <textarea
               placeholder="Full Address"
+              onChange={(e)=>setAddress(e.target.value)}
               rows="4"
               className="w-full p-3 rounded-lg bg-slate-100 outline-none"
             />
@@ -95,22 +139,38 @@ function ClientRegister() {
 
             </div>
 
+            <input
+              type="tel"
+              maxLength={10}
+              placeholder="Enter your Phone number"
+              value={phone || ""}
+              onChange={(e)=>setPhone(e.target.value)}
+              required
+              className="w-full p-3 rounded-lg bg-slate-100 outline-none"
+            />
+
             {/* Profession Dropdown */}
             <div className="relative">
-              <select className="w-full p-3 rounded-lg bg-slate-100 appearance-none outline-none">
-                <option>Choose profession</option>
-                <option>Student</option>
-                <option>Developer</option>
-                <option>Designer</option>
-                <option>Freelancer</option>
+             <select
+                value={profession}
+                onChange={(e) => setProfession(e.target.value)}
+                className="w-full p-3 rounded-lg bg-slate-100 appearance-none outline-none"
+              >
+                <option value="">Choose profession</option>
+                <option value="Student">Student</option>
+                <option value="Developer">Developer</option>
+                <option value="Designer">Designer</option>
+                <option value="Freelancer">Freelancer</option>
               </select>
+
+              {/* <p>Selected: {profession}</p> */}
 
               <FaChevronDown className="absolute right-4 top-4 text-slate-500" />
             </div>
 
             {/* Register Button */}
-            <div className="pt-12 flex flex-col items-end">
-              <button className="px-8 py-3 rounded-full bg-gradient-to-r from-indigo-700 to-sky-700 text-white font-semibold">
+            <div className="pt-12 flex flex-col items-end mt-20">
+              <button className="px-8 py-3 rounded-full bg-linear-to-r from-indigo-700 to-sky-700 text-white font-semibold">
                 Register
               </button>
 

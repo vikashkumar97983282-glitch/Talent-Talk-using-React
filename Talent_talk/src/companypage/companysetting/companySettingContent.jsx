@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { toast } from "react-toastify";
 
 function CompanySettingsContent() {
 
@@ -11,10 +12,16 @@ function CompanySettingsContent() {
   const [emailAlert, setEmailAlert] = useState(false);
 
   const handlelogout = async ()=>{
-    let res = await axios.post("http://localhost:3000/company/logout",{},{withCredentials:true});
-    console.log(res.data);
-    if(res.data.success){
-      navigate("/company")
+    try{
+      let res = await axios.post("http://localhost:3000/company/logout",{},{withCredentials:true});
+      console.log(res.data);
+      if(res.data.success){
+        navigate("/company")
+        toast.success(res.data.message);
+      }
+    }
+    catch(err){
+      console.log(err);
     }
   }
 

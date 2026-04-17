@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { toast } from "react-toastify";
 
 function ClientSettingsContent() {
 
@@ -10,6 +11,7 @@ function ClientSettingsContent() {
     let res = await axios.post("http://localhost:3000/client/logout",{},{withCredentials:true});
     if(res.data.success){
       navigate("/client")
+      toast.success(res.data.message)
     }
 
   }

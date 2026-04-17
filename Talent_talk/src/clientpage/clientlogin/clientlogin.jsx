@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Outlet , Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import { toast } from "react-toastify";
 
 function ClientLogin() {
   const navigate = useNavigate();
@@ -13,19 +14,29 @@ function ClientLogin() {
   const handleSubmit = async (e)=>{
     e.preventDefault();
 
-    let res = await axios.post("http://localhost:3000/client/login",{email,password},{withCredentials:true})
-   
-    if (res.data.success){
-      navigate("/client/dashboard");
-      console.log("login successfully!")
-    } else{
-      setEmail("")
-      setPassword("")
+    try {
+        let res = await axios.post("http://localhost:3000/client/login",{email,password},{withCredentials:true})
+    
+      if (res.data.success){
+        navigate("/client/dashboard");
+        toast.success(res.data.message)
+      } else{
+        setEmail("")
+        setPassword("")
+      }
+    }
+    catch(err){
+      console.log(err);
+      toast.error("invalid user")
     }
   }
 
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-950 via-indigo-950 to-sky-800 flex flex-col items-center justify-center text-sky-50">
+
+      <Link to="/" className="absolute right-7 top-7 flex h-10 min-w-24 items-center justify-center rounded-[10px] bg-white/80 px-4 text-slate-900 hover:bg-white">
+                    Home
+                </Link>
 
     
       {/* Title */}

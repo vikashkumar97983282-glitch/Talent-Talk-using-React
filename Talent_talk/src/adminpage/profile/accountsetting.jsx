@@ -1,16 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminPanel from "../admin/adminPanel/adminPanel";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function AccountSettings() {
+
+  const navigate = useNavigate();
+
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    fullName: "Rohit Sharma",
-    email: "rohit@gmail.com",
-    phone: "9798328268",
+    fullName: "",
+    email: "",
+    phone: "",
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
+
+  useEffect(()=>{
+    const user = async ()=>{
+      let res = await axios.get("http://localhost:3000/admin/profile",{withCredentials:true});
+      const data = res.data || {};
+      setFormData((prev) => ({
+        ...prev,
+        fullName: data.firstname+" "+data.lastname || "",
+        email: data.email || "",
+        currentPassword: "",
+      }));
+    }
+    user();
+  },[])
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -20,10 +40,50 @@ function AccountSettings() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSave = () => {
-    setIsEditing(false);
-    // Save logic here (e.g., API call)
-    console.log("Saved data:", formData);
+  const handleSave = async () => {
+
+    const phoneRegex = /^\d{10}$/;
+
+    if (!phoneRegex.test(formData.phone)) {
+      toast.error("Phone number must be exactly 10 digits ❌");
+      return;
+    }
+
+
+    if (formData.newPassword && formData.newPassword !== formData.confirmPassword) {
+      toast.error("New password and confirm password must match.");
+      return;
+    }
+    if (!formData.currentPassword && !formData.newPassword) {
+      toast.error("Please enter a password to update your profile.");
+      return;
+    }
+
+    try {
+      const payload = {
+        name: formData.fullName,
+        password: formData.newPassword || formData.currentPassword,
+      };
+
+      await axios.post(
+        "http://localhost:3000/admin/profileupdate",
+        payload,
+        { withCredentials: true }
+      );
+
+      setFormData((prev) => ({
+        ...prev,
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      }));
+      setIsEditing(false);
+      toast.success("Profile updated successfully.");
+      navigate("/admin/settings");
+    } catch (error) {
+      console.log("Profile update failed:", error);
+      toast.success("Failed to update profile. Please try again.");
+    }
   };
 
   return (
@@ -87,14 +147,9 @@ function AccountSettings() {
                   name="email"
                   type="email"
                   value={formData.email}
-                  onChange={handleChange}
-                  readOnly={!isEditing}
-                  className={`w-full rounded-md border border-gray-300 px-4 py-2
-                    ${
-                      isEditing
-                        ? "focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        : "bg-gray-100 cursor-not-allowed"
-                    }`}
+                  readOnly
+                  disabled
+                  className="w-full rounded-md border border-gray-300 px-4 py-2 bg-gray-100 cursor-not-allowed"
                 />
               </div>
 

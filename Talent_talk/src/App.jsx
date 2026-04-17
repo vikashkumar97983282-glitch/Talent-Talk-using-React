@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
+
 import Home from "./adminpage/home/home";
 import Login from "./adminpage/login/login";
 import Dashboard from "./adminpage/admin/dashboard";
@@ -11,6 +16,7 @@ import Insights from "./adminpage/insights/insights";
 import Company from "./adminpage/company/company";
 import Settings from "./adminpage/profile/settings";
 import AccountSettings from "./adminpage/profile/accountsetting";
+
 import CompanyRegister from "./companypage/register/register";
 import CompanyLogin from "./companypage/companylogin/companylogin";
 import CompanyForgotPassword from "./companypage/register/companyforget";
@@ -24,6 +30,7 @@ import CompanyPayment from "./companypage/companyPayment/companyPayment";
 import CompanySetting from "./companypage/companysetting/companySetting";
 import CompanyProfile from "./companypage/companyprofile/companyprofile";
 import CompanyEdit from "./companypage/companyEdit/companyEdit";
+
 import ClientRegister from "./clientpage/clientregister/clientregister";
 import ClientLogin from "./clientpage/clientlogin/clientlogin";
 import ClientForgetPassword from "./clientpage/clientlogin/clientforget";
@@ -52,7 +59,7 @@ function App() {
 
 
   return (
-    <div>
+    <>
       <Routes>
 
         <Route path="/" element={<Home/>}></Route>
@@ -107,7 +114,8 @@ function App() {
 
 
       </Routes>
-    </div>
+      <ToastContainer />
+    </>
   );
 }
 

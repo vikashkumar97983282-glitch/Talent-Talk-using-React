@@ -1,9 +1,26 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useNavigate,Link } from "react-router-dom";
 
 function ClientProfileContent() {
   
   const navigate = useNavigate();
+
+  const [user, setUser] = useState([]);
+
+  useEffect(()=>{
+    const data = async ()=>{
+      try{
+        const res = await axios.get("http://localhost:3000/client/profile",{withCredentials:true});
+        setUser(res.data)
+        console.log(res.data)
+      }
+      catch(err){
+        console.log(err)
+      }
+    }
+    data()
+  },[])
 
   const edit = ()=>{
     navigate("/client/profileEdit")
@@ -23,7 +40,9 @@ function ClientProfileContent() {
         />
 
         <div>
-          <h2 className="text-xl font-semibold">Sophia Carter</h2>
+          <h2 className="text-xl font-semibold">
+            {user.firstname} {user.lastname}
+          </h2>
           <p className="text-slate-500 text-sm">Joined in 2021</p>
         </div>
 
@@ -33,9 +52,9 @@ function ClientProfileContent() {
       <h3 className="font-semibold mb-4">Personal Information</h3>
 
       <div className="space-y-3 text-lg">
-        <p><strong>Full Name :</strong> Sophia Carter</p>
-        <p><strong>Email :</strong> sophi@gmail.com</p>
-        <p><strong>Phone Number :</strong> 1234561230</p>
+        <p><strong>Full Name :</strong> {user.firstname} {user.lastname}</p>
+        <p><strong>Email :</strong> {user.email}</p>
+        <p><strong>Phone Number :</strong> {user.phone}</p>
       </div>
 
       {/* Edit Button */}

@@ -120,7 +120,7 @@ function ClientFindJobContent() {
       {/* Cards */}
       <div className="grid grid-cols-3 gap-8">
 
-        {job.map((job) => (
+        {filteredJobs.map((job) => (
           <div key={job._id} className="rounded-xl bg-white p-6 text-black shadow-sm ring-1 ring-slate-200">
 
             <div className="flex justify-between">

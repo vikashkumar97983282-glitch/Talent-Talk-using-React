@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
+import { toast } from "react-toastify";
 
 function CompanyLogin() {
 
@@ -13,17 +14,22 @@ function CompanyLogin() {
   const handlelogin = async (e)=>{
     e.preventDefault();
 
-    let res = await axios.post("http://localhost:3000/company/login",{email,password},{withCredentials:true})
-    console.log(res.data)
+    try {
+        let res = await axios.post("http://localhost:3000/company/login",{email,password},{withCredentials:true})
 
 
-    if (res.data.success){
-      console.log("login successfully")
-      navigate("/company/dashboard")
+      if (res.data.success){
+        toast.success(res.data.message)
+        navigate("/company/dashboard")
+      }
+      else{
+        setemail("");
+        setPassword("");
+      }
     }
-    else{
-      setemail("");
-      setPassword("");
+    catch(err){
+      console.log(err);
+      toast.error("invalid user")
     }
   }
 
@@ -37,6 +43,10 @@ function CompanyLogin() {
       }}
     >
       <div className="text-center">
+
+        <Link to="/" className="absolute right-7 top-7 flex h-10 min-w-24 items-center justify-center rounded-[10px] bg-white/80 px-4 text-slate-900 hover:bg-white">
+                    Home
+                </Link>
         
         <h1 className="mb-10 text-4xl font-bold text-[#16362b]">
           Company Login

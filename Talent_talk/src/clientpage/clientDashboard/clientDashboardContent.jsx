@@ -7,13 +7,17 @@ function ClientDashboardContent() {
 
   useEffect(()=>{
     const jobs = async ()=>{
-      const res = await axios.get("http://localhost:3000/client/applyjob",{withCredentials:true});
-      console.log(res.data)
-      setJob(res.data);
+      try{
+        const res = await axios.get("http://localhost:3000/client/applyjob",{withCredentials:true});
+        
+        setJob(res.data);
+      }
+      catch(err){
+        console.log(err)
+      }
     }
     jobs();
   },[]);
-  console.log(job)
 
   return (
     <div className="flex-1 bg-slate-50 p-8 text-slate-900">
