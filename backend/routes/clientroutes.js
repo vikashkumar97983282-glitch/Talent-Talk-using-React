@@ -176,7 +176,7 @@ router.post('/applyjob', isLogin, async (req,res)=>{
 router.get('/applyjob', isLogin, async (req,res)=>{
     try{
         let jobs = await ClientModel.findOne({email:req.user.email}).populate('job');
-        res.json(jobs.job)
+        res.json(jobs)
     }
     catch(err){
         console.log(err)
