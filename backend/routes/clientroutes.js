@@ -122,15 +122,13 @@ router.post('/update', isLogin, async (req, res) => {
       phone
     };
 
-    // 🔐 Only hash if password provided
     if (newpassword && newpassword.length > 0) {
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(newpassword, salt);
 
       updateData.password = hash;
     }
-
-    // 🔹 Update user
+    
     const client = await ClientModel.findOneAndUpdate(
       { email: req.user.email },
       updateData,
