@@ -27,6 +27,12 @@ const jobsModel = mongoose.Schema({
             ref: "client"
         }
     ],
+    shortlistedClients: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "client"
+        }
+    ],
     status: {
         type: String,
         enum: ["initial", "progress", "complete"],

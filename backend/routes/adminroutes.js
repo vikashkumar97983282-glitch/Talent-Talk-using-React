@@ -4,6 +4,7 @@ const AdminModel = require('../models/adminmodels')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const isLogin = require('../utils/registerCookies');
+const { TOKEN_COOKIE_BY_ROLE } = require('../utils/registerCookies');
 
 
 router.get('/', (req,res)=>{
@@ -59,8 +60,8 @@ router.post('/login', async (req,res)=>{
                     success: false,
                 })
             }
-            let token = jwt.sign({email:email}, process.env.JWT_KEY)
-            res.cookie("token", token, {
+            let token = jwt.sign({email:email, role: "admin"}, process.env.JWT_KEY)
+            res.cookie(TOKEN_COOKIE_BY_ROLE.admin, token, {
                 httpOnly: true,
                 secure: false,       
                 sameSite: "lax"
@@ -81,7 +82,7 @@ router.post('/login', async (req,res)=>{
 });
 
 // profile route
-router.get('/profile', isLogin, async (req,res)=>{
+router.get('/profile', isLogin('admin'), async (req,res)=>{
     try{
         let admin = await AdminModel.findOne({email:req.user.email});
 
@@ -98,7 +99,7 @@ router.get('/profile', isLogin, async (req,res)=>{
 });
 
 // profile update
-router.post('/profileupdate', isLogin, async (req, res)=>{
+router.post('/profileupdate', isLogin('admin'), async (req, res)=>{
     try{
             let {name, password, age} = req.body;
             
@@ -125,7 +126,12 @@ router.post('/profileupdate', isLogin, async (req, res)=>{
 
 
 // logout route
-router.post('/logout', isLogin, (req,res)=>{
+router.post('/logout', isLogin('admin'), (req,res)=>{
+    res.clearCookie(TOKEN_COOKIE_BY_ROLE.admin,{
+        httpOnly: true,
+        secure: false,      
+        sameSite: "lax"
+    });
     res.clearCookie("token",{
         httpOnly: true,
         secure: false,      

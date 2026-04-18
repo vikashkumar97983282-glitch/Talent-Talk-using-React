@@ -8,6 +8,8 @@ const companyModel = mongoose.Schema({
     },
     email: String,
     password: String,
+    phone: String,
+    location: String,
     age: Number,
     posts: [
         {
@@ -19,7 +21,7 @@ const companyModel = mongoose.Schema({
         type: String,
         default: "Company"
     }
-})
+}, { timestamps: true })
 
 
 
