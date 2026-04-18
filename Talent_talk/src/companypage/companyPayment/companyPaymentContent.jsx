@@ -1,92 +1,296 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function CompanyPaymentContent() {
-  const payments = [
-    {
-      id: "TXN12345",
-      client: "Ava Harper",
-      role: "Data Science",
-      amount: "$5,000",
-      date: "2023-08-15",
-      status: "Completed",
-    },
-    {
-      id: "TXN67890",
-      client: "Liam Carter",
-      role: "UI/UX",
-      amount: "$2,500",
-      date: "2023-08-16",
-      status: "Pending",
-    },
-    {
-      id: "TXN11223",
-      client: "Sophia Clark",
-      role: "Mobile Application",
-      amount: "$7,500",
-      date: "2023-08-17",
-      status: "Completed",
-    },
-    {
-      id: "TXN33445",
-      client: "Jackson Reed",
-      role: "Blogers",
-      amount: "$1,000",
-      date: "2023-08-18",
-      status: "Refunded",
-    },
-  ];
+  const [payments, setPayments] = useState([]);
+  const [clients, setClients] = useState([]);
+  const [selectedClient, setSelectedClient] = useState("");
+  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  React.useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [clientRes, historyRes] = await Promise.all([
+          axios.get("/company/payment/clients", { withCredentials: true }),
+          axios.get("/company/payment/history", { withCredentials: true }),
+        ]);
+
+        const clientList = Array.isArray(clientRes.data?.clients)
+          ? clientRes.data.clients
+          : [];
+        setClients(clientList);
+        if (clientList.length > 0) {
+          setSelectedClient((prev) => prev || clientList[0]._id);
+        }
+
+        setPayments(
+          Array.isArray(historyRes.data?.payments) ? historyRes.data.payments : []
+        );
+      } catch (err) {
+        toast.error(err.response?.data?.message || "Failed to load payment data.");
+      }
+    };
+
+    loadData();
+  }, []);
+
+  const formatCurrency = (value) =>
+    `INR ${Number(value || 0).toLocaleString("en-IN")}`;
+
+  const selectedClientPendingPayment = useMemo(() => {
+    if (!selectedClient) return null;
+
+    const pendingPayments = payments
+      .filter(
+        (pay) =>
+          pay.status === "Pending" &&
+          String(pay.clientId?._id || "") === String(selectedClient)
+      )
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+      );
+
+    return pendingPayments[0] || null;
+  }, [payments, selectedClient]);
+
+  React.useEffect(() => {
+    if (!selectedClient) {
+      setAmount("");
+      setDescription("");
+      return;
+    }
+
+    if (!selectedClientPendingPayment) return;
+
+    setAmount(String(selectedClientPendingPayment.amount || ""));
+    setDescription(selectedClientPendingPayment.description || "");
+  }, [selectedClientPendingPayment, selectedClient]);
+
+  const totalPayment = useMemo(
+    () =>
+      payments
+        .filter((pay) => pay.status === "Success")
+        .reduce((sum, pay) => sum + Number(pay.amount || 0), 0),
+    [payments]
+  );
+
+  const pendingPayment = useMemo(
+    () =>
+      payments
+        .filter((pay) => pay.status === "Pending")
+        .reduce((sum, pay) => sum + Number(pay.amount || 0), 0),
+    [payments]
+  );
 
   const statusStyle = (status) => {
-    if (status === "Completed")
+    if (status === "Success")
       return "rounded-full bg-[#e7f1ea] px-3 py-1 text-sm text-[#2d6b58]";
     if (status === "Pending")
       return "rounded-full bg-[#f4ecd8] px-3 py-1 text-sm text-[#8a6a2f]";
     return "rounded-full bg-[#f6dfdb] px-3 py-1 text-sm text-[#a54a3d]";
   };
 
+  const loadRazorpayScript = () =>
+    new Promise((resolve) => {
+      if (window.Razorpay) return resolve(true);
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+
+  const handlePayNow = async () => {
+    const numericAmount = Number(amount);
+    if (!Number.isFinite(numericAmount) || numericAmount <= 0) {
+      toast.error("Enter a valid payment amount.");
+      return;
+    }
+    if (!selectedClient) {
+      toast.error("Select a client first.");
+      return;
+    }
+
+    setIsProcessing(true);
+    try {
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        toast.error("Razorpay SDK failed to load.");
+        setIsProcessing(false);
+        return;
+      }
+
+      const configRes = await axios.get("/company/payment/config", {
+        withCredentials: true,
+      });
+      const orderRes = await axios.post(
+        "/company/payment/create-order",
+        { amount: numericAmount, clientId: selectedClient, description },
+        { withCredentials: true }
+      );
+
+      if (!orderRes.data?.success) {
+        toast.error(orderRes.data?.message || "Failed to create payment order.");
+        setIsProcessing(false);
+        return;
+      }
+
+      const options = {
+        key: configRes.data?.keyId,
+        amount: orderRes.data.amount,
+        currency: orderRes.data.currency,
+        name: "Talent Talk",
+        description: "Company Payment",
+        order_id: orderRes.data.orderId,
+        handler: async (response) => {
+          try {
+            const verifyRes = await axios.post(
+              "/company/payment/verify",
+              {
+                ...response,
+                amount: numericAmount,
+              },
+              { withCredentials: true }
+            );
+
+            if (verifyRes.data?.success) {
+              const historyRes = await axios.get("/company/payment/history", {
+                withCredentials: true,
+              });
+              setPayments(
+                Array.isArray(historyRes.data?.payments) ? historyRes.data.payments : []
+              );
+              setAmount("");
+              setDescription("");
+              toast.success("Payment completed successfully.");
+            } else {
+              toast.error(verifyRes.data?.message || "Payment verification failed.");
+            }
+          } catch (err) {
+            toast.error(err.response?.data?.message || "Payment verification failed.");
+          } finally {
+            setIsProcessing(false);
+          }
+        },
+        modal: {
+          ondismiss: async () => {
+            try {
+              const historyRes = await axios.get("/company/payment/history", {
+                withCredentials: true,
+              });
+              setPayments(
+                Array.isArray(historyRes.data?.payments) ? historyRes.data.payments : []
+              );
+            } catch (err) {
+              console.log(err);
+            } finally {
+              setIsProcessing(false);
+            }
+          },
+        },
+        theme: {
+          color: "#1f5a49",
+        },
+      };
+
+      const razorpayInstance = new window.Razorpay(options);
+      razorpayInstance.on("payment.failed", () => {
+        toast.error("Payment failed. Please try again.");
+        setIsProcessing(false);
+      });
+      razorpayInstance.open();
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Unable to start payment.");
+      setIsProcessing(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#f7f4ea] p-8 text-slate-900">
+      <h2 className="mb-4 text-2xl font-bold">Payment Management</h2>
 
-      {/* Title */}
-      <h2 className="text-2xl font-bold mb-4">Payment Management</h2>
+      <div className="mb-6 flex flex-wrap items-end gap-4 rounded-lg bg-[#fffdf8] p-4 ring-1 ring-[#e7dfcc]">
+        <div className="min-w-60 flex-1">
+          <label className="mb-1 block text-sm text-[#35584a]">Select Client</label>
+          <select
+            value={selectedClient}
+            onChange={(e) => setSelectedClient(e.target.value)}
+            className="w-full rounded-md bg-white px-4 py-2 ring-1 ring-[#e7dfcc] focus:outline-none focus:ring-2 focus:ring-[#3c7a63]"
+          >
+            <option value="">None</option>
+            {clients.length === 0 ? (
+              <option value="">No clients available</option>
+            ) : (
+              clients.map((client) => (
+                <option key={client._id} value={client._id}>
+                  {`${client.firstname || ""} ${client.lastname || ""}`.trim()} ({client.email})
+                </option>
+              ))
+            )}
+          </select>
+        </div>
 
-      {/* Search */}
-      <input
-        type="text"
-        placeholder="Search"
-        className="mb-4 w-full rounded-lg bg-[#fffdf8] p-2 ring-1 ring-[#e7dfcc]"
-      />
+        <div className="min-w-60 flex-1">
+          <label className="mb-1 block text-sm text-[#35584a]">Amount (INR)</label>
+          <input
+            type="number"
+            min="1"
+            placeholder="Enter amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="w-full rounded-md bg-white px-4 py-2 ring-1 ring-[#e7dfcc] focus:outline-none focus:ring-2 focus:ring-[#3c7a63]"
+          />
+        </div>
 
-      {/* Filter */}
-      <button className="mb-6 rounded bg-[#efe8d8] px-3 py-1 text-[#16362b]">
-        Date Range
-      </button>
+        <div className="min-w-60 flex-1">
+          <label className="mb-1 block text-sm text-[#35584a]">Description</label>
+          <input
+            type="text"
+            placeholder="Optional note"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="w-full rounded-md bg-white px-4 py-2 ring-1 ring-[#e7dfcc] focus:outline-none focus:ring-2 focus:ring-[#3c7a63]"
+          />
+        </div>
 
-      {/* Cards */}
-      <div className="flex gap-6 mb-6">
-        
+        {selectedClientPendingPayment && (
+          <div className="w-full text-xs text-[#35584a]">
+            Pending payment auto-filled for selected client.
+          </div>
+        )}
+
+        <button
+          onClick={handlePayNow}
+          disabled={isProcessing || clients.length === 0 || !selectedClient}
+          className="rounded-lg bg-gradient-to-r from-[#1f5a49] to-[#3c7a63] px-5 py-2.5 font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {isProcessing ? "Processing..." : "Pay with Razorpay"}
+        </button>
+      </div>
+
+      <div className="mb-6 flex gap-6">
         <div className="w-64 rounded-lg bg-[#fffdf8] p-6 shadow-sm ring-1 ring-[#e7dfcc]">
           <p className="text-sm">Total Payment</p>
-          <h3 className="text-xl font-bold">$1,250,000</h3>
+          <h3 className="text-xl font-bold">{formatCurrency(totalPayment)}</h3>
         </div>
 
         <div className="w-64 rounded-lg bg-[#fffdf8] p-6 shadow-sm ring-1 ring-[#e7dfcc]">
           <p className="text-sm">Pending Payment</p>
-          <h3 className="text-xl font-bold">$25,000</h3>
+          <h3 className="text-xl font-bold">{formatCurrency(pendingPayment)}</h3>
         </div>
-
       </div>
 
-      {/* Table */}
       <div className="overflow-hidden rounded-lg bg-[#fffdf8] shadow-sm ring-1 ring-[#e7dfcc]">
-
         <table className="w-full text-left">
-
           <thead className="bg-[#efe8d8] text-[#16362b]">
             <tr>
               <th className="p-3">Transaction ID</th>
               <th className="p-3">Client</th>
-              <th className="p-3">Roll</th>
+              <th className="p-3">Role</th>
               <th className="p-3">Amount</th>
               <th className="p-3">Date</th>
               <th className="p-3">Status</th>
@@ -94,26 +298,34 @@ function CompanyPaymentContent() {
           </thead>
 
           <tbody>
-            {payments.map((pay, index) => (
-              <tr key={index} className="border-t border-[#efe6d4]">
-                <td className="p-3">{pay.id}</td>
-                <td className="p-3">{pay.client}</td>
-                <td className="p-3">{pay.role}</td>
-                <td className="p-3">{pay.amount}</td>
-                <td className="p-3">{pay.date}</td>
-                <td className="p-3">
-                  <span className={statusStyle(pay.status)}>
-                    {pay.status}
-                  </span>
+            {payments.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="p-6 text-center text-[#5a7368]">
+                  No payment history yet.
                 </td>
               </tr>
-            ))}
+            ) : (
+              payments.map((pay, index) => (
+                <tr key={`${pay._id || index}`} className="border-t border-[#efe6d4]">
+                  <td className="p-3">{pay.razorpayPaymentId || pay.razorpayOrderId || "N/A"}</td>
+                  <td className="p-3">
+                    {`${pay.clientId?.firstname || ""} ${pay.clientId?.lastname || ""}`.trim() ||
+                      "N/A"}
+                  </td>
+                  <td className="p-3">{pay.description || "Company Checkout"}</td>
+                  <td className="p-3">{formatCurrency(pay.amount)}</td>
+                  <td className="p-3">
+                    {new Date(pay.createdAt || Date.now()).toISOString().slice(0, 10)}
+                  </td>
+                  <td className="p-3">
+                    <span className={statusStyle(pay.status)}>{pay.status}</span>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
-
         </table>
-
       </div>
-
     </div>
   );
 }

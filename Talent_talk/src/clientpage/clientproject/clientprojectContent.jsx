@@ -97,6 +97,9 @@ function ClientProjectContent() {
         <p className="mt-2 text-slate-500">
           Track the jobs you have applied for and check their current status.
         </p>
+        <p className="mt-1 text-sm text-slate-500">
+          When a project is marked Complete, payment stays Pending until the company finishes payment.
+        </p>
       </div>
 
       {isLoading && (

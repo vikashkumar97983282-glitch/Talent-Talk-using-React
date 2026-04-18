@@ -4,6 +4,25 @@ import axios from "axios";
 function CompanyDashboardContent() {
   const [job, setJob] = useState([]);
 
+  const totalUsers = job.reduce((uniqueUsers, currentJob) => {
+    const clients = Array.isArray(currentJob?.clientid)
+      ? currentJob.clientid
+      : currentJob?.clientid
+      ? [currentJob.clientid]
+      : [];
+
+    clients.forEach((clientId) => {
+      if (clientId) uniqueUsers.add(String(clientId));
+    });
+
+    return uniqueUsers;
+  }, new Set()).size;
+
+  const totalPayment = job.reduce((sum, currentJob) => {
+    const payment = Number(currentJob?.payment);
+    return Number.isFinite(payment) ? sum + payment : sum;
+  }, 0);
+
   useEffect(() => {
     const loadPostedJobs = async () => {
       try {
@@ -35,13 +54,15 @@ function CompanyDashboardContent() {
           </div>
 
           <div className="w-52 rounded-2xl bg-linear-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-6 text-center text-white shadow-lg shadow-[#14392e]/15">
-            <h3 className="text-lg">Recent Notification</h3>
-            <p className="mt-3 text-3xl font-bold">24</p>
+            <h3 className="text-lg">Total User</h3>
+            <p className="mt-3 text-3xl font-bold">{totalUsers}</p>
           </div>
 
           <div className="w-52 rounded-2xl bg-linear-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-6 text-center text-white shadow-lg shadow-[#14392e]/15">
-            <h3 className="text-lg">Rating</h3>
-            <p className="mt-3 text-3xl font-bold">4/5</p>
+            <h3 className="text-lg">Total Payment</h3>
+            <p className="mt-3 text-3xl font-bold">
+              ${totalPayment.toLocaleString("en-US")}
+            </p>
           </div>
         </div>
 
