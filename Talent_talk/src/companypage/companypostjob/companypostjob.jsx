@@ -3,11 +3,11 @@ import CompanyPostJobContent from "./companypostjobContent";
 import CompanyHeader from "../companyclient/companyheader";
 
 
-function CompanyPostJob({setPostjob}){
+function CompanyPostJob(){
     return (
         <div>
            <CompanyHeader/>
-            <CompanyPostJobContent setPostjob={setPostjob}/>
+            <CompanyPostJobContent />
         </div>
     );
 }

@@ -17,7 +17,7 @@ function Login(){
         e.preventDefault();
 
         try{
-            const res = await axios.post("http://localhost:3000/admin/login",{email,password},
+            const res = await axios.post("/admin/login",{email,password},
                 {withCredentials: true});
                 console.log(res.data)
 
@@ -62,3 +62,4 @@ function Login(){
 }
 
 export default Login;
+

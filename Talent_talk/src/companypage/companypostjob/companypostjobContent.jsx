@@ -15,7 +15,7 @@ const CompanyPostJobContent = () => {
 
   const handlejob = async ()=>{
     try{
-      let res = await axios.post("http://localhost:3000/company/postjob",{
+      let res = await axios.post("/company/postjob",{
         title,
         category,
         payment,
@@ -111,3 +111,4 @@ const CompanyPostJobContent = () => {
 };
 
 export default CompanyPostJobContent;
+

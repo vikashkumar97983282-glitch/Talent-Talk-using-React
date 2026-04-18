@@ -8,7 +8,7 @@ function ClientDashboardContent() {
   useEffect(()=>{
     const jobs = async ()=>{
       try{
-        const res = await axios.get("http://localhost:3000/client/applyjob",{withCredentials:true});
+        const res = await axios.get("/client/applyjob",{withCredentials:true});
         setJob(res.data);
       }
       catch(err){
@@ -27,7 +27,7 @@ function ClientDashboardContent() {
         <div>
           <h1 className="text-2xl font-bold">Personal Insights</h1>
           <p className="text-slate-500">
-            Welcome back, Alex. Here's what's happening today.
+            Welcome back. Here's what's happening today.
           </p>
         </div>
 
@@ -51,7 +51,7 @@ function ClientDashboardContent() {
 
         <div className="rounded-xl bg-linear-to-br from-indigo-700 to-sky-700 p-6 text-white">
           <p>Total Earning</p>
-          <h2 className="text-2xl font-bold">$24,343</h2>
+          <h2 className="text-2xl font-bold">--</h2>
         </div>
 
         <div className="rounded-xl bg-linear-to-br from-indigo-700 to-sky-700 p-6 text-white">
@@ -61,7 +61,7 @@ function ClientDashboardContent() {
 
         <div className="rounded-xl bg-linear-to-br from-indigo-700 to-sky-700 p-6 text-white">
           <p>Average Rating</p>
-          <h2 className="text-2xl font-bold">4.9 / 5.0</h2>
+          <h2 className="text-2xl font-bold">--</h2>
         </div>
 
       </div>
@@ -119,3 +119,4 @@ function ClientDashboardContent() {
 }
 
 export default ClientDashboardContent;
+

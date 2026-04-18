@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 function CompanyLogin() {
 
-  const navigate = useNavigate("");
+  const navigate = useNavigate();
 
   const [email,setemail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +15,7 @@ function CompanyLogin() {
     e.preventDefault();
 
     try {
-        let res = await axios.post("http://localhost:3000/company/login",{email,password},{withCredentials:true})
+        let res = await axios.post("/company/login",{email,password},{withCredentials:true})
 
 
       if (res.data.success){
@@ -25,11 +25,12 @@ function CompanyLogin() {
       else{
         setemail("");
         setPassword("");
+        toast.error(res.data.message || "Invalid email or password.");
       }
     }
     catch(err){
       console.log(err);
-      toast.error("invalid user")
+      toast.error(err.response?.data?.message || "invalid user")
     }
   }
 
@@ -59,6 +60,7 @@ function CompanyLogin() {
           <input
             type="email"
             placeholder="Email"
+            value={email}
             onChange={(e)=>setemail(e.target.value)}
             className="mb-4 w-full rounded bg-[#f7f4ea] p-3 outline-none ring-1 ring-[#e7dfcc]"
           />
@@ -66,6 +68,7 @@ function CompanyLogin() {
           <input
             type="password"
             placeholder="Password"
+            value={password}
             onChange={(e)=>setPassword(e.target.value)}
             autoComplete=""
             className="mb-3 w-full rounded bg-[#f7f4ea] p-3 outline-none ring-1 ring-[#e7dfcc]"
@@ -96,3 +99,4 @@ function CompanyLogin() {
 };
 
 export default CompanyLogin;
+

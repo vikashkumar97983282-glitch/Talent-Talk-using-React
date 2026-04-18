@@ -13,7 +13,7 @@ function CompanySettingsContent() {
 
   const handlelogout = async ()=>{
     try{
-      let res = await axios.post("http://localhost:3000/company/logout",{},{withCredentials:true});
+      let res = await axios.post("/company/logout",{},{withCredentials:true});
       console.log(res.data);
       if(res.data.success){
         navigate("/company")
@@ -83,3 +83,4 @@ function CompanySettingsContent() {
 }
 
 export default CompanySettingsContent;
+

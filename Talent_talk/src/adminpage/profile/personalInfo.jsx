@@ -8,10 +8,10 @@ import { toast } from "react-toastify";
 
 function PersonalInfo(){
 
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState({});
 
     const navigate = useNavigate();
-    const api = "http://localhost:3000/admin/"
+    const api = "/admin/"
 
     const accounthandle = ()=>{
         navigate('/admin/settings/accountsetting')
@@ -39,16 +39,23 @@ function PersonalInfo(){
         admin();
     },[]);
 
+    const getAvatarUrl = (avatarName) => {
+        if (!avatarName) {
+            return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxnsgAbYVaKCxUrJ9-dnMi0RvQ5I2mPAFIlw&s";
+        }
+        const base = (import.meta.env.VITE_API_BASE_URL || "http://localhost:3000").replace(/\/$/, "");
+        return `${base}/uploads/${avatarName}`;
+    };
 
 
     return (
         <div className="h-full flex-1 min-w-0 overflow-y-scroll px-10 pt-10">
             <div className="flex flex-wrap items-center">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxnsgAbYVaKCxUrJ9-dnMi0RvQ5I2mPAFIlw&s" alt="" className="h-40 w-40 rounded-full"/>
+                <img src={getAvatarUrl(user.avatar)} alt="" className="h-40 w-40 rounded-full object-cover"/>
                 <div className="ml-5">
-                    <h1 className="font-bold">Rohit Sharma</h1>
+                    <h1 className="font-bold">{`${user.firstname || ""} ${user.lastname || ""}`.trim() || "Admin"}</h1>
                     <p>{user.role}</p>
-                    <p>Joined in {new Date(user.createdAt).getFullYear()}</p>
+                    <p>{user.createdAt ? `Joined in ${new Date(user.createdAt).getFullYear()}` : ""}</p>
                 </div>
             </div>
             <div className="h-50 w-[80%] mt-5">
@@ -70,3 +77,4 @@ function PersonalInfo(){
 }
 
 export default PersonalInfo;
+

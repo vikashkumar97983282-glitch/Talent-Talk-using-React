@@ -8,7 +8,7 @@ function ClientSettingsContent() {
   const navigate = useNavigate();
 
   const handlelogout = async ()=>{
-    let res = await axios.post("http://localhost:3000/client/logout",{},{withCredentials:true});
+    let res = await axios.post("/client/logout",{},{withCredentials:true});
     if(res.data.success){
       navigate("/client")
       toast.success(res.data.message)
@@ -60,3 +60,4 @@ function ClientSettingsContent() {
 }
 
 export default ClientSettingsContent;
+

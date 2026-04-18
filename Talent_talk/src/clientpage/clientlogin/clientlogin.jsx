@@ -15,7 +15,7 @@ function ClientLogin() {
     e.preventDefault();
 
     try {
-        let res = await axios.post("http://localhost:3000/client/login",{email,password},{withCredentials:true})
+        let res = await axios.post("/client/login",{email,password},{withCredentials:true})
     
       if (res.data.success){
         navigate("/client/dashboard");
@@ -118,3 +118,4 @@ function ClientLogin() {
 }
 
 export default ClientLogin;
+

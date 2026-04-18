@@ -25,7 +25,7 @@ function ClientRegister() {
     e.preventDefault()
 
     try{
-      let res = await axios.post("http://localhost:3000/client/register", user ,{withCredentials:true});
+      let res = await axios.post("/client/register", user ,{withCredentials:true});
       
       if(res.data.success){
         toast.success(res.data.message);
@@ -192,3 +192,4 @@ function ClientRegister() {
 }
 
 export default ClientRegister;
+

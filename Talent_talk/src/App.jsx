@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -46,18 +46,6 @@ import ClientProfileEdit from "./clientpage/clientProfileEdit/clientProfileEdit"
 
 function App() {
 
-  // upload project company side
-  const [postjob,setPostjob] = useState([
-    {title:"Software Developer's",
-      category:"freelancing",
-      payment:"$2255",
-      time:"22-05-20024",
-      description:"this is simple and easy website"
-    },
-  ])
-
-
-
   return (
     <>
       <Routes>
@@ -84,9 +72,9 @@ function App() {
           <Route path="register" element={<CompanyRegister/>} />
           <Route path="forget-password" element={<CompanyForgotPassword/>} />
 
-          <Route path="dashboard" element={<CompanyDashboard postjob={postjob} setPostjob={setPostjob}/>} />
+          <Route path="dashboard" element={<CompanyDashboard />} />
           <Route path="client" element={<CompanyClient/>} />
-          <Route path="postjob" element={<CompanyPostJob setPostjob={setPostjob}/>} />
+          <Route path="postjob" element={<CompanyPostJob />} />
           <Route path="managejob" element={<CompanyManageJob/>} />
           <Route path="job-application" element={<CompanyJobApplication/>} />
           <Route path="message" element={<CompanyMessage/>} />
@@ -94,6 +82,7 @@ function App() {
           <Route path="settings" element={<CompanySetting/>} />
           <Route path="profile" element={<CompanyProfile/>} />
           <Route path="profile-Edit" element={<CompanyEdit/>} />
+          <Route path="profile-edit" element={<CompanyEdit/>} />
         </Route> 
 
 

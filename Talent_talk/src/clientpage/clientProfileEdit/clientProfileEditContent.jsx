@@ -7,7 +7,9 @@ function ClientProfileEditContent() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [createdYear, setCreatedYear] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -20,7 +22,7 @@ function ClientProfileEditContent() {
   useEffect(() => {
     const loadProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/client/profile", {
+        const res = await axios.get("/client/profile", {
           withCredentials: true,
         });
         const data = res.data || {};
@@ -32,6 +34,7 @@ function ClientProfileEditContent() {
           email: data.email || "",
           phone: data.phone || data.mobile || "",
         }));
+        setAvatar(data.avatar || "");
         setCreatedYear(data.createdAt ? new Date(data.createdAt).getFullYear() : "");
       } catch (err) {
         console.log(err);
@@ -66,7 +69,7 @@ function ClientProfileEditContent() {
 
     try {
       setIsSaving(true);
-      const res = await axios.post("http://localhost:3000/client/update", payload, {
+      const res = await axios.post("/client/update", payload, {
         withCredentials: true,
       });
 
@@ -80,14 +83,48 @@ function ClientProfileEditContent() {
     }
   };
 
+  const getAvatarUrl = (avatarName) => {
+    if (!avatarName) return "https://i.pravatar.cc/100";
+    const base = (import.meta.env.VITE_API_BASE_URL || "http://localhost:3000").replace(/\/$/, "");
+    return `${base}/uploads/${avatarName}`;
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const payload = new FormData();
+    payload.append("image", file);
+
+    try {
+      setIsUploadingImage(true);
+      const res = await axios.post("/client/upload", payload, {
+        withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      const updatedAvatar = res.data?.client?.avatar;
+      if (updatedAvatar) {
+        setAvatar(updatedAvatar);
+      }
+      toast.success(res.data?.message || "Profile image updated.");
+    } catch (err) {
+      console.log(err);
+      toast.error("Failed to upload profile image.");
+    } finally {
+      setIsUploadingImage(false);
+      e.target.value = "";
+    }
+  };
+
   return (
     <div className="flex-1 bg-slate-50 p-10 text-slate-900">
       <form onSubmit={handleSave}>
         <div className="mb-8 flex items-center gap-6">
           <img
-            src="https://i.pravatar.cc/100"
+            src={getAvatarUrl(avatar)}
             alt="profile"
-            className="h-20 w-20 rounded-full"
+            className="h-20 w-20 rounded-full object-cover"
           />
 
           <div>
@@ -98,6 +135,16 @@ function ClientProfileEditContent() {
             <p className="text-sm text-slate-400">
               {createdYear ? `Joined in ${createdYear}` : "Keep your account information up to date"}
             </p>
+            <label className="mt-2 inline-block cursor-pointer rounded-md bg-sky-700 px-3 py-1 text-sm text-white">
+              {isUploadingImage ? "Uploading..." : "Upload Photo"}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+                disabled={isUploadingImage}
+              />
+            </label>
           </div>
         </div>
 
@@ -184,3 +231,4 @@ function ClientProfileEditContent() {
 }
 
 export default ClientProfileEditContent;
+

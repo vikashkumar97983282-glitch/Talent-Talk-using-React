@@ -9,6 +9,9 @@ function AccountSettings() {
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [avatar, setAvatar] = useState("");
+  const [createdAt, setCreatedAt] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -20,14 +23,17 @@ function AccountSettings() {
 
   useEffect(()=>{
     const user = async ()=>{
-      let res = await axios.get("http://localhost:3000/admin/profile",{withCredentials:true});
+      let res = await axios.get("/admin/profile",{withCredentials:true});
       const data = res.data || {};
       setFormData((prev) => ({
         ...prev,
         fullName: data.firstname+" "+data.lastname || "",
         email: data.email || "",
+        phone: data.phone || "",
         currentPassword: "",
       }));
+      setAvatar(data.avatar || "");
+      setCreatedAt(data.createdAt || "");
     }
     user();
   },[])
@@ -66,7 +72,7 @@ function AccountSettings() {
       };
 
       await axios.post(
-        "http://localhost:3000/admin/profileupdate",
+        "/admin/profileupdate",
         payload,
         { withCredentials: true }
       );
@@ -86,6 +92,42 @@ function AccountSettings() {
     }
   };
 
+  const getAvatarUrl = (avatarName) => {
+    if (!avatarName) {
+      return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxnsgAbYVaKCxUrJ9-dnMi0RvQ5I2mPAFIlw&s";
+    }
+    const base = (import.meta.env.VITE_API_BASE_URL || "http://localhost:3000").replace(/\/$/, "");
+    return `${base}/uploads/${avatarName}`;
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const payload = new FormData();
+    payload.append("image", file);
+
+    try {
+      setIsUploadingImage(true);
+      const res = await axios.post("/admin/upload", payload, {
+        withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      const updatedAvatar = res.data?.admin?.avatar;
+      if (updatedAvatar) {
+        setAvatar(updatedAvatar);
+      }
+      toast.success(res.data?.message || "Profile image updated.");
+    } catch (err) {
+      console.log(err);
+      toast.error("Failed to upload profile image.");
+    } finally {
+      setIsUploadingImage(false);
+      e.target.value = "";
+    }
+  };
+
   return (
     <div className="flex h-screen w-screen overflow-hidden">
         <AdminPanel />
@@ -95,14 +137,26 @@ function AccountSettings() {
         {/* Profile Header */}
         <div className="flex items-center mb-10">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxnsgAbYVaKCxUrJ9-dnMi0RvQ5I2mPAFIlw&s"
+            src={getAvatarUrl(avatar)}
             alt="profile"
             className="w-16 h-16 rounded-full object-cover mr-6"
           />
           <div>
-            <h1 className="text-2xl font-bold">Sophia Carter</h1>
+            <h1 className="text-2xl font-bold">{formData.fullName || "Admin"}</h1>
             <p className="text-gray-600">Admin</p>
-            <p className="text-gray-400 text-sm">Joined in 2021</p>
+            <p className="text-gray-400 text-sm">
+              {createdAt ? `Joined in ${new Date(createdAt).getFullYear()}` : ""}
+            </p>
+            <label className="mt-2 inline-block cursor-pointer rounded-md bg-indigo-600 px-3 py-1 text-sm text-white">
+              {isUploadingImage ? "Uploading..." : "Upload Photo"}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+                disabled={isUploadingImage}
+              />
+            </label>
           </div>
         </div>
 
@@ -283,3 +337,4 @@ function AccountSettings() {
 }
 
 export default AccountSettings;
+
