@@ -215,19 +215,34 @@ router.post('/forgot-password/reset', async (req, res) => {
             });
         }
 
-        const salt = await bcrypt.genSalt(10);
-        const passwordHash = await bcrypt.hash(newPassword, salt);
+        bcrypt.genSalt(10, function(err,salt){
+            bcrypt.hash(newPassword, salt, async function(err,hash){
+                client.password = hash;
+                client.passwordResetCode = undefined;
+                client.passwordResetCodeExpires = undefined;
+                client.passwordResetRequestedAt = undefined;
+                await client.save();
 
-        client.password = passwordHash;
-        client.passwordResetCode = undefined;
-        client.passwordResetCodeExpires = undefined;
-        client.passwordResetRequestedAt = undefined;
-        await client.save();
+                return res.status(200).json({
+                    message: 'password reset successfully',
+                    success: true,
+                });
+            })
+        })
 
-        return res.status(200).json({
-            message: 'password reset successfully',
-            success: true,
-        });
+        // const salt = await bcrypt.genSalt(10);
+        // const passwordHash = await bcrypt.hash(newPassword, salt);
+
+        // client.password = passwordHash;
+        // client.passwordResetCode = undefined;
+        // client.passwordResetCodeExpires = undefined;
+        // client.passwordResetRequestedAt = undefined;
+        // await client.save();
+
+        // return res.status(200).json({
+        //     message: 'password reset successfully',
+        //     success: true,
+        // });
     } catch (err) {
         console.log(err);
         return res.status(500).json({
