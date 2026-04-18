@@ -1,16 +1,31 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const Razorpay = require('razorpay');
 const CompanyModel = require('../models/companymodels');
 const JobModel = require('../models/jobsmodel');
 const ClientModel = require('../models/clientmodels');
 const MessageModel = require('../models/messagemodel');
+const PaymentModel = require('../models/paymentmodel');
 const jwt = require('jsonwebtoken');
 const isLogin = require('../utils/registerCookies');
 const { TOKEN_COOKIE_BY_ROLE } = require('../utils/registerCookies');
 const mongoose = require('mongoose');
 const upload = require('../middleware/fileupload');
 const sendPasswordResetEmail = require('../utils/passwordResetEmail');
+
+function getRazorpayClient() {
+    const keyId = String(process.env.RAZORPAY_KEY_ID || '').trim();
+    const keySecret = String(process.env.RAZORPAY_KEY_SECRET || '').trim();
+
+    if (!keyId || !keySecret) return null;
+
+    return new Razorpay({
+        key_id: keyId,
+        key_secret: keySecret,
+    });
+}
 
 
 
@@ -25,29 +40,60 @@ router.get('/', (req,res)=>{
 
 // register router
 router.post("/register", async (req,res)=>{
-    let {name,email,password,age,phone,location} = req.body;
-    const company = await CompanyModel.findOne({email});
+    try{
+        let {
+            name,
+            companyName,
+            email,
+            password,
+            age,
+            phone,
+            location,
+            city
+        } = req.body;
 
-    if(company) return res.status(409).send("user already exists!");
+        const finalName = String(name || companyName || "").trim();
+        const finalEmail = String(email || "").trim().toLowerCase();
+        const finalPassword = String(password || "");
+        const finalLocation = String(location || city || "").trim();
 
-    try{   
-        bcrypt.genSalt(10, function(err,salt){
-            bcrypt.hash(password, salt, async function(err,hash){
-                let user = await CompanyModel.create({
-                    name,
-                    email,
-                    password:hash,
-                    age,
-                    phone,
-                    location
-                })
-            })
-        })
-        res.send("company create sucessfully!")
+        if(!finalName || !finalEmail || !finalPassword){
+            return res.status(400).json({
+                message: "name, email and password are required",
+                success: false
+            });
+        }
 
+        const company = await CompanyModel.findOne({email: finalEmail});
+        if(company){
+            return res.status(409).json({
+                message: "user already exists!",
+                success: false
+            });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(finalPassword, salt);
+
+        await CompanyModel.create({
+            name: finalName,
+            email: finalEmail,
+            password: hash,
+            age,
+            phone,
+            location: finalLocation
+        });
+
+        return res.status(201).json({
+            message: "company created successfully!",
+            success: true
+        });
     } catch(err){
         console.log(err);
-        res.send(err);
+        return res.status(500).json({
+            message: "something went wrong",
+            success: false
+        });
     }
 });
 
@@ -785,6 +831,293 @@ router.post('/upload', isLogin('company'), upload.single('image'), async (req, r
         console.log(err);
         res.status(500).json({
             message: 'something went wrong',
+            success: false,
+        });
+    }
+});
+
+router.get('/payment/config', isLogin('company'), async (req, res) => {
+    const keyId = String(process.env.RAZORPAY_KEY_ID || '').trim();
+
+    if (!keyId) {
+        return res.status(503).json({
+            message: 'razorpay is not configured',
+            success: false,
+        });
+    }
+
+    return res.status(200).json({
+        success: true,
+        keyId,
+    });
+});
+
+router.get('/payment/clients', isLogin('company'), async (req, res) => {
+    try {
+        const company = await CompanyModel.findOne({ email: req.user.email });
+        if (!company) {
+            return res.status(404).json({
+                message: 'company not found',
+                success: false,
+            });
+        }
+
+        const pendingPayments = await PaymentModel.find({
+            companyId: company._id,
+            status: 'Pending',
+        })
+            .populate('clientId', 'firstname lastname email avatar')
+            .sort({ createdAt: -1 });
+
+        const recipientMap = new Map();
+        pendingPayments.forEach((payment) => {
+            if (!payment.clientId?._id) return;
+            recipientMap.set(String(payment.clientId._id), payment.clientId);
+        });
+
+        return res.status(200).json({
+            success: true,
+            clients: Array.from(recipientMap.values()),
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: 'something went wrong',
+            success: false,
+        });
+    }
+});
+
+router.get('/payment/history', isLogin('company'), async (req, res) => {
+    try {
+        const company = await CompanyModel.findOne({ email: req.user.email });
+        if (!company) {
+            return res.status(404).json({
+                message: 'company not found',
+                success: false,
+            });
+        }
+
+        const payments = await PaymentModel.find({ companyId: company._id })
+            .populate('clientId', 'firstname lastname email avatar')
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({
+            success: true,
+            payments,
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: 'something went wrong',
+            success: false,
+        });
+    }
+});
+
+router.post('/payment/create-order', isLogin('company'), async (req, res) => {
+    try {
+        const razorpayClient = getRazorpayClient();
+        if (!razorpayClient) {
+            return res.status(503).json({
+                message: 'razorpay is not configured',
+                success: false,
+            });
+        }
+
+        const amount = Number(req.body?.amount);
+        const clientId = String(req.body?.clientId || '').trim();
+        const description = String(req.body?.description || '').trim();
+
+        if (!Number.isFinite(amount) || amount <= 0) {
+            return res.status(400).json({
+                message: 'amount must be greater than 0',
+                success: false,
+            });
+        }
+
+        if (!mongoose.isValidObjectId(clientId)) {
+            return res.status(400).json({
+                message: 'valid clientId is required',
+                success: false,
+            });
+        }
+
+        const amountInPaise = Math.round(amount * 100);
+        const company = await CompanyModel.findOne({ email: req.user.email });
+        if (!company) {
+            return res.status(404).json({
+                message: 'company not found',
+                success: false,
+            });
+        }
+
+        const client = await ClientModel.findById(clientId);
+        if (!client) {
+            return res.status(404).json({
+                message: 'client not found',
+                success: false,
+            });
+        }
+
+        const validClientConnection = await JobModel.findOne({
+            companyid: company._id,
+            clientid: client._id,
+        });
+
+        if (!validClientConnection) {
+            return res.status(400).json({
+                message: 'client is not linked with this company',
+                success: false,
+            });
+        }
+
+        const order = await razorpayClient.orders.create({
+            amount: amountInPaise,
+            currency: 'INR',
+            receipt: `cmp_${Date.now()}`,
+            notes: {
+                companyEmail: req.user.email,
+                companyName: company?.name || '',
+                clientEmail: client.email || '',
+            },
+        });
+
+        const existingPendingPayment = await PaymentModel.findOne({
+            companyId: company._id,
+            clientId: client._id,
+            status: 'Pending',
+            $or: [
+                { razorpayOrderId: { $exists: false } },
+                { razorpayOrderId: null },
+                { razorpayOrderId: '' },
+            ],
+        }).sort({ createdAt: -1 });
+
+        let payment;
+        if (existingPendingPayment) {
+            existingPendingPayment.amount = amount;
+            existingPendingPayment.currency = 'INR';
+            existingPendingPayment.description =
+                description || existingPendingPayment.description || '';
+            existingPendingPayment.razorpayOrderId = order.id;
+            payment = await existingPendingPayment.save();
+        } else {
+            payment = await PaymentModel.create({
+                companyId: company._id,
+                clientId: client._id,
+                amount,
+                currency: 'INR',
+                status: 'Pending',
+                description,
+                razorpayOrderId: order.id,
+            });
+        }
+
+        return res.status(201).json({
+            message: 'order created successfully',
+            success: true,
+            orderId: order.id,
+            amount: order.amount,
+            currency: order.currency,
+            paymentId: payment._id,
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: 'failed to create order',
+            success: false,
+        });
+    }
+});
+
+router.post('/payment/verify', isLogin('company'), async (req, res) => {
+    try {
+        const {
+            razorpay_order_id,
+            razorpay_payment_id,
+            razorpay_signature,
+        } = req.body || {};
+
+        if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+            return res.status(400).json({
+                message: 'payment verification data is required',
+                success: false,
+            });
+        }
+
+        const keySecret = String(process.env.RAZORPAY_KEY_SECRET || '').trim();
+        if (!keySecret) {
+            return res.status(503).json({
+                message: 'razorpay is not configured',
+                success: false,
+            });
+        }
+
+        const expectedSignature = crypto
+            .createHmac('sha256', keySecret)
+            .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+            .digest('hex');
+
+        if (
+            expectedSignature.length !== String(razorpay_signature).length ||
+            !crypto.timingSafeEqual(
+                Buffer.from(expectedSignature),
+                Buffer.from(String(razorpay_signature))
+            )
+        ) {
+            return res.status(400).json({
+                message: 'invalid payment signature',
+                success: false,
+            });
+        }
+
+        const company = await CompanyModel.findOne({ email: req.user.email });
+        if (!company) {
+            return res.status(404).json({
+                message: 'company not found',
+                success: false,
+            });
+        }
+
+        const payment = await PaymentModel.findOneAndUpdate(
+            {
+                companyId: company._id,
+                razorpayOrderId: razorpay_order_id,
+            },
+            {
+                status: 'Success',
+                razorpayPaymentId: razorpay_payment_id,
+                razorpaySignature: String(razorpay_signature),
+                paidAt: new Date(),
+            },
+            { returnDocument: 'after', runValidators: true }
+        ).populate('clientId', 'firstname lastname email avatar');
+
+        if (!payment) {
+            return res.status(404).json({
+                message: 'payment record not found',
+                success: false,
+            });
+        }
+
+        return res.status(200).json({
+            message: 'payment verified successfully',
+            success: true,
+            payment: {
+                _id: payment._id,
+                paymentId: payment.razorpayPaymentId,
+                orderId: payment.razorpayOrderId,
+                amount: payment.amount,
+                status: payment.status,
+                paidAt: payment.paidAt,
+                client: payment.clientId,
+            },
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: 'payment verification failed',
             success: false,
         });
     }

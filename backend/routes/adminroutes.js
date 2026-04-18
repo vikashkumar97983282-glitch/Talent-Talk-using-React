@@ -113,7 +113,7 @@ router.post('/profileupdate', isLogin('admin'), async (req, res)=>{
                             password:hash,
                             age
                         },
-                        {returnDocument: true, runValidators: true}
+                        { returnDocument: 'after', runValidators: true }
                     )
                 })
                 res.send("user update sucessfully!")

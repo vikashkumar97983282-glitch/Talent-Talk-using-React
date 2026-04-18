@@ -5,6 +5,7 @@ const ClientModel = require('../models/clientmodels')
 const JobModel = require('../models/jobsmodel');
 const CompanyModel = require('../models/companymodels');
 const MessageModel = require('../models/messagemodel');
+const PaymentModel = require('../models/paymentmodel');
 const jwt = require('jsonwebtoken');
 const isLogin = require('../utils/registerCookies');
 const { TOKEN_COOKIE_BY_ROLE } = require('../utils/registerCookies');
@@ -277,7 +278,7 @@ router.post('/update', isLogin('client'), async (req, res) => {
     const client = await ClientModel.findOneAndUpdate(
       { email: req.user.email },
       updateData,
-      {returnDocument: true, runValidators: true}
+      { returnDocument: 'after', runValidators: true }
     );
 
     res.json({message: "user update successfully", success: true});
@@ -319,7 +320,11 @@ router.post('/applyjob', isLogin('client'), async (req,res)=>{
         let valid = await JobModel.findOne({_id: job_id,clientid: client._id});
         if(valid) return res.json({message:"job already added", success: true});
 
-        let job = await JobModel.findOneAndUpdate({_id:job_id},{clientid:client._id},{returnDocument: true, runValidators: true})
+        let job = await JobModel.findOneAndUpdate(
+            { _id: job_id },
+            { clientid: client._id },
+            { returnDocument: 'after', runValidators: true }
+        )
         client.job.push(job_id);
         await client.save();
 
@@ -378,7 +383,7 @@ router.post('/changejobstatus', isLogin('client'), async (req, res) => {
         let job = await JobModel.findOneAndUpdate(
             {_id: job_id, clientid: client._id},
             {status},
-            {new: true, runValidators: true}
+            { returnDocument: 'after', runValidators: true }
         );
 
         if(!job) {
@@ -386,6 +391,46 @@ router.post('/changejobstatus', isLogin('client'), async (req, res) => {
                 message: "job not found for this client",
                 success: false
             });
+        }
+
+        if (status === "complete") {
+            const companyId = Array.isArray(job.companyid) ? job.companyid[0] : job.companyid;
+            const paymentAmount = Number(job.payment || 0);
+
+            if (companyId) {
+                const existingPayment = await PaymentModel.findOne({
+                    clientId: client._id,
+                    companyId,
+                    jobId: job._id,
+                    status: { $in: ["Pending", "Success"] },
+                });
+
+                if (!existingPayment) {
+                    await PaymentModel.create({
+                        companyId,
+                        clientId: client._id,
+                        jobId: job._id,
+                        amount: Number.isFinite(paymentAmount) ? paymentAmount : 0,
+                        currency: "INR",
+                        status: "Pending",
+                        description: job.title
+                            ? `Payment for project: ${job.title}`
+                            : "Payment for completed project",
+                    });
+                }
+            }
+        }
+        if (status === "initial" || status === "progress") {
+            const companyId = Array.isArray(job.companyid) ? job.companyid[0] : job.companyid;
+
+            if (companyId) {
+                await PaymentModel.deleteMany({
+                    clientId: client._id,
+                    companyId,
+                    jobId: job._id,
+                    status: "Pending",
+                });
+            }
         }
 
         res.status(200).json({
@@ -425,7 +470,7 @@ router.post("/upload", isLogin('client'), upload.single("image"), async (req, re
         let data = await ClientModel.findOneAndUpdate(
             { email: req.user.email },
             { avatar: req.file.filename },
-            { returnDocument: true, runValidators: true }
+            { returnDocument: 'after', runValidators: true }
         );
 
         res.status(200).json({
@@ -681,6 +726,67 @@ router.delete('/messages/:messageId', isLogin('client'), async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({
+            message: 'something went wrong',
+            success: false,
+        });
+    }
+});
+
+router.get('/payments', isLogin('client'), async (req, res) => {
+    try {
+        const client = await ClientModel.findOne({ email: req.user.email });
+        if (!client) {
+            return res.status(404).json({
+                message: 'client not found',
+                success: false,
+            });
+        }
+
+        // Backfill pending payments for completed projects that do not yet
+        // have a payment entry, so the payments page always reflects project status.
+        const completedJobs = await JobModel.find({
+            clientid: client._id,
+            status: 'complete',
+        }).select('_id companyid payment title');
+
+        for (const job of completedJobs) {
+            const companyId = Array.isArray(job.companyid) ? job.companyid[0] : job.companyid;
+            if (!companyId) continue;
+
+            const existingPayment = await PaymentModel.findOne({
+                clientId: client._id,
+                companyId,
+                jobId: job._id,
+            }).select('_id');
+
+            if (existingPayment) continue;
+
+            const amount = Number(job.payment || 0);
+
+            await PaymentModel.create({
+                companyId,
+                clientId: client._id,
+                jobId: job._id,
+                amount: Number.isFinite(amount) ? amount : 0,
+                currency: 'INR',
+                status: 'Pending',
+                description: job.title
+                    ? `Payment for project: ${job.title}`
+                    : 'Payment for completed project',
+            });
+        }
+
+        const payments = await PaymentModel.find({ clientId: client._id })
+            .populate('companyId', 'name email location avatar')
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({
+            success: true,
+            payments,
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
             message: 'something went wrong',
             success: false,
         });
