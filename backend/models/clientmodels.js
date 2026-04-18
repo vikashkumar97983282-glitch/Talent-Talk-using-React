@@ -42,6 +42,18 @@ const clientModel = mongoose.Schema({
         }
     ],
     avatar: String,
+    passwordResetCode: {
+        type: String,
+        select: false
+    },
+    passwordResetCodeExpires: {
+        type: Date,
+        select: false
+    },
+    passwordResetRequestedAt: {
+        type: Date,
+        select: false
+    },
     role: {
         type: String,
         enum: ["Client"],

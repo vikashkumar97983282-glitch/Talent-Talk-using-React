@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 const isLogin = require('../utils/registerCookies');
 const { TOKEN_COOKIE_BY_ROLE } = require('../utils/registerCookies');
 const mongoose = require('mongoose');
+const sendPasswordResetEmail = require('../utils/passwordResetEmail');
 
 
 const upload = require('../middleware/fileupload')
@@ -106,6 +107,133 @@ router.post('/login', async (req,res)=>{
             message:"invalid users",
             success: true,
         })
+    }
+});
+
+router.post('/forgot-password/send-code', async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({
+                message: 'email is required',
+                success: false,
+            });
+        }
+
+        const client = await ClientModel.findOne({ email });
+        if (!client) {
+            return res.status(200).json({
+                message: 'If this email exists, a verification code has been sent.',
+                success: true,
+            });
+        }
+
+        const now = Date.now();
+        const lastRequestedAt = client.passwordResetRequestedAt
+            ? new Date(client.passwordResetRequestedAt).getTime()
+            : 0;
+
+        if (lastRequestedAt && now - lastRequestedAt < 60 * 1000) {
+            return res.status(429).json({
+                message: 'Please wait 1 minute before requesting another code.',
+                success: false,
+            });
+        }
+
+        const code = String(Math.floor(100000 + Math.random() * 900000));
+        const codeHash = await bcrypt.hash(code, 10);
+
+        client.passwordResetCode = codeHash;
+        client.passwordResetCodeExpires = new Date(now + 10 * 60 * 1000);
+        client.passwordResetRequestedAt = new Date(now);
+        await client.save();
+
+        const fullName = `${client.firstname || ''} ${client.lastname || ''}`.trim();
+        const emailResult = await sendPasswordResetEmail({
+            to: client.email,
+            name: fullName,
+            code,
+            accountType: 'client',
+        });
+
+        return res.status(200).json({
+            message: 'Verification code sent to your email.',
+            success: true,
+            devCode: emailResult.delivered ? undefined : code,
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: 'something went wrong',
+            success: false,
+        });
+    }
+});
+
+router.post('/forgot-password/reset', async (req, res) => {
+    try {
+        const { email, code, newPassword, confirmPassword } = req.body;
+
+        if (!email || !code || !newPassword || !confirmPassword) {
+            return res.status(400).json({
+                message: 'email, code, newPassword and confirmPassword are required',
+                success: false,
+            });
+        }
+
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({
+                message: 'new password and confirm password must match',
+                success: false,
+            });
+        }
+
+        const client = await ClientModel.findOne({ email }).select(
+            '+passwordResetCode +passwordResetCodeExpires +passwordResetRequestedAt'
+        );
+
+        if (!client || !client.passwordResetCode || !client.passwordResetCodeExpires) {
+            return res.status(400).json({
+                message: 'invalid or expired verification code',
+                success: false,
+            });
+        }
+
+        if (new Date(client.passwordResetCodeExpires).getTime() < Date.now()) {
+            return res.status(400).json({
+                message: 'verification code has expired',
+                success: false,
+            });
+        }
+
+        const isCodeValid = await bcrypt.compare(String(code), client.passwordResetCode);
+        if (!isCodeValid) {
+            return res.status(400).json({
+                message: 'invalid or expired verification code',
+                success: false,
+            });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const passwordHash = await bcrypt.hash(newPassword, salt);
+
+        client.password = passwordHash;
+        client.passwordResetCode = undefined;
+        client.passwordResetCodeExpires = undefined;
+        client.passwordResetRequestedAt = undefined;
+        await client.save();
+
+        return res.status(200).json({
+            message: 'password reset successfully',
+            success: true,
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: 'something went wrong',
+            success: false,
+        });
     }
 });
 
@@ -263,16 +391,40 @@ router.post('/changejobstatus', isLogin('client'), async (req, res) => {
 
 // fileuploads
 router.post("/upload", isLogin('client'), upload.single("image"), async (req, res) =>{
-    let client = await ClientModel.findOne({email:req.user.email});
+    try {
+        let client = await ClientModel.findOne({ email: req.user.email });
+        if (!client) {
+            return res.status(404).json({
+                message: 'client not found',
+                success: false,
+            });
+        }
 
-    let data = await ClientModel.findOneAndUpdate({email:req.user.email},
-        {avatar:req.file.filename},
-        {returnDocument: true, runValidators: true}
-    )
+        if (!req.file?.filename) {
+            return res.status(400).json({
+                message: 'image file is required',
+                success: false,
+            });
+        }
 
+        let data = await ClientModel.findOneAndUpdate(
+            { email: req.user.email },
+            { avatar: req.file.filename },
+            { returnDocument: true, runValidators: true }
+        );
 
-    console.log(client);
-    res.send(data)
+        res.status(200).json({
+            message: 'profile image uploaded successfully',
+            success: true,
+            client: data,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'something went wrong',
+            success: false,
+        });
+    }
 });
 
 

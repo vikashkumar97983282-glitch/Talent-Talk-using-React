@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const isLogin = require('../utils/registerCookies');
 const { TOKEN_COOKIE_BY_ROLE } = require('../utils/registerCookies');
+const upload = require('../middleware/fileupload');
 
 
 router.get('/', (req,res)=>{
@@ -123,6 +124,44 @@ router.post('/profileupdate', isLogin('admin'), async (req, res)=>{
             res.send(err);
         }
 })
+
+router.post('/upload', isLogin('admin'), upload.single('image'), async (req, res) => {
+    try {
+        const admin = await AdminModel.findOne({ email: req.user.email });
+
+        if (!admin) {
+            return res.status(404).json({
+                message: 'admin not found',
+                success: false,
+            });
+        }
+
+        if (!req.file?.filename) {
+            return res.status(400).json({
+                message: 'image file is required',
+                success: false,
+            });
+        }
+
+        const data = await AdminModel.findOneAndUpdate(
+            { email: req.user.email },
+            { avatar: req.file.filename },
+            { returnDocument: 'after', runValidators: true }
+        ).select('-password');
+
+        res.status(200).json({
+            message: 'profile image uploaded successfully',
+            success: true,
+            admin: data,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'something went wrong',
+            success: false,
+        });
+    }
+});
 
 
 // logout route

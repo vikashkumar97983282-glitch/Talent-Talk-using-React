@@ -9,6 +9,8 @@ const jwt = require('jsonwebtoken');
 const isLogin = require('../utils/registerCookies');
 const { TOKEN_COOKIE_BY_ROLE } = require('../utils/registerCookies');
 const mongoose = require('mongoose');
+const upload = require('../middleware/fileupload');
+const sendPasswordResetEmail = require('../utils/passwordResetEmail');
 
 
 
@@ -87,6 +89,132 @@ router.post('/login', async (req,res)=>{
         res.status(404).json({
             message: "invalid users",
             success: true,
+        });
+    }
+});
+
+router.post('/forgot-password/send-code', async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({
+                message: 'email is required',
+                success: false,
+            });
+        }
+
+        const company = await CompanyModel.findOne({ email });
+        if (!company) {
+            return res.status(200).json({
+                message: 'If this email exists, a verification code has been sent.',
+                success: true,
+            });
+        }
+
+        const now = Date.now();
+        const lastRequestedAt = company.passwordResetRequestedAt
+            ? new Date(company.passwordResetRequestedAt).getTime()
+            : 0;
+
+        if (lastRequestedAt && now - lastRequestedAt < 60 * 1000) {
+            return res.status(429).json({
+                message: 'Please wait 1 minute before requesting another code.',
+                success: false,
+            });
+        }
+
+        const code = String(Math.floor(100000 + Math.random() * 900000));
+        const codeHash = await bcrypt.hash(code, 10);
+
+        company.passwordResetCode = codeHash;
+        company.passwordResetCodeExpires = new Date(now + 10 * 60 * 1000);
+        company.passwordResetRequestedAt = new Date(now);
+        await company.save();
+
+        const emailResult = await sendPasswordResetEmail({
+            to: company.email,
+            name: company.name,
+            code,
+            accountType: 'company',
+        });
+
+        return res.status(200).json({
+            message: 'Verification code sent to your email.',
+            success: true,
+            devCode: emailResult.delivered ? undefined : code,
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: 'something went wrong',
+            success: false,
+        });
+    }
+});
+
+router.post('/forgot-password/reset', async (req, res) => {
+    try {
+        const { email, code, newPassword, confirmPassword } = req.body;
+
+        if (!email || !code || !newPassword || !confirmPassword) {
+            return res.status(400).json({
+                message: 'email, code, newPassword and confirmPassword are required',
+                success: false,
+            });
+        }
+
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({
+                message: 'new password and confirm password must match',
+                success: false,
+            });
+        }
+
+        const company = await CompanyModel.findOne({ email }).select(
+            '+passwordResetCode +passwordResetCodeExpires +passwordResetRequestedAt'
+        );
+
+        if (!company || !company.passwordResetCode || !company.passwordResetCodeExpires) {
+            return res.status(400).json({
+                message: 'invalid or expired verification code',
+                success: false,
+            });
+        }
+
+        if (new Date(company.passwordResetCodeExpires).getTime() < Date.now()) {
+            return res.status(400).json({
+                message: 'verification code has expired',
+                success: false,
+            });
+        }
+
+        const isCodeValid = await bcrypt.compare(String(code), company.passwordResetCode);
+        if (!isCodeValid) {
+            return res.status(400).json({
+                message: 'invalid or expired verification code',
+                success: false,
+            });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const passwordHash = await bcrypt.hash(newPassword, salt);
+
+        company.password = passwordHash;
+        company.passwordResetCode = undefined;
+        company.passwordResetCodeExpires = undefined;
+        company.passwordResetRequestedAt = undefined;
+        await company.save();
+
+        return res.status(200).json({
+            message: 'password reset successfully',
+            success: true,
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: 'something went wrong',
+            success: false,
         });
     }
 });
@@ -614,6 +742,44 @@ router.delete('/messages/:messageId', isLogin('company'), async (req, res) => {
         res.status(200).json({
             message: 'message deleted successfully',
             success: true,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'something went wrong',
+            success: false,
+        });
+    }
+});
+
+router.post('/upload', isLogin('company'), upload.single('image'), async (req, res) => {
+    try {
+        const company = await CompanyModel.findOne({ email: req.user.email });
+
+        if (!company) {
+            return res.status(404).json({
+                message: 'company not found',
+                success: false,
+            });
+        }
+
+        if (!req.file?.filename) {
+            return res.status(400).json({
+                message: 'image file is required',
+                success: false,
+            });
+        }
+
+        const data = await CompanyModel.findOneAndUpdate(
+            { email: req.user.email },
+            { avatar: req.file.filename },
+            { returnDocument: 'after', runValidators: true }
+        ).select('-password');
+
+        res.status(200).json({
+            message: 'profile image uploaded successfully',
+            success: true,
+            company: data,
         });
     } catch (err) {
         console.log(err);

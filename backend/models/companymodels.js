@@ -11,6 +11,19 @@ const companyModel = mongoose.Schema({
     phone: String,
     location: String,
     age: Number,
+    avatar: String,
+    passwordResetCode: {
+        type: String,
+        select: false
+    },
+    passwordResetCodeExpires: {
+        type: Date,
+        select: false
+    },
+    passwordResetRequestedAt: {
+        type: Date,
+        select: false
+    },
     posts: [
         {
            type: mongoose.Schema.Types.ObjectId,
