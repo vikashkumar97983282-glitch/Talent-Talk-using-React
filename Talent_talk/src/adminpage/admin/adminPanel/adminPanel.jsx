@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AdminElement from "./adminElement";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const menu = [
   {
@@ -46,16 +47,44 @@ const menu = [
 ];
 
 function AdminPanel(){
+    const [admin, setAdmin] = useState(null);
+
+    useEffect(() => {
+      const loadAdminProfile = async () => {
+        try {
+          const res = await axios.get("/admin/profile", { withCredentials: true });
+          setAdmin(res.data || null);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      loadAdminProfile();
+    }, []);
+
+    const getAvatarUrl = (avatarName) => {
+      if (!avatarName) {
+        return "https://t3.ftcdn.net/jpg/01/00/57/26/360_F_100572672_6eerkmT3J2ekUtGCFP54FiGRAT9VhYsd.jpg";
+      }
+      const base = (import.meta.env.VITE_API_BASE_URL || "http://localhost:3000").replace(/\/$/, "");
+      return `${base}/uploads/${avatarName}`;
+    };
+
+    const adminName =
+      [admin?.firstname, admin?.lastname].filter(Boolean).join(" ").trim() ||
+      admin?.name ||
+      "Admin Panel";
+
     return (
         <div className="h-screen w-[25vw] min-w-64 shrink-0 border-r border-indigo-200/30 bg-gradient-to-b from-indigo-50 via-sky-50 to-white">
           <div className="flex h-full flex-col gap-6 py-4">
             <Link to="/admin/settings" className="flex items-center gap-3 px-4">
                 <img
-                  src="https://t3.ftcdn.net/jpg/01/00/57/26/360_F_100572672_6eerkmT3J2ekUtGCFP54FiGRAT9VhYsd.jpg"
+                  src={getAvatarUrl(admin?.avatar)}
                   alt="Admin profile"
                   className="h-10 w-10 rounded-full object-cover ring-2 ring-indigo-200/70"
                 />
-                <h1 className="text-lg font-semibold text-stone-800">Admin Panel</h1>
+                <h1 className="text-lg font-semibold text-stone-800">{adminName}</h1>
             </Link>
             <div className="flex flex-col gap-1">
                 {menu.map((elem,idx)=>{

@@ -1,6 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  getClientAvatarUrl,
+  getClientFullName,
+  setClientProfileCache,
+} from "../clientUtils/clientProfile";
 
 function ClientProfileContent() {
   const navigate = useNavigate();
@@ -13,6 +18,7 @@ function ClientProfileContent() {
           withCredentials: true,
         });
         setUser(res.data);
+        setClientProfileCache(res.data || null);
       } catch (err) {
         console.log(err);
       }
@@ -25,24 +31,18 @@ function ClientProfileContent() {
     navigate("/client/profileEdit");
   };
 
-  const getAvatarUrl = (avatar) => {
-    if (!avatar) return "https://i.pravatar.cc/100";
-    const base = (import.meta.env.VITE_API_BASE_URL || "http://localhost:3000").replace(/\/$/, "");
-    return `${base}/uploads/${avatar}`;
-  };
-
   return (
     <div className="flex-1 bg-slate-50 p-12 text-slate-900">
       <div className="mb-10 flex items-center gap-6">
         <img
-          src={getAvatarUrl(user?.avatar)}
+          src={getClientAvatarUrl(user?.avatar)}
           alt="profile"
           className="h-20 w-20 rounded-full"
         />
 
         <div>
           <h2 className="text-xl font-semibold">
-            {user ? `${user.firstname} ${user.lastname}` : ""}
+            {getClientFullName(user)}
           </h2>
           <p className="text-sm text-slate-500">
             {user?.createdAt ? `Joined in ${new Date(user.createdAt).getFullYear()}` : ""}
@@ -53,7 +53,7 @@ function ClientProfileContent() {
       <h3 className="mb-4 font-semibold">Personal Information</h3>
 
       <div className="space-y-3 text-lg">
-        <p><strong>Full Name :</strong> {user ? `${user.firstname} ${user.lastname}` : ""}</p>
+        <p><strong>Full Name :</strong> {getClientFullName(user)}</p>
         <p><strong>Email :</strong> {user?.email}</p>
         <p><strong>Phone Number :</strong> {user?.phone}</p>
       </div>

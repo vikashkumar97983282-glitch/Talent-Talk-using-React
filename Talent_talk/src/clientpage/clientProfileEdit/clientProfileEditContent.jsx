@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { getClientAvatarUrl, setClientProfileCache } from "../clientUtils/clientProfile";
 
 function ClientProfileEditContent() {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ function ClientProfileEditContent() {
         }));
         setAvatar(data.avatar || "");
         setCreatedYear(data.createdAt ? new Date(data.createdAt).getFullYear() : "");
+        setClientProfileCache(data || null);
       } catch (err) {
         console.log(err);
       } finally {
@@ -83,12 +85,6 @@ function ClientProfileEditContent() {
     }
   };
 
-  const getAvatarUrl = (avatarName) => {
-    if (!avatarName) return "https://i.pravatar.cc/100";
-    const base = (import.meta.env.VITE_API_BASE_URL || "http://localhost:3000").replace(/\/$/, "");
-    return `${base}/uploads/${avatarName}`;
-  };
-
   const handleImageUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -107,6 +103,7 @@ function ClientProfileEditContent() {
       if (updatedAvatar) {
         setAvatar(updatedAvatar);
       }
+      setClientProfileCache(res.data?.client || null);
       toast.success(res.data?.message || "Profile image updated.");
     } catch (err) {
       console.log(err);
@@ -122,7 +119,7 @@ function ClientProfileEditContent() {
       <form onSubmit={handleSave}>
         <div className="mb-8 flex items-center gap-6">
           <img
-            src={getAvatarUrl(avatar)}
+            src={getClientAvatarUrl(avatar)}
             alt="profile"
             className="h-20 w-20 rounded-full object-cover"
           />

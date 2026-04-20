@@ -4,6 +4,7 @@ import { Outlet , Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { toast } from "react-toastify";
+import { setClientProfileCache } from "../clientUtils/clientProfile";
 
 function ClientLogin() {
   const navigate = useNavigate();
@@ -18,6 +19,12 @@ function ClientLogin() {
         let res = await axios.post("/client/login",{email,password},{withCredentials:true})
     
       if (res.data.success){
+        try {
+          const profileRes = await axios.get("/client/profile", { withCredentials: true });
+          setClientProfileCache(profileRes.data || null);
+        } catch (profileErr) {
+          console.log("Unable to preload client profile:", profileErr);
+        }
         navigate("/client/dashboard");
         toast.success(res.data.message)
       } else{

@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaHome, FaProjectDiagram, FaSearch, FaEnvelope, FaDollarSign, FaCog } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+import {
+  getClientAvatarUrl,
+  getClientFullName,
+  getClientProfileCache,
+  setClientProfileCache,
+} from "../clientUtils/clientProfile";
 
 const panel = [
   { name: "Dashboard", icon: FaHome, path: "/client/dashboard" },
@@ -12,6 +19,23 @@ const panel = [
 ];
 
 function ClientAdminPanel() {
+  const [client, setClient] = useState(() => getClientProfileCache());
+
+  useEffect(() => {
+    const loadClientProfile = async () => {
+      try {
+        const res = await axios.get("/client/profile", { withCredentials: true });
+        const data = res.data || null;
+        setClient(data);
+        setClientProfileCache(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    loadClientProfile();
+  }, []);
+
   return (
     <div className="w-64 h-screen bg-gradient-to-b from-slate-950 via-indigo-950 to-sky-800 p-6 text-sky-50 shadow-2xl">
 
@@ -20,11 +44,11 @@ function ClientAdminPanel() {
       <NavLink to="/client/profile" className="cursor-pointer">
         <div className="mb-10 flex items-center gap-3 rounded-2xl border border-sky-200/20 bg-white/10 px-3 py-3 backdrop-blur-sm transition-colors hover:bg-white/15">
         <img
-          src="https://i.pravatar.cc/40"
+          src={getClientAvatarUrl(client?.avatar)}
           alt="profile"
-          className="w-10 h-10 rounded-full ring-2 ring-sky-200/40"
+          className="w-10 h-10 rounded-full ring-2 ring-sky-200/40 object-cover"
         />
-        <h2 className="text-lg font-semibold">Sophi Carter</h2>
+        <h2 className="text-lg font-semibold">{getClientFullName(client)}</h2>
       </div>
       </NavLink>
       

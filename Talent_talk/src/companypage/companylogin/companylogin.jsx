@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 import { toast } from "react-toastify";
+import { setCompanyProfileCache } from "../companyUtils/companyProfile";
 
 function CompanyLogin() {
 
@@ -19,6 +20,12 @@ function CompanyLogin() {
 
 
       if (res.data.success){
+        try {
+          const profileRes = await axios.get("/company/profile", { withCredentials: true });
+          setCompanyProfileCache(profileRes.data?.company || null);
+        } catch (profileErr) {
+          console.log("Unable to preload company profile:", profileErr);
+        }
         toast.success(res.data.message)
         navigate("/company/dashboard")
       }
@@ -30,7 +37,7 @@ function CompanyLogin() {
     }
     catch(err){
       console.log(err);
-      toast.error(err.response?.data?.message || "invalid user")
+      toast.error(err.response?.data?.message || "Internal Server Error")
     }
   }
 

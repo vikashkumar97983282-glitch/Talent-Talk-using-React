@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -43,14 +43,28 @@ import ClientPayment from "./clientpage/clientpayment/clientpayment";
 import ClientSetting from "./clientpage/clientSetting/clientSetting";
 import ClientProfile from "./clientpage/clientProfile/clientProfile";
 import ClientProfileEdit from "./clientpage/clientProfileEdit/clientProfileEdit";
+import FreelanceFooter from "./components/FreelanceFooter";
 
 function App() {
+  const location = useLocation();
+  const currentPath = location.pathname.toLowerCase();
+
+  const showFooter =
+    currentPath === "/" ||
+    currentPath === "/admin" ||
+    currentPath === "/company" ||
+    currentPath === "/company/register" ||
+    currentPath === "/company/forget-password" ||
+    currentPath === "/client" ||
+    currentPath === "/client/register" ||
+    currentPath === "/client/forget-password";
 
   return (
-    <>
-      <Routes>
+    <div className="flex min-h-screen flex-col">
+      <main className="flex-1">
+        <Routes>
 
-        <Route path="/" element={<Home/>}></Route>
+          <Route path="/" element={<Home/>}></Route>
 
         {/* admin page routing  */}
         <Route path="/admin">
@@ -102,9 +116,11 @@ function App() {
         </Route>
 
 
-      </Routes>
+        </Routes>
+      </main>
+      {showFooter && <FreelanceFooter />}
       <ToastContainer />
-    </>
+    </div>
   );
 }
 

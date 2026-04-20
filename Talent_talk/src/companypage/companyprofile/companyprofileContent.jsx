@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { getCompanyAvatarUrl, setCompanyProfileCache } from "../companyUtils/companyProfile";
 
 function CompanyProfileContent() {
   const [company, setCompany] = useState(null);
-
-  const getAvatarUrl = (avatarName) => {
-    if (!avatarName) return "https://randomuser.me/api/portraits/women/65.jpg";
-    const base = (import.meta.env.VITE_API_BASE_URL || "http://localhost:3000").replace(/\/$/, "");
-    return `${base}/uploads/${avatarName}`;
-  };
 
   useEffect(() => {
     const loadCompanyProfile = async () => {
       try {
         const res = await axios.get("/company/profile", { withCredentials: true });
-        setCompany(res.data?.company || null);
+        const data = res.data?.company || null;
+        setCompany(data);
+        setCompanyProfileCache(data);
       } catch (err) {
         console.log(err);
       }
@@ -31,7 +28,7 @@ function CompanyProfileContent() {
       <div className="flex items-center gap-6 mb-8">
 
         <img
-          src={getAvatarUrl(company?.avatar)}
+          src={getCompanyAvatarUrl(company?.avatar)}
           alt="profile"
           className="w-20 h-20 rounded-full object-cover"
         />
