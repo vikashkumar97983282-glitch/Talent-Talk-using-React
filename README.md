@@ -7,3 +7,11 @@ The design focuses on building a modern platform where **clients can hire freela
 The goal of this design is to create a **clean, simple, and user-friendly freelancing platform interface** with smooth navigation and modern UI components.
 
 ---
+## 🎯 Project Goals
+- Create a modern freelancing platform interface
+- Provide smooth navigation for clients and freelancers
+- Design a clean and responsive UI layout
+- Improve project discovery and hiring process
+- Enhance user experience with simple interactions
+
+---
