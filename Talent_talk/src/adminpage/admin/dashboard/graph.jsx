@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AgCharts } from "ag-charts-react";
 import { AllCommunityModule, ModuleRegistry } from "ag-charts-community";
 
-// ✅ REQUIRED: register modules ONCE
+// Required: register modules once
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 function Graph() {
@@ -16,7 +16,7 @@ function Graph() {
       { month: "Nov", iceCreamSales: 200000 },
     ],
     title: {
-      text: "Ice Cream Sales by Month",
+      text: "Monthly Revenue",
     },
     series: [
       {
@@ -28,7 +28,7 @@ function Graph() {
   });
 
   return (
-    <div className="min-h-[360px] w-full rounded-2xl bg-white p-4 shadow-sm ring-1 ring-indigo-100">
+    <div className="min-h-[360px] w-full rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
       <AgCharts options={chartOptions} />
     </div>
   );

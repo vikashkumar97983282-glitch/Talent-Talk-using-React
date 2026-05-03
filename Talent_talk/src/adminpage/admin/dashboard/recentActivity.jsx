@@ -14,9 +14,10 @@ function RecentActivity(){
 ];
 
     return (
-        <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-indigo-100">
-            <div className="mb-3">
+        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="mb-4 flex items-center justify-between">
                 <h1 className="text-base font-semibold">Recent Activity</h1>
+                <button className="rounded-md border border-slate-200 px-2 py-1 text-xs text-slate-600 hover:bg-slate-100">View all</button>
             </div>
             {history.map((ele,idx)=>{
                 return <History key={idx} project={ele.project} status={ele.status} time={ele.time}/>

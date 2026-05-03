@@ -5,8 +5,7 @@ import DashboardPage from "./dashboard/dashboardpage";
 
 function Dashboard(){
     return (
-        <div className='flex h-screen w-screen m-0 justify-start'>
-            {/* <h1>Admin Panel</h1> */}
+        <div className='flex h-screen w-screen m-0 justify-start overflow-hidden bg-slate-100'>
             <AdminPanel/>
             <DashboardPage/>
         </div>
