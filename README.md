@@ -43,3 +43,12 @@ The goal of this design is to create a **clean, simple, and user-friendly freela
 - Messaging Interface
 
 ---
+
+## 🔗 View the Figma Design 
+
+You can view the complete design here:
+
+**Figma Link:**  
+[https://www.figma.com/design/MDqBqbJPykmxaxXXRjO1US/free-lancer-project?node-id=0-1&p=f&t=MLTNP7CMr7vfBj97-0]
+
+---
