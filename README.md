@@ -52,3 +52,13 @@ You can view the complete design here:
 [https://www.figma.com/design/MDqBqbJPykmxaxXXRjO1US/free-lancer-project?node-id=0-1&p=f&t=MLTNP7CMr7vfBj97-0]
 
 ---
+
+## 🚀 Future Improvements
+- Mobile responsive version
+- Dark mode UI
+- Advanced search filters
+- Payment system UI
+
+---
+
+UI/UX Designer | Data Science Enthusiast
