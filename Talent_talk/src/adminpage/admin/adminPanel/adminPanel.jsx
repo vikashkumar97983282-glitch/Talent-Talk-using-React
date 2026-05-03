@@ -25,11 +25,6 @@ const menu = [
     path:"/admin/company"
   },
   {
-    name: "Invoices",
-    img: "https://cdn-icons-png.flaticon.com/512/3135/3135673.png",
-    path:"/admin/invoice"
-  },
-  {
     name: "Insights",
     img: "https://cdn-icons-png.flaticon.com/512/1828/1828884.png",
     path:"/admin/insights"
