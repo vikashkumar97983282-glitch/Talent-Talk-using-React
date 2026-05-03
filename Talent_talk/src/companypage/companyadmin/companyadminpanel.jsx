@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaHome, FaUser, FaBriefcase, FaBell, FaEnvelope, FaDollarSign, FaCog } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+import {
+  getCompanyAvatarUrl,
+  getCompanyProfileCache,
+  setCompanyProfileCache,
+} from "../companyUtils/companyProfile";
 
 const panel = [
   { name: "Dashboard", icon: FaHome, path:"/company/dashboard"},
@@ -14,16 +20,33 @@ const panel = [
 ];
 
 const CompanyAdminPanel = () => {
+  const [company, setCompany] = useState(() => getCompanyProfileCache());
+
+  useEffect(() => {
+    const loadCompanyProfile = async () => {
+      try {
+        const res = await axios.get("/company/profile", { withCredentials: true });
+        const data = res.data?.company || null;
+        setCompany(data);
+        setCompanyProfileCache(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    loadCompanyProfile();
+  }, []);
+
   return (
     <div className="w-64 h-screen bg-gradient-to-b from-[#0f2d24] via-[#18493a] to-[#276254] text-[#eef7f1] p-6 shadow-2xl">
 
       <NavLink to="/company/profile" className="mb-10 flex items-center gap-3 rounded-2xl border border-[#dcebdd]/20 bg-white/10 px-3 py-3 backdrop-blur-sm transition-colors hover:bg-white/15">
         <img
-          src="https://randomuser.me/api/portraits/women/44.jpg"
+          src={getCompanyAvatarUrl(company?.avatar)}
           alt="Company profile"
-          className="w-10 h-10 rounded-full ring-2 ring-[#dcebdd]/50"
+          className="w-10 h-10 rounded-full ring-2 ring-[#dcebdd]/50 object-cover"
         />
-        <span className="font-semibold">Sophi carter</span>
+        <span className="font-semibold">{company?.name || "Company Profile"}</span>
       </NavLink>
 
       <ul className="space-y-4 text-sm">

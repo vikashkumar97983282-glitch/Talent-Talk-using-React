@@ -1,5 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+import {
+  getClientAvatarUrl,
+  getClientProfileCache,
+  setClientProfileCache,
+} from "../clientUtils/clientProfile";
 
 const panel = [
   { name: "Dashboard",  path: "/client/dashboard" },
@@ -11,6 +17,23 @@ const panel = [
 ];
 
 function ClientFindJobHeader() {
+  const [client, setClient] = useState(() => getClientProfileCache());
+
+  useEffect(() => {
+    const loadClientProfile = async () => {
+      try {
+        const res = await axios.get("/client/profile", { withCredentials: true });
+        const data = res.data || null;
+        setClient(data);
+        setClientProfileCache(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    loadClientProfile();
+  }, []);
+
   return (
     <div className="bg-gradient-to-r from-slate-950 via-indigo-950 to-sky-800 text-sky-50 px-8 py-4 flex justify-between items-center border-b border-sky-200/20 shadow-lg">
 
@@ -19,9 +42,9 @@ function ClientFindJobHeader() {
       <NavLink to="/client/profile" className="cursor-pointer">
         <div className="flex items-center gap-3 rounded-full border border-sky-200/20 bg-white/10 p-1.5 transition-colors hover:bg-white/15">
         <img
-          src="https://i.pravatar.cc/40"
+          src={getClientAvatarUrl(client?.avatar)}
           alt="profile"
-          className="w-8 h-8 rounded-full ring-2 ring-sky-200/40"
+          className="w-8 h-8 rounded-full ring-2 ring-sky-200/40 object-cover"
         />
       </div>
       </NavLink>

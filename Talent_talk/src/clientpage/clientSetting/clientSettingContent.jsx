@@ -1,11 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { toast } from "react-toastify";
 
 function ClientSettingsContent() {
 
-  // const handle = ()=>{
-  //   navigate("/")
-  // }
+  const navigate = useNavigate();
+
+  const handlelogout = async ()=>{
+    let res = await axios.post("/client/logout",{},{withCredentials:true});
+    if(res.data.success){
+      navigate("/client")
+      toast.success(res.data.message)
+    }
+
+  }
 
 
   return (
@@ -36,13 +45,13 @@ function ClientSettingsContent() {
       {/* Buttons */}
       <div className="flex gap-4">
 
-        <Link to="/client/dashboard" className="bg-gradient-to-r from-indigo-700 to-sky-700 text-white px-4 py-2 rounded-lg">
+        <Link to="/client/dashboard" className="bg-linear-to-r from-indigo-700 to-sky-700 text-white px-4 py-2 rounded-lg">
           Save Changes
         </Link>
 
-        <Link to="/" className="bg-red-600 text-white px-4 py-2 rounded-lg">
+        <button onClick={handlelogout} className="bg-red-600 text-white px-4 py-2 rounded-lg">
           Logout
-        </Link>
+        </button>
 
       </div>
 
@@ -51,3 +60,4 @@ function ClientSettingsContent() {
 }
 
 export default ClientSettingsContent;
+

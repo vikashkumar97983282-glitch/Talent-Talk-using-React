@@ -1,23 +1,43 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';
+import { toast } from "react-toastify";
+import { setCompanyProfileCache } from "../companyUtils/companyProfile";
 
 function CompanyLogin() {
 
-  const navigate = useNavigate("");
+  const navigate = useNavigate();
 
   const [email,setemail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handlelogin = (e)=>{
+  const handlelogin = async (e)=>{
     e.preventDefault();
-    if (email === "company@gmail.com"  && password === "1234"){
-      console.log("login successfully")
-      navigate("/company/dashboard")
+
+    try {
+        let res = await axios.post("/company/login",{email,password},{withCredentials:true})
+
+
+      if (res.data.success){
+        try {
+          const profileRes = await axios.get("/company/profile", { withCredentials: true });
+          setCompanyProfileCache(profileRes.data?.company || null);
+        } catch (profileErr) {
+          console.log("Unable to preload company profile:", profileErr);
+        }
+        toast.success(res.data.message)
+        navigate("/company/dashboard")
+      }
+      else{
+        setemail("");
+        setPassword("");
+        toast.error(res.data.message || "Invalid email or password.");
+      }
     }
-    else{
-      setemail("");
-      setPassword("");
+    catch(err){
+      console.log(err);
+      toast.error(err.response?.data?.message || "Internal Server Error")
     }
   }
 
@@ -31,6 +51,10 @@ function CompanyLogin() {
       }}
     >
       <div className="text-center">
+
+        <Link to="/" className="absolute right-7 top-7 flex h-10 min-w-24 items-center justify-center rounded-[10px] bg-white/80 px-4 text-slate-900 hover:bg-white">
+                    Home
+                </Link>
         
         <h1 className="mb-10 text-4xl font-bold text-[#16362b]">
           Company Login
@@ -43,6 +67,7 @@ function CompanyLogin() {
           <input
             type="email"
             placeholder="Email"
+            value={email}
             onChange={(e)=>setemail(e.target.value)}
             className="mb-4 w-full rounded bg-[#f7f4ea] p-3 outline-none ring-1 ring-[#e7dfcc]"
           />
@@ -50,6 +75,7 @@ function CompanyLogin() {
           <input
             type="password"
             placeholder="Password"
+            value={password}
             onChange={(e)=>setPassword(e.target.value)}
             autoComplete=""
             className="mb-3 w-full rounded bg-[#f7f4ea] p-3 outline-none ring-1 ring-[#e7dfcc]"
@@ -80,3 +106,4 @@ function CompanyLogin() {
 };
 
 export default CompanyLogin;
+

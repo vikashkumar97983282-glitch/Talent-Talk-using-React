@@ -2,6 +2,9 @@ import React from "react";
 import { useState } from "react";
 import { Outlet , Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
+import { toast } from "react-toastify";
+import { setClientProfileCache } from "../clientUtils/clientProfile";
 
 function ClientLogin() {
   const navigate = useNavigate();
@@ -9,20 +12,38 @@ function ClientLogin() {
   const [email , setEmail] = useState("");
   const [password , setPassword] = useState("");
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = async (e)=>{
     e.preventDefault();
-   
-    if (email === "client@gmail.com" && password === "1234"){
-      navigate("/client/dashboard");
-      console.log("login successfully!")
-    } else{
-      setEmail("")
-      setPassword("")
+
+    try {
+        let res = await axios.post("/client/login",{email,password},{withCredentials:true})
+    
+      if (res.data.success){
+        try {
+          const profileRes = await axios.get("/client/profile", { withCredentials: true });
+          setClientProfileCache(profileRes.data || null);
+        } catch (profileErr) {
+          console.log("Unable to preload client profile:", profileErr);
+        }
+        navigate("/client/dashboard");
+        toast.success(res.data.message)
+      } else{
+        setEmail("")
+        setPassword("")
+      }
+    }
+    catch(err){
+      console.log(err);
+      toast.error("invalid user")
     }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-800 flex flex-col items-center justify-center text-sky-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-950 via-indigo-950 to-sky-800 flex flex-col items-center justify-center text-sky-50">
+
+      <Link to="/" className="absolute right-7 top-7 flex h-10 min-w-24 items-center justify-center rounded-[10px] bg-white/80 px-4 text-slate-900 hover:bg-white">
+                    Home
+                </Link>
 
     
       {/* Title */}
@@ -77,7 +98,7 @@ function ClientLogin() {
         </div>
 
         {/* Login Button */}
-        <button type="submit" className="w-40 py-3 rounded-full bg-gradient-to-r from-indigo-700 to-sky-700 text-white font-semibold">
+        <button type="submit" className="w-40 py-3 rounded-full bg-linear-to-r from-indigo-700 to-sky-700 text-white font-semibold">
           Login
         </button>
 
@@ -104,3 +125,4 @@ function ClientLogin() {
 }
 
 export default ClientLogin;
+

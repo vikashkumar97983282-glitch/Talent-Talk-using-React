@@ -1,16 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminPanel from "../admin/adminPanel/adminPanel";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function AccountSettings() {
+
+  const navigate = useNavigate();
+
   const [isEditing, setIsEditing] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [avatar, setAvatar] = useState("");
+  const [createdAt, setCreatedAt] = useState("");
   const [formData, setFormData] = useState({
-    fullName: "Rohit Sharma",
-    email: "rohit@gmail.com",
-    phone: "9798328268",
+    fullName: "",
+    email: "",
+    phone: "",
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
+
+  useEffect(()=>{
+    const user = async ()=>{
+      let res = await axios.get("/admin/profile",{withCredentials:true});
+      const data = res.data || {};
+      setFormData((prev) => ({
+        ...prev,
+        fullName: data.firstname+" "+data.lastname || "",
+        email: data.email || "",
+        phone: data.phone || "",
+        currentPassword: "",
+      }));
+      setAvatar(data.avatar || "");
+      setCreatedAt(data.createdAt || "");
+    }
+    user();
+  },[])
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -20,10 +46,86 @@ function AccountSettings() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSave = () => {
-    setIsEditing(false);
-    // Save logic here (e.g., API call)
-    console.log("Saved data:", formData);
+  const handleSave = async () => {
+
+    const phoneRegex = /^\d{10}$/;
+
+    if (!phoneRegex.test(formData.phone)) {
+      toast.error("Phone number must be exactly 10 digits ❌");
+      return;
+    }
+
+
+    if (formData.newPassword && formData.newPassword !== formData.confirmPassword) {
+      toast.error("New password and confirm password must match.");
+      return;
+    }
+    if (!formData.currentPassword && !formData.newPassword) {
+      toast.error("Please enter a password to update your profile.");
+      return;
+    }
+
+    try {
+      const payload = {
+        name: formData.fullName,
+        password: formData.newPassword || formData.currentPassword,
+      };
+
+      await axios.post(
+        "/admin/profileupdate",
+        payload,
+        { withCredentials: true }
+      );
+
+      setFormData((prev) => ({
+        ...prev,
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      }));
+      setIsEditing(false);
+      toast.success("Profile updated successfully.");
+      navigate("/admin/settings");
+    } catch (error) {
+      console.log("Profile update failed:", error);
+      toast.success("Failed to update profile. Please try again.");
+    }
+  };
+
+  const getAvatarUrl = (avatarName) => {
+    if (!avatarName) {
+      return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxnsgAbYVaKCxUrJ9-dnMi0RvQ5I2mPAFIlw&s";
+    }
+    const base = (import.meta.env.VITE_API_BASE_URL || "http://localhost:3000").replace(/\/$/, "");
+    return `${base}/uploads/${avatarName}`;
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const payload = new FormData();
+    payload.append("image", file);
+
+    try {
+      setIsUploadingImage(true);
+      const res = await axios.post("/admin/upload", payload, {
+        withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      const updatedAvatar = res.data?.admin?.avatar;
+      if (updatedAvatar) {
+        setAvatar(updatedAvatar);
+      }
+      toast.success(res.data?.message || "Profile image updated.");
+    } catch (err) {
+      console.log(err);
+      toast.error("Failed to upload profile image.");
+    } finally {
+      setIsUploadingImage(false);
+      e.target.value = "";
+    }
   };
 
   return (
@@ -35,14 +137,26 @@ function AccountSettings() {
         {/* Profile Header */}
         <div className="flex items-center mb-10">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxnsgAbYVaKCxUrJ9-dnMi0RvQ5I2mPAFIlw&s"
+            src={getAvatarUrl(avatar)}
             alt="profile"
             className="w-16 h-16 rounded-full object-cover mr-6"
           />
           <div>
-            <h1 className="text-2xl font-bold">Sophia Carter</h1>
+            <h1 className="text-2xl font-bold">{formData.fullName || "Admin"}</h1>
             <p className="text-gray-600">Admin</p>
-            <p className="text-gray-400 text-sm">Joined in 2021</p>
+            <p className="text-gray-400 text-sm">
+              {createdAt ? `Joined in ${new Date(createdAt).getFullYear()}` : ""}
+            </p>
+            <label className="mt-2 inline-block cursor-pointer rounded-md bg-indigo-600 px-3 py-1 text-sm text-white">
+              {isUploadingImage ? "Uploading..." : "Upload Photo"}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+                disabled={isUploadingImage}
+              />
+            </label>
           </div>
         </div>
 
@@ -87,14 +201,9 @@ function AccountSettings() {
                   name="email"
                   type="email"
                   value={formData.email}
-                  onChange={handleChange}
-                  readOnly={!isEditing}
-                  className={`w-full rounded-md border border-gray-300 px-4 py-2
-                    ${
-                      isEditing
-                        ? "focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        : "bg-gray-100 cursor-not-allowed"
-                    }`}
+                  readOnly
+                  disabled
+                  className="w-full rounded-md border border-gray-300 px-4 py-2 bg-gray-100 cursor-not-allowed"
                 />
               </div>
 
@@ -228,3 +337,4 @@ function AccountSettings() {
 }
 
 export default AccountSettings;
+

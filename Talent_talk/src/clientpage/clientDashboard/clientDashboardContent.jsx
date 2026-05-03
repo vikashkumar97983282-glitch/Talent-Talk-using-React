@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios'
 
 function ClientDashboardContent() {
+
+  const [job, setJob] = useState([]);
+
+  useEffect(()=>{
+    const jobs = async ()=>{
+      try{
+        const res = await axios.get("/client/applyjob",{withCredentials:true});
+        setJob(res.data);
+      }
+      catch(err){
+        console.log(err)
+      }
+    }
+    jobs();
+  },[]);
+
   return (
     <div className="flex-1 bg-slate-50 p-8 text-slate-900">
 
@@ -10,7 +27,7 @@ function ClientDashboardContent() {
         <div>
           <h1 className="text-2xl font-bold">Personal Insights</h1>
           <p className="text-slate-500">
-            Welcome back, Alex. Here's what's happening today.
+            Welcome back. Here's what's happening today.
           </p>
         </div>
 
@@ -32,19 +49,19 @@ function ClientDashboardContent() {
       {/* Cards */}
       <div className="grid grid-cols-3 gap-6 mb-8">
 
-        <div className="rounded-xl bg-gradient-to-br from-indigo-700 to-sky-700 p-6 text-white">
+        <div className="rounded-xl bg-linear-to-br from-indigo-700 to-sky-700 p-6 text-white">
           <p>Total Earning</p>
-          <h2 className="text-2xl font-bold">$24,343</h2>
+          <h2 className="text-2xl font-bold">--</h2>
         </div>
 
-        <div className="rounded-xl bg-gradient-to-br from-indigo-700 to-sky-700 p-6 text-white">
+        <div className="rounded-xl bg-linear-to-br from-indigo-700 to-sky-700 p-6 text-white">
           <p>Active Applications</p>
-          <h2 className="text-2xl font-bold">24</h2>
+          <h2 className="text-2xl font-bold">{job?.length || 0}</h2>
         </div>
 
-        <div className="rounded-xl bg-gradient-to-br from-indigo-700 to-sky-700 p-6 text-white">
+        <div className="rounded-xl bg-linear-to-br from-indigo-700 to-sky-700 p-6 text-white">
           <p>Average Rating</p>
-          <h2 className="text-2xl font-bold">4.9 / 5.0</h2>
+          <h2 className="text-2xl font-bold">--</h2>
         </div>
 
       </div>
@@ -53,7 +70,7 @@ function ClientDashboardContent() {
       <div className="grid grid-cols-3 gap-6">
 
         {/* Chart */}
-        <div className="col-span-2 rounded-2xl bg-gradient-to-br from-slate-900 to-indigo-900 p-6 text-white">
+        <div className="col-span-2 rounded-2xl bg-linear-to-br from-slate-900 to-indigo-900 p-6 text-white">
 
           <h3 className="text-lg font-semibold mb-4">
             Earnings Growth
@@ -79,23 +96,17 @@ function ClientDashboardContent() {
 
           <div className="space-y-4">
 
-            <div className="rounded-xl bg-gradient-to-r from-sky-700 to-indigo-700 p-4 text-white">
-              <h4 className="font-semibold">Senior Product Designer</h4>
-              <p className="text-sm">Airbnb · $120-$150/hr</p>
-              <p className="text-xs">2 days ago · 12 applicants</p>
-            </div>
+            {job && job.length > 0 && job.map((job)=>{
+              return (
+                <div key={job._id} className="rounded-xl bg-linear-to-r from-sky-700 to-indigo-700 p-4 text-white">
+                  <h4 className="font-semibold">{job.title}</h4>
+                  <p className="text-sm">{job.payment}</p>
+                  <p className="text-xs">{job.time}</p>
+                </div>
+              )
+            })}
 
-            <div className="rounded-xl bg-gradient-to-r from-sky-700 to-indigo-700 p-4 text-white">
-              <h4 className="font-semibold">Web3 Interface Architect</h4>
-              <p className="text-sm">Coinbase · $140-$180/hr</p>
-              <p className="text-xs">5 days ago · 8 applicants</p>
-            </div>
-
-            <div className="rounded-xl bg-gradient-to-r from-sky-700 to-indigo-700 p-4 text-white">
-              <h4 className="font-semibold">Brand Identity Lead</h4>
-              <p className="text-sm">Notion · $90-$120/hr</p>
-              <p className="text-xs">4 days ago · 34 applicants</p>
-            </div>
+            
 
           </div>
 
@@ -108,3 +119,4 @@ function ClientDashboardContent() {
 }
 
 export default ClientDashboardContent;
+
