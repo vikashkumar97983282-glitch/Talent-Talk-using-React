@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const isLogin = require('../utils/registerCookies');
 const { TOKEN_COOKIE_BY_ROLE } = require('../utils/registerCookies');
-const upload = require('../middleware/fileupload');
+const upload = require('../middleware/fileupload')
 
 
 router.get('/', (req,res)=>{
