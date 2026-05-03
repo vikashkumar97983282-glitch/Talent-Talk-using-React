@@ -32,3 +32,14 @@ The goal of this design is to create a **clean, simple, and user-friendly freela
 - **Components & Design System**
 
 ---
+
+## 📱 Screens Included
+- Home Page
+- Login / Sign Up Page
+- Freelancer Dashboard
+- Client Dashboard
+- Project Listing Page
+- Freelancer Profile Page
+- Messaging Interface
+
+---
