@@ -57,19 +57,22 @@ function Company(){
     return (
         <div>
             <Navbar/>
-            <div className="h-100% w-full flex flex-wrap justify-center">
-            <div className="h-100% w-[70%] mb-10">
-                <div className="flex flex-wrap justify-between mt-5 mb-5">
-                    <h1 className="font-bold text-2xl">Company Verification</h1>
+            <div className="w-full bg-slate-100 px-4 py-6 md:px-8">
+            <div className="mx-auto w-full max-w-6xl">
+                <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+                    <div>
+                      <h1 className="text-3xl font-bold tracking-tight text-slate-900">Company Verification</h1>
+                      <p className="mt-1 text-sm text-slate-600">Review company profiles and verify trusted organizations.</p>
+                    </div>
+                    <div className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-500 shadow-sm">
+                      Total: {companies.length} companies
+                    </div>
                 </div>
-                <div className="flex flex-wrap gap-3">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {companies.map((elem,idx)=>{
                         return <CompanyContainer key={idx} name={elem.name} cate={elem.category} desc={elem.description} img={elem.image}/>
                     })}
                 </div>
-
-                
-
             </div>
         </div>
         </div>
