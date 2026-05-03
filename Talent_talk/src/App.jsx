@@ -11,7 +11,6 @@ import Dashboard from "./adminpage/admin/dashboard";
 import Users from "./adminpage/users/users";
 import Job from "./adminpage/jobs/jobs";
 import Payments from "./adminpage/payments/payments";
-import Invoice from "./adminpage/invoice/invoice";
 import Insights from "./adminpage/insights/insights";
 import Company from "./adminpage/company/company";
 import Settings from "./adminpage/profile/settings";
@@ -73,7 +72,6 @@ function App() {
           <Route path="users" element={<Users />} />
           <Route path="jobs" element={<Job />} />
           <Route path="payments" element={<Payments />} />
-          <Route path="invoice" element={<Invoice />} />
           <Route path="insights" element={<Insights />} />
           <Route path="company" element={<Company />} />
           <Route path="settings" element={<Settings />} />
