@@ -25,3 +25,10 @@ The goal of this design is to create a **clean, simple, and user-friendly freela
 - Dashboard for freelancers and clients
 
 ---
+
+## 🎨 Design Tools
+- **Figma** – UI/UX Design
+- **Auto Layout**
+- **Components & Design System**
+
+---
