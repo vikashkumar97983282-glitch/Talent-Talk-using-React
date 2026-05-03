@@ -7,7 +7,6 @@ const buttons = [
     { name: "Users", path: "/admin/users" },
     { name: "Jobs", path: "/admin/jobs" },
     { name: "Company", path: "/admin/company" },
-    { name: "Invoice", path: "/admin/invoice" },
     { name: "Insights", path: "/admin/insights" },
     { name: "Payments", path: "/admin/payments" },
     { name: "Settings", path: "/admin/settings" },
