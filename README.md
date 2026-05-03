@@ -15,3 +15,13 @@ The goal of this design is to create a **clean, simple, and user-friendly freela
 - Enhance user experience with simple interactions
 
 ---
+
+## ✨ Key Features
+- Freelancer profile system
+- Project browsing and search
+- Job posting interface for clients
+- Messaging / communication layout
+- Review and rating system
+- Dashboard for freelancers and clients
+
+---
