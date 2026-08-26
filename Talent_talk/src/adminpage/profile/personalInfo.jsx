@@ -50,7 +50,7 @@ function PersonalInfo(){
 
     return (
         <div className="min-w-0 flex-1 px-5 py-6 text-slate-700 sm:px-10 sm:py-10 md:h-full md:overflow-y-scroll">
-            <div className="mb-6"><p className="text-xs font-bold uppercase tracking-[0.18em] text-violet-600">Workspace</p><h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">Account settings</h1><p className="mt-1 text-sm text-slate-500">Manage your profile details and account access.</p></div>
+            <div className="mb-6"><h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">Account settings</h1><p className="mt-1 text-sm text-slate-500">Manage your profile details and account access.</p></div>
             <div className="flex flex-col gap-5 rounded-3xl border border-white/80 bg-white/75 p-6 shadow-[0_16px_38px_rgba(79,70,229,0.12)] sm:flex-row sm:items-center">
                 <img src={getAvatarUrl(user.avatar)} alt="Admin profile" className="h-28 w-28 rounded-full object-cover ring-4 ring-violet-200 ring-offset-4 ring-offset-white sm:h-32 sm:w-32"/>
                 <div className="min-w-0 flex-1">

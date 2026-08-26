@@ -8,27 +8,30 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 function Graph() {
   const [chartOptions] = useState({
     data: [
-      { month: "Jan", iceCreamSales: 162000 },
-      { month: "Mar", iceCreamSales: 302000 },
-      { month: "May", iceCreamSales: 800000 },
-      { month: "Jul", iceCreamSales: 1254000 },
-      { month: "Sep", iceCreamSales: 950000 },
-      { month: "Nov", iceCreamSales: 200000 },
+      { month: "Jan", users: 120 },
+      { month: "Feb", users: 180 },
+      { month: "Mar", users: 260 },
+      { month: "Apr", users: 340 },
+      { month: "May", users: 420 },
+      { month: "Jun", users: 520 },
     ],
     title: {
-      text: "Ice Cream Sales by Month",
+      text: "Platform Growth by Month",
     },
     series: [
       {
         type: "bar",
         xKey: "month",
-        yKey: "iceCreamSales",
+        yKey: "users",
+        fill: "#4f46e5",
+        stroke: "#312e81",
+        cornerRadius: 8,
       },
     ],
   });
 
   return (
-    <div className="min-h-[360px] w-full rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+    <div className="min-h-[360px] w-full overflow-hidden rounded-3xl border border-slate-100 bg-white/90 p-4 shadow-sm sm:p-5">
       <AgCharts options={chartOptions} />
     </div>
   );
