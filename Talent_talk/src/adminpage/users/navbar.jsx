@@ -7,6 +7,7 @@ const buttons = [
     { name: "Users", path: "/admin/users" },
     { name: "Jobs", path: "/admin/jobs" },
     { name: "Company", path: "/admin/company" },
+    { name: "Invoice", path: "/admin/invoice" },
     { name: "Insights", path: "/admin/insights" },
     { name: "Payments", path: "/admin/payments" },
     { name: "Settings", path: "/admin/settings" },
@@ -14,7 +15,7 @@ const buttons = [
 
 function Navbar(){
     return (
-        <div className="flex flex-wrap items-center justify-between border-b border-indigo-100 bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 px-3 shadow-lg shadow-indigo-200/30">
+        <div className="flex flex-wrap items-center justify-between border-b border-white/10 bg-gradient-to-r from-slate-950 via-indigo-950 to-violet-950 px-3 shadow-lg shadow-indigo-950/20">
             <div className="flex flex-wrap justify-between items-center">
                 {buttons.map((button,idx)=>{
                 return <NavButton key={idx} elem={button.name} path={button.path}/>

@@ -45,13 +45,13 @@ function Login(){
             <Link to="/" className="absolute right-7 top-7 flex h-10 min-w-24 items-center justify-center rounded-xl border border-white/20 bg-white/10 px-4 text-white backdrop-blur transition hover:bg-white/20">
                     Home
                 </Link>
-            <div className="relative mb-8 flex w-[calc(100%-2rem)] max-w-155 justify-center rounded-3xl border border-white/20 bg-white/10 p-5 shadow-2xl shadow-indigo-950/50 backdrop-blur-xl sm:h-92.5 sm:p-7.5">
+            <div className="relative mb-8 flex h-92.5 w-155 justify-center rounded-3xl border border-white/20 bg-white/10 p-7.5 shadow-2xl shadow-indigo-950/50 backdrop-blur-xl">
                 
                 <form onSubmit={handleSubmit}>
                     <h2 className="mb-10 text-center text-xl font-bold tracking-tight text-white">Admin Login</h2>
-                    <input type="email" placeholder="email" required onChange={(e)=>{setEmail(e.target.value)}} value={email} className="mb-5 h-10 w-full min-w-0 rounded-lg border border-white/20 bg-white/90 px-3 text-slate-800 outline-none placeholder:text-slate-400 focus:ring-4 focus:ring-violet-300/40 sm:w-64"/>
+                    <input type="email" placeholder="email" required onChange={(e)=>{setEmail(e.target.value)}} value={email} className="mb-5 h-10 w-64 rounded-lg border border-white/20 bg-white/90 px-3 text-slate-800 outline-none placeholder:text-slate-400 focus:ring-4 focus:ring-violet-300/40"/>
                     <br/>
-                    <input type="password" placeholder="password" required autoComplete="" onChange={(e)=>{setPassword(e.target.value)}} value={password} className="mb-5 h-10 w-full min-w-0 rounded-lg border border-white/20 bg-white/90 px-3 text-slate-800 outline-none placeholder:text-slate-400 focus:ring-4 focus:ring-violet-300/40 sm:w-64"/>
+                    <input type="password" placeholder="password" required autoComplete="" onChange={(e)=>{setPassword(e.target.value)}} value={password} className="mb-5 h-10 w-64 rounded-lg border border-white/20 bg-white/90 px-3 text-slate-800 outline-none placeholder:text-slate-400 focus:ring-4 focus:ring-violet-300/40"/>
                     <br/>
                     <button type="submit" className="mb-4 mt-8.75 h-10 w-full cursor-pointer rounded-xl border-0 bg-gradient-to-r from-violet-500 to-indigo-500 font-semibold text-white shadow-lg shadow-indigo-950/30 transition hover:from-violet-400 hover:to-indigo-400">Login</button>
                 </form>

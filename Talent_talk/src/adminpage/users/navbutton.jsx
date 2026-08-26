@@ -7,10 +7,10 @@ function NavButton({ elem, path }){
             <NavLink
                 to={path}
                 className={({ isActive }) =>
-                    `m-1 inline-block rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-cyan-300 ${
+                    `m-1 inline-block rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-violet-300 ${
                         isActive
-                            ? "bg-white/25 text-white shadow-sm"
-                            : "text-indigo-50/85 hover:bg-white/15 hover:text-white"
+                            ? "bg-white/15 text-white shadow-sm"
+                            : "text-indigo-100/75 hover:bg-white/10 hover:text-white"
                     }`
                 }
             >

@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { AgCharts } from "ag-charts-react";
 import { AllCommunityModule, ModuleRegistry } from "ag-charts-community";
-import { useAdminTheme } from "../adminThemeHook";
 
-// Required: register modules once
+// ✅ REQUIRED: register modules ONCE
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 function Graph() {
-  const { theme } = useAdminTheme();
   const [chartOptions] = useState({
     data: [
       { month: "Jan", iceCreamSales: 162000 },
@@ -18,7 +16,7 @@ function Graph() {
       { month: "Nov", iceCreamSales: 200000 },
     ],
     title: {
-      text: "Monthly Revenue",
+      text: "Ice Cream Sales by Month",
     },
     series: [
       {
@@ -30,7 +28,7 @@ function Graph() {
   });
 
   return (
-    <div className={`min-h-[360px] w-full rounded-xl border p-4 shadow-[0_12px_30px_rgba(14,165,233,0.10)] ${theme === "dark" ? "border-slate-700/70 bg-[#142033]" : "border-sky-100 bg-white/90"}`}>
+    <div className="min-h-[360px] w-full rounded-2xl border border-white/80 bg-white/80 p-5 shadow-[0_12px_30px_rgba(79,70,229,0.10)] backdrop-blur">
       <AgCharts options={chartOptions} />
     </div>
   );

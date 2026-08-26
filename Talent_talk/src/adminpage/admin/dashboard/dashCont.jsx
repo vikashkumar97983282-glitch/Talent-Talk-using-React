@@ -1,15 +1,13 @@
 import React from "react";
-import { useAdminTheme } from "../adminThemeHook";
 
 
 function DashCont(props){
-    const { theme } = useAdminTheme();
     return (
-        <div className={`min-w-[180px] flex-1 rounded-xl border p-4 transition-colors sm:min-w-52 ${theme === "dark" ? "border-slate-700/70 bg-[#142033] text-slate-300 hover:border-cyan-400/40 hover:bg-[#182940]" : "border-sky-100 bg-white text-slate-700 hover:border-sky-200 hover:bg-sky-50"}`}>
-            <div>
-                <h1 className={`text-xs font-medium ${theme === "dark" ? "text-zinc-500" : "text-slate-500"}`}>{props.user}</h1>
-                <h2 className={`mt-2 text-2xl font-semibold tracking-tight ${theme === "dark" ? "text-white" : "text-slate-950"}`}>{props.count}</h2>
-                <h3 className="mt-2 text-[10px] font-semibold uppercase tracking-wider text-emerald-400" >{props.growth}</h3>
+        <div className='flex h-28 w-60 items-center rounded-2xl border border-white/80 bg-white/75 text-slate-800 shadow-[0_12px_30px_rgba(79,70,229,0.10)] backdrop-blur transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_18px_34px_rgba(79,70,229,0.16)]'>
+            <div className="px-5">
+                <h1 className="text-sm font-medium text-slate-500">{props.user}</h1>
+                <h2 className="mt-1 text-3xl font-bold tracking-tight text-slate-900">{props.count}</h2>
+                <h3 className="mt-1 text-xs font-bold uppercase tracking-wider text-violet-600" >{props.growth}</h3>
             </div>
         </div>
     )

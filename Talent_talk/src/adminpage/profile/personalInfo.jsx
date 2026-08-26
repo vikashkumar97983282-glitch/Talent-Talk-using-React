@@ -49,7 +49,7 @@ function PersonalInfo(){
 
 
     return (
-        <div className="min-w-0 flex-1 px-5 pt-6 text-slate-700 sm:px-10 sm:pt-10 md:h-full md:overflow-y-scroll">
+        <div className="h-full min-w-0 flex-1 overflow-y-scroll px-10 pt-10 text-slate-700">
             <div className="flex flex-wrap items-center rounded-3xl border border-white/80 bg-white/75 p-6 shadow-[0_12px_30px_rgba(79,70,229,0.10)]">
                 <img src={getAvatarUrl(user.avatar)} alt="" className="h-40 w-40 rounded-full object-cover ring-4 ring-violet-200 ring-offset-4 ring-offset-white"/>
                 <div className="ml-5">
@@ -58,7 +58,7 @@ function PersonalInfo(){
                     <p className="text-sm text-slate-500">{user.createdAt ? `Joined in ${new Date(user.createdAt).getFullYear()}` : ""}</p>
                 </div>
             </div>
-            <div className="mt-5 w-full rounded-3xl border border-white/80 bg-white/75 p-6 shadow-[0_12px_30px_rgba(79,70,229,0.10)] xl:w-[80%]">
+            <div className="mt-5 h-50 w-[80%] rounded-3xl border border-white/80 bg-white/75 p-6 shadow-[0_12px_30px_rgba(79,70,229,0.10)]">
                 <p className="font-bold text-slate-900">Personal information</p>
                 <div className="mt-3 space-y-1 text-lg font-semibold text-slate-700">
                     <h1>Full Name:- {user.firstname} {user.lastname}</h1>
