@@ -2,8 +2,8 @@ import React from "react";
 
 function ClientJobContent() {
   return (
-    <div className="bg-slate-50 min-h-screen py-10 px-6 flex justify-center text-slate-900">
-      <div className="w-[750px]">
+    <div className="flex min-h-screen justify-center bg-slate-50 px-4 py-6 text-slate-900 sm:px-6 sm:py-10">
+      <div className="w-full max-w-[750px]">
 
         {/* Title */}
         <div className="mb-6">
@@ -47,7 +47,7 @@ function ClientJobContent() {
           ></textarea>
 
           {/* Bid + Timeline */}
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
 
             <input
               type="text"
@@ -80,7 +80,7 @@ function ClientJobContent() {
           </div>
 
           {/* Buttons */}
-          <div className="flex justify-end gap-3">
+          <div className="flex flex-wrap justify-end gap-3">
             <button className="bg-yellow-200 px-5 py-2 rounded">
               Cancel
             </button>

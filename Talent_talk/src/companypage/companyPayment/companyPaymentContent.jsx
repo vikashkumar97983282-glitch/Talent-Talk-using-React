@@ -210,7 +210,7 @@ function CompanyPaymentContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f7f4ea] p-8 text-slate-900">
+    <div className="min-h-screen bg-[#f7f4ea] p-4 text-slate-900 sm:p-8">
       <h2 className="mb-4 text-2xl font-bold">Payment Management</h2>
 
       <div className="mb-6 flex flex-wrap items-end gap-4 rounded-lg bg-[#fffdf8] p-4 ring-1 ring-[#e7dfcc]">
@@ -272,13 +272,13 @@ function CompanyPaymentContent() {
         </button>
       </div>
 
-      <div className="mb-6 flex gap-6">
-        <div className="w-64 rounded-lg bg-[#fffdf8] p-6 shadow-sm ring-1 ring-[#e7dfcc]">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:gap-6">
+        <div className="w-full rounded-lg bg-[#fffdf8] p-6 shadow-sm ring-1 ring-[#e7dfcc] sm:w-64">
           <p className="text-sm">Total Payment</p>
           <h3 className="text-xl font-bold">{formatCurrency(totalPayment)}</h3>
         </div>
 
-        <div className="w-64 rounded-lg bg-[#fffdf8] p-6 shadow-sm ring-1 ring-[#e7dfcc]">
+        <div className="w-full rounded-lg bg-[#fffdf8] p-6 shadow-sm ring-1 ring-[#e7dfcc] sm:w-64">
           <p className="text-sm">Pending Payment</p>
           <h3 className="text-xl font-bold">{formatCurrency(pendingPayment)}</h3>
         </div>

@@ -128,14 +128,14 @@ const CompanyJobApplicationsContent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f7f4ea] px-10 py-8 text-slate-900">
+    <div className="min-h-screen bg-[#f7f4ea] px-4 py-6 text-slate-900 sm:px-10 sm:py-8">
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-slate-900">Job Applications</h1>
           <p className="text-sm text-[#5a7368]">Review applicants and shortlist candidates for your team.</p>
         </div>
 
-        <div className="flex w-[350px] items-center rounded bg-[#fffdf8] px-3 ring-1 ring-[#e7dfcc]">
+        <div className="flex w-full max-w-[350px] items-center rounded bg-[#fffdf8] px-3 ring-1 ring-[#e7dfcc]">
           <Search size={18} className="text-slate-500" />
           <input
             type="text"
@@ -147,7 +147,7 @@ const CompanyJobApplicationsContent = () => {
         </div>
       </div>
 
-      <div className="mb-6 flex gap-8 border-b border-[#e7dfcc] pb-2 text-sm">
+      <div className="mb-6 flex gap-4 overflow-x-auto border-b border-[#e7dfcc] pb-2 text-sm sm:gap-8">
         <button
           type="button"
           onClick={() => setActiveTab("all")}
@@ -173,7 +173,7 @@ const CompanyJobApplicationsContent = () => {
       )}
 
       {!isLoading && filteredApplications.length > 0 && (
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           {filteredApplications.map((application) => {
             const key = `${application.jobId}_${application.clientId}`;
             const isUpdating = updatingKey === key;

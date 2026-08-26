@@ -26,12 +26,12 @@ function CompanySettingsContent() {
   }
 
   return (
-    <div className="flex-1 min-h-screen bg-[#f7f4ea] p-10 text-slate-900">
+    <div className="min-h-screen flex-1 bg-[#f7f4ea] p-5 text-slate-900 sm:p-10">
 
       <h2 className="text-lg font-semibold mb-6">Setting</h2>
 
       {/* Dark Mode */}
-      <div className="mb-6 flex w-96 items-center justify-between rounded-xl bg-[#fffdf8] px-5 py-4 shadow-sm ring-1 ring-[#e7dfcc]">
+      <div className="mb-6 flex w-full max-w-96 items-center justify-between rounded-xl bg-[#fffdf8] px-5 py-4 shadow-sm ring-1 ring-[#e7dfcc]">
         <span>Dark Mode</span>
 
         <button
@@ -49,7 +49,7 @@ function CompanySettingsContent() {
       </div>
 
       {/* Email Alerts */}
-      <div className="mb-10 flex w-96 items-center justify-between rounded-xl bg-[#fffdf8] px-5 py-4 shadow-sm ring-1 ring-[#e7dfcc]">
+      <div className="mb-10 flex w-full max-w-96 items-center justify-between rounded-xl bg-[#fffdf8] px-5 py-4 shadow-sm ring-1 ring-[#e7dfcc]">
         <span>Email Alerts</span>
 
         <button

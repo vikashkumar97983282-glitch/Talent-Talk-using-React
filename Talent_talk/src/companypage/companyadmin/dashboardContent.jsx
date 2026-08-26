@@ -40,13 +40,13 @@ function CompanyDashboardContent() {
 
   return (
     <div className="flex">
-      <div className="flex-1 min-h-screen overflow-auto bg-[#f7f4ea] p-10 text-slate-900">
+      <div className="min-h-screen flex-1 overflow-auto bg-[#f7f4ea] p-5 text-slate-900 sm:p-10">
         <h1 className="mb-2 text-3xl font-bold">DASHBOARD</h1>
         <p className="mb-8 text-[#35584a]">
           Welcome back, here's what's happening with your company today
         </p>
 
-        <div className="mb-10 flex gap-8">
+        <div className="mb-10 flex flex-wrap gap-5 sm:gap-8">
           <div className="w-52 rounded-2xl bg-linear-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-6 text-center text-white shadow-lg shadow-[#14392e]/15">
             <h3 className="text-lg">Active Jobs</h3>
             <p className="mt-3 text-3xl font-bold">{job.length || 0}</p>
@@ -66,7 +66,7 @@ function CompanyDashboardContent() {
           </div>
         </div>
 
-        <div className="mb-10 w-96 rounded-2xl bg-linear-to-br from-[#102a22] via-[#184739] to-[#2d6b58] p-6 text-white shadow-lg shadow-[#14392e]/15">
+        <div className="mb-10 w-full max-w-96 rounded-2xl bg-linear-to-br from-[#102a22] via-[#184739] to-[#2d6b58] p-6 text-white shadow-lg shadow-[#14392e]/15">
           <h2 className="mb-6 text-xl">Recent Application</h2>
 
           <div className="space-y-5">

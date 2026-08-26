@@ -47,7 +47,7 @@ function ClientFindJobContent() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50 px-10 py-12 text-slate-900">
+    <div className="min-h-screen bg-slate-50 px-4 py-6 text-slate-900 sm:px-10 sm:py-12">
       <div className="mb-10 text-center">
         <h1 className="text-4xl font-semibold">Find Your Next Premium Project</h1>
 
@@ -57,7 +57,7 @@ function ClientFindJobContent() {
       </div>
 
       <div className="mb-6 flex justify-center">
-        <div className="flex w-[70%] gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-sky-100">
+        <div className="flex w-full flex-col gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-sky-100 sm:flex-row lg:w-[70%]">
           <input
             type="text"
             placeholder="Search jobs"
@@ -68,7 +68,7 @@ function ClientFindJobContent() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         {filteredJobs.length === 0 && (
           <p className="col-span-3 text-center text-slate-500">No jobs found.</p>
         )}

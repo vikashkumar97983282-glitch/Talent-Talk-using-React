@@ -37,7 +37,7 @@ function CompanyHeader() {
   }, []);
 
   return (
-    <div className="w-full bg-gradient-to-r from-[#0f2d24] via-[#18493a] to-[#276254] text-[#eef7f1] flex items-center justify-between px-8 py-3 border-b border-[#dcebdd]/20 shadow-lg">
+    <div className="flex w-full flex-col gap-3 border-b border-[#dcebdd]/20 bg-gradient-to-r from-[#0f2d24] via-[#18493a] to-[#276254] px-4 py-3 text-[#eef7f1] shadow-lg sm:flex-row sm:items-center sm:justify-between sm:px-8">
 
       {/* Profile */}
       <NavLink to="/company/profile" className="flex items-center gap-3 rounded-full border border-[#dcebdd]/20 bg-white/10 p-1.5 transition-colors hover:bg-white/15 cursor-pointer">
@@ -49,7 +49,7 @@ function CompanyHeader() {
       </NavLink>
 
       {/* Navigation */}
-      <div className="flex gap-8 text-sm font-medium">
+      <div className="flex w-full gap-2 overflow-x-auto text-sm font-medium sm:w-auto sm:gap-8">
         {panel.map((elem,idx)=>{
           return (
             <NavLink

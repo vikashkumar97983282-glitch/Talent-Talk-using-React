@@ -41,19 +41,19 @@ function Login(){
 
 
     return (
-        <div className="flex h-screen w-full items-center justify-center bg-[radial-gradient(circle_at_top_left,_#c7d2fe_0%,_transparent_30%),linear-gradient(135deg,_#eef2ff_0%,_#e0e7ff_55%,_#cffafe_100%)]">
-            <Link to="/" className="absolute right-7 top-7 flex h-10 min-w-24 items-center justify-center rounded-xl border border-indigo-200 bg-white/70 px-4 text-indigo-800 backdrop-blur transition hover:bg-white">
+        <div className="flex h-screen w-full items-center justify-center bg-[radial-gradient(circle_at_top_left,_#7c3aed_0%,_transparent_30%),linear-gradient(135deg,_#0f172a_0%,_#312e81_55%,_#4c1d95_100%)]">
+            <Link to="/" className="absolute right-7 top-7 flex h-10 min-w-24 items-center justify-center rounded-xl border border-white/20 bg-white/10 px-4 text-white backdrop-blur transition hover:bg-white/20">
                     Home
                 </Link>
-            <div className="relative mb-8 flex h-92.5 w-155 justify-center rounded-3xl border border-indigo-100 bg-white/75 p-7.5 shadow-2xl shadow-indigo-200/50 backdrop-blur-xl">
+            <div className="relative mb-8 flex w-[calc(100%-2rem)] max-w-155 justify-center rounded-3xl border border-white/20 bg-white/10 p-5 shadow-2xl shadow-indigo-950/50 backdrop-blur-xl sm:h-92.5 sm:p-7.5">
                 
                 <form onSubmit={handleSubmit}>
-                    <h2 className="mb-10 text-center text-xl font-bold tracking-tight text-indigo-950">Admin Login</h2>
-                    <input type="email" placeholder="email" required onChange={(e)=>{setEmail(e.target.value)}} value={email} className="mb-5 h-10 w-64 rounded-lg border border-indigo-200 bg-white px-3 text-slate-800 outline-none placeholder:text-slate-400 focus:ring-4 focus:ring-cyan-200/60"/>
+                    <h2 className="mb-10 text-center text-xl font-bold tracking-tight text-white">Admin Login</h2>
+                    <input type="email" placeholder="email" required onChange={(e)=>{setEmail(e.target.value)}} value={email} className="mb-5 h-10 w-full min-w-0 rounded-lg border border-white/20 bg-white/90 px-3 text-slate-800 outline-none placeholder:text-slate-400 focus:ring-4 focus:ring-violet-300/40 sm:w-64"/>
                     <br/>
-                    <input type="password" placeholder="password" required autoComplete="" onChange={(e)=>{setPassword(e.target.value)}} value={password} className="mb-5 h-10 w-64 rounded-lg border border-indigo-200 bg-white px-3 text-slate-800 outline-none placeholder:text-slate-400 focus:ring-4 focus:ring-cyan-200/60"/>
+                    <input type="password" placeholder="password" required autoComplete="" onChange={(e)=>{setPassword(e.target.value)}} value={password} className="mb-5 h-10 w-full min-w-0 rounded-lg border border-white/20 bg-white/90 px-3 text-slate-800 outline-none placeholder:text-slate-400 focus:ring-4 focus:ring-violet-300/40 sm:w-64"/>
                     <br/>
-                    <button type="submit" className="mb-4 mt-8.75 h-10 w-full cursor-pointer rounded-xl border-0 bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-500 font-semibold text-white shadow-lg shadow-indigo-300/40 transition hover:from-indigo-700 hover:to-cyan-600">Login</button>
+                    <button type="submit" className="mb-4 mt-8.75 h-10 w-full cursor-pointer rounded-xl border-0 bg-gradient-to-r from-violet-500 to-indigo-500 font-semibold text-white shadow-lg shadow-indigo-950/30 transition hover:from-violet-400 hover:to-indigo-400">Login</button>
                 </form>
 
             </div>

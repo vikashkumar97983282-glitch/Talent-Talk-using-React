@@ -84,7 +84,7 @@ function ClientForgetPassword() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-800 flex items-center justify-center">
       
-      <div className="bg-white/95 w-[380px] p-10 rounded-xl shadow-xl text-center">
+      <div className="w-full max-w-[380px] rounded-xl bg-white/95 p-5 text-center shadow-xl sm:p-10">
         
         {/* Title */}
         <h1 className="text-3xl font-bold mb-8">Forget Password</h1>

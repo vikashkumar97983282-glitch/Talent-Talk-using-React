@@ -50,7 +50,7 @@ function ClientLogin() {
       <h1 className="text-3xl font-bold mb-6">Login</h1>
 
       {/* Card */}
-      <div className="bg-white/95 w-[380px] rounded-xl p-8 shadow-xl text-center text-slate-900">
+      <div className="w-full max-w-[380px] rounded-xl bg-white/95 p-5 text-center text-slate-900 shadow-xl sm:p-8">
         <form  onSubmit={handleSubmit}>
 
         <h2 className="text-2xl font-semibold">Talent Talk</h2>

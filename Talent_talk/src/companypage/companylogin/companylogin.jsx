@@ -60,7 +60,7 @@ function CompanyLogin() {
           Company Login
         </h1>
 
-        <div className="w-[350px] rounded-2xl border border-[#e7dfcc] bg-[#fffdf8]/90 p-8 backdrop-blur-md shadow-xl">
+        <div className="w-full max-w-[350px] rounded-2xl border border-[#e7dfcc] bg-[#fffdf8]/90 p-5 backdrop-blur-md shadow-xl sm:p-8">
 
         <form onSubmit={handlelogin}>
 

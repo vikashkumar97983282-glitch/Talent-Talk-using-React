@@ -47,7 +47,7 @@ function ClientDashboardContent() {
       />
 
       {/* Cards */}
-      <div className="grid grid-cols-3 gap-6 mb-8">
+      <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
 
         <div className="rounded-xl bg-linear-to-br from-indigo-700 to-sky-700 p-6 text-white">
           <p>Total Earning</p>
@@ -67,7 +67,7 @@ function ClientDashboardContent() {
       </div>
 
       {/* Bottom Section */}
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
 
         {/* Chart */}
         <div className="col-span-2 rounded-2xl bg-linear-to-br from-slate-900 to-indigo-900 p-6 text-white">

@@ -125,7 +125,7 @@ function CompanyManageJobsContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f7f4ea] px-10 py-8 text-slate-900">
+    <div className="min-h-screen bg-[#f7f4ea] px-4 py-6 text-slate-900 sm:px-10 sm:py-8">
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-slate-900">Manage Job Postings</h1>
@@ -142,8 +142,8 @@ function CompanyManageJobsContent() {
         </button>
       </div>
 
-      <div className="mb-6 flex gap-4">
-        <div className="flex w-[350px] items-center rounded bg-[#fffdf8] px-3 ring-1 ring-[#e7dfcc]">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row">
+        <div className="flex w-full max-w-[350px] items-center rounded bg-[#fffdf8] px-3 ring-1 ring-[#e7dfcc]">
           <Search size={18} className="text-slate-500" />
           <input
             type="text"
@@ -186,7 +186,7 @@ function CompanyManageJobsContent() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
                 <span className="rounded-full bg-green-200 px-4 py-1 text-sm text-green-700">
                   {job.status || "initial"}
                 </span>

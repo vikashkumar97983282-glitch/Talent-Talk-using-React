@@ -6,7 +6,7 @@ import PersonalInfo from "./personalInfo";
 function Settings(){
 
     return (
-        <div className='admin-page-theme m-0 flex h-screen w-screen justify-start overflow-hidden bg-[radial-gradient(circle_at_top_right,_#dff7ff_0%,_transparent_32%),linear-gradient(135deg,_#f8fcff_0%,_#eef8ff_52%,_#f3fbfa_100%)]'>
+        <div className='m-0 flex min-h-screen w-full flex-col justify-start bg-[radial-gradient(circle_at_top_right,_#e0e7ff_0%,_transparent_30%),linear-gradient(135deg,_#f8fafc_0%,_#eef2ff_48%,_#f5f3ff_100%)] md:h-screen md:flex-row md:overflow-hidden'>
             <AdminPanel/>
             <PersonalInfo/>
             

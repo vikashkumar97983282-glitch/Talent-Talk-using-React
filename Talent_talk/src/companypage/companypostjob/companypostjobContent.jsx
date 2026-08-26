@@ -37,13 +37,13 @@ const CompanyPostJobContent = () => {
 
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-[#f7f4ea] py-10 text-slate-900">
+    <div className="flex min-h-screen flex-col items-center bg-[#f7f4ea] px-4 py-6 text-slate-900 sm:py-10">
 
       <h1 className="mb-8 text-3xl font-bold text-slate-900">
         Post a New Job
       </h1>
 
-      <div className="w-150 rounded-2xl bg-[#fffdf8] p-8 shadow-sm ring-1 ring-[#e7dfcc]">
+      <div className="w-full max-w-150 rounded-2xl bg-[#fffdf8] p-5 shadow-sm ring-1 ring-[#e7dfcc] sm:p-8">
 
         <label className="mb-1 block text-sm text-slate-700">Job Title</label>
         <input
@@ -61,9 +61,9 @@ const CompanyPostJobContent = () => {
           className="mb-4 w-full rounded bg-[#f7f4ea] p-3 outline-none ring-1 ring-[#e7dfcc]"
         />
 
-        <div className="flex gap-4 mb-4">
+        <div className="mb-4 flex flex-col gap-4 sm:flex-row">
 
-          <div className="w-1/3">
+          <div className="w-full sm:w-1/3">
             <label className="mb-1 block text-sm text-slate-700">Payment</label>
             <div className="flex items-center rounded bg-[#f7f4ea] px-3 ring-1 ring-[#e7dfcc]">
               <span>$</span>

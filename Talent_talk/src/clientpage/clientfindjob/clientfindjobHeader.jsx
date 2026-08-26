@@ -35,7 +35,7 @@ function ClientFindJobHeader() {
   }, []);
 
   return (
-    <div className="bg-gradient-to-r from-slate-950 via-indigo-950 to-sky-800 text-sky-50 px-8 py-4 flex justify-between items-center border-b border-sky-200/20 shadow-lg">
+    <div className="flex flex-col gap-3 border-b border-sky-200/20 bg-gradient-to-r from-slate-950 via-indigo-950 to-sky-800 px-4 py-4 text-sky-50 shadow-lg sm:flex-row sm:items-center sm:justify-between sm:px-8">
 
       {/* Left Profile */}
 
@@ -51,7 +51,7 @@ function ClientFindJobHeader() {
       
 
       {/* Right Menu */}
-      <ul className="flex gap-8 text-sm">
+      <ul className="flex w-full gap-2 overflow-x-auto text-sm sm:w-auto sm:gap-8">
         {panel.map((elem,idx)=>{
           return (
             <NavLink

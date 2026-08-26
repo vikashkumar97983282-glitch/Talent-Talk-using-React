@@ -95,7 +95,7 @@ const CompanyForgotPassword = () => {
           Forgot Password
         </h1>
 
-        <div className="mx-auto w-[350px] rounded-2xl bg-[#fffdf8]/90 p-8 shadow-xl ring-1 ring-[#e7dfcc]">
+        <div className="mx-auto w-full max-w-[350px] rounded-2xl bg-[#fffdf8]/90 p-5 shadow-xl ring-1 ring-[#e7dfcc] sm:p-8">
           <form onSubmit={isCodeSent ? handleResetPassword : handleSendCode}>
             <input
               type="email"

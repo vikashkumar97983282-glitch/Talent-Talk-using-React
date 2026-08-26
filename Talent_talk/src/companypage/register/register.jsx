@@ -41,7 +41,7 @@ function CompanyRegister() {
   };
 
   return (
-    <div className="flex h-screen w-full bg-[#f7f4ea]">
+    <div className="flex min-h-screen w-full bg-[#f7f4ea]">
       <div className="hidden w-1/2 flex-col justify-center bg-gradient-to-br from-[#14392e] via-[#1f5a49] to-[#3c7a63] p-12 text-white md:flex">
         <h1 className="mb-6 text-4xl font-bold leading-tight">
           Scale your <br /> buisiness with <br /> confidence
@@ -53,7 +53,7 @@ function CompanyRegister() {
         </p>
       </div>
 
-      <div className="flex w-full items-center justify-center p-10 md:w-1/2">
+      <div className="flex w-full items-center justify-center p-5 sm:p-10 md:w-1/2">
         <div className="w-full max-w-md">
           <h2 className="mb-2 text-3xl font-bold">Create Account</h2>
           <p className="mb-8 text-[#5a7368]">
@@ -103,7 +103,7 @@ function CompanyRegister() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label className="text-sm font-medium text-[#35584a]">
                   Industry
