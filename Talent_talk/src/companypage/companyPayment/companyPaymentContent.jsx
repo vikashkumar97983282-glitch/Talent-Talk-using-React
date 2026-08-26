@@ -210,8 +210,8 @@ function CompanyPaymentContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f7f4ea] p-4 text-slate-900 sm:p-8">
-      <h2 className="mb-4 text-2xl font-bold">Payment Management</h2>
+    <div className="company-content min-h-screen p-5 text-slate-900 sm:p-8">
+      <div className="mb-7"><p className="text-xs font-bold uppercase tracking-[0.2em] text-[#2d6b58]">Financial overview</p><h2 className="mt-2 text-3xl font-bold">Payment Management</h2><p className="mt-2 text-sm text-slate-500">Send payments securely and review your company transaction history.</p></div>
 
       <div className="mb-6 flex flex-wrap items-end gap-4 rounded-lg bg-[#fffdf8] p-4 ring-1 ring-[#e7dfcc]">
         <div className="min-w-60 flex-1">
@@ -284,8 +284,8 @@ function CompanyPaymentContent() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg bg-[#fffdf8] shadow-sm ring-1 ring-[#e7dfcc]">
-        <table className="w-full text-left">
+      <div className="overflow-x-auto rounded-2xl bg-white/90 shadow-[0_14px_32px_rgba(31,58,47,0.08)] ring-1 ring-[#dcebdd]">
+        <table className="w-full min-w-[760px] text-left">
           <thead className="bg-[#efe8d8] text-[#16362b]">
             <tr>
               <th className="p-3">Transaction ID</th>

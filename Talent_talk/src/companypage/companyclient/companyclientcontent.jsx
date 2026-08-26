@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Search, Users, BriefcaseBusiness, CheckCircle2 } from "lucide-react";
 
 function CompanyClientContent() {
   const [jobs, setJobs] = useState([]);
@@ -51,21 +52,32 @@ function CompanyClientContent() {
       return name.includes(query) || title.includes(query) || email.includes(query);
     });
 
+  const completedCount = rows.filter((job) => String(job.status).toLowerCase() === "complete").length;
+  const activeCount = rows.filter((job) => String(job.status).toLowerCase() !== "complete").length;
+
   return (
-    <div className="min-h-screen bg-[#f7f4ea] px-6 py-12 text-slate-900">
+    <div className="company-content min-h-screen px-4 py-7 text-slate-900 sm:px-8 sm:py-10">
       <div className="mx-auto flex w-full max-w-5xl flex-col items-center">
-        <h1 className="mb-6 w-full text-2xl font-bold">Applied Clients</h1>
+        <div className="mb-6 flex w-full flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#2d6b58]">Talent pipeline</p>
+            <h1 className="mt-2 text-3xl font-bold">Applied Clients</h1>
+            <p className="mt-2 text-sm text-slate-500">Track candidates connected to your company’s job posts.</p>
+          </div>
+          <div className="grid grid-cols-3 gap-2 text-center text-xs">
+            <div className="rounded-xl bg-white px-3 py-2 shadow-sm ring-1 ring-[#dcebdd]"><Users className="mx-auto mb-1 text-[#2d6b58]" size={16}/><strong className="block text-base">{rows.length}</strong><span className="text-slate-500">Total</span></div>
+            <div className="rounded-xl bg-white px-3 py-2 shadow-sm ring-1 ring-[#dcebdd]"><BriefcaseBusiness className="mx-auto mb-1 text-sky-600" size={16}/><strong className="block text-base">{activeCount}</strong><span className="text-slate-500">Active</span></div>
+            <div className="rounded-xl bg-white px-3 py-2 shadow-sm ring-1 ring-[#dcebdd]"><CheckCircle2 className="mx-auto mb-1 text-emerald-600" size={16}/><strong className="block text-base">{completedCount}</strong><span className="text-slate-500">Complete</span></div>
+          </div>
+        </div>
 
-        <input
-          type="text"
-          placeholder="Search clients or jobs"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="mb-6 w-full max-w-[720px] rounded-lg bg-[#fffdf8] p-3 ring-1 ring-[#e7dfcc]"
-        />
+        <label className="mb-6 flex w-full items-center gap-3 rounded-xl bg-white px-4 py-3 shadow-sm ring-1 ring-[#dcebdd] focus-within:ring-2 focus-within:ring-emerald-300">
+          <Search size={18} className="text-slate-400" />
+          <input type="text" placeholder="Search clients, jobs, or email" value={search} onChange={(e) => setSearch(e.target.value)} className="w-full bg-transparent text-sm outline-none" />
+        </label>
 
-        <div className="w-full max-w-[920px] rounded-2xl border border-[#e7dfcc] bg-[#fffdf8] p-6 shadow-sm">
-          <div className="mb-4 grid grid-cols-4 rounded-xl bg-[#efe8d8] px-4 py-3 font-semibold text-[#16362b]">
+        <div className="w-full overflow-hidden rounded-2xl border border-[#dcebdd] bg-white/90 p-4 shadow-[0_14px_32px_rgba(31,58,47,0.08)] sm:p-6">
+          <div className="mb-4 hidden grid-cols-4 rounded-xl bg-[#edf7f3] px-4 py-3 text-xs font-bold uppercase tracking-[0.12em] text-[#35584a] sm:grid">
             <span>Name</span>
             <span>Job</span>
             <span>Email</span>
@@ -89,7 +101,7 @@ function CompanyClientContent() {
               return (
                 <div
                   key={job._id}
-                  className="grid grid-cols-4 items-center rounded-xl border-t border-emerald-100 py-3"
+                  className="grid grid-cols-1 gap-2 rounded-xl border-t border-emerald-100 py-4 text-sm sm:grid-cols-4 sm:items-center sm:px-4"
                 >
                   <div className="flex items-center gap-3">
                     <img

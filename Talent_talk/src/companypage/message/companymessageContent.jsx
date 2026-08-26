@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import { Eye, Trash } from "lucide-react";
+import { Eye, Trash, Mail, Search, Send } from "lucide-react";
 import { toast } from "react-toastify";
 
 function CompanyMessageContent() {
@@ -127,18 +127,18 @@ function CompanyMessageContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f7f4ea] p-6 text-slate-900">
-      <h2 className="mb-6 text-2xl font-bold text-slate-900">Company Messages</h2>
+    <div className="company-content min-h-screen p-5 text-slate-900 sm:p-8">
+      <div className="mb-7"><p className="text-xs font-bold uppercase tracking-[0.2em] text-[#2d6b58]">Stay connected</p><h2 className="mt-2 text-3xl font-bold text-slate-900">Company Messages</h2><p className="mt-2 text-sm text-slate-500">Message clients directly and keep every conversation in one place.</p></div>
 
-      <form onSubmit={handleSend} className="mb-8 rounded-2xl bg-[#fffdf8] p-5 shadow-sm ring-1 ring-[#e7dfcc]">
-        <h3 className="mb-4 text-lg font-semibold">Send Message to Client</h3>
+      <form onSubmit={handleSend} className="mb-8 rounded-2xl border border-[#dcebdd] bg-white/90 p-5 shadow-[0_14px_32px_rgba(31,58,47,0.08)] sm:p-6">
+        <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold"><Send size={18} className="text-[#2d6b58]"/>Send Message to Client</h3>
 
         <div className="grid gap-3 md:grid-cols-2">
           <select
             name="clientId"
             value={form.clientId}
             onChange={handleChange}
-            className="rounded-lg border border-[#e7dfcc] bg-white p-2"
+          className="rounded-xl border border-[#dcebdd] bg-slate-50 p-3"
           >
             <option value="">Select client</option>
             {recipients.map((client) => (
@@ -154,7 +154,7 @@ function CompanyMessageContent() {
             value={form.subject}
             onChange={handleChange}
             placeholder="Subject"
-            className="rounded-lg border border-[#e7dfcc] bg-white p-2"
+            className="rounded-xl border border-[#dcebdd] bg-slate-50 p-3"
           />
         </div>
 
@@ -163,23 +163,26 @@ function CompanyMessageContent() {
           value={form.message}
           onChange={handleChange}
           placeholder="Write your message"
-          className="mt-3 min-h-24 w-full rounded-lg border border-[#e7dfcc] bg-white p-2"
+          className="mt-3 min-h-28 w-full rounded-xl border border-[#dcebdd] bg-slate-50 p-3"
         />
 
-        <button type="submit" className="mt-3 rounded-lg bg-[#1f5a49] px-4 py-2 text-white">
-          Send
+        <button type="submit" className="mt-3 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#1f5a49] to-[#3c7a63] px-5 py-2.5 text-sm font-semibold text-white shadow-md">
+          <Send size={15}/> Send message
         </button>
       </form>
 
       <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <h3 className="text-xl font-semibold">Inbox</h3>
-        <input
+        <h3 className="flex items-center gap-2 text-xl font-semibold"><Mail size={20} className="text-[#2d6b58]"/>Inbox <span className="text-sm font-normal text-slate-500">({filteredMessages.length})</span></h3>
+        <label className="flex w-full items-center gap-2 rounded-xl bg-white px-3 ring-1 ring-[#dcebdd] md:w-96">
+          <Search size={16} className="text-slate-400" />
+          <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by client, subject or message"
-          className="w-full rounded-lg border border-[#e7dfcc] bg-white p-2 md:w-96"
+          className="w-full bg-transparent p-2 text-sm outline-none"
         />
+        </label>
       </div>
 
       <div className="space-y-4">
@@ -195,7 +198,7 @@ function CompanyMessageContent() {
           filteredMessages.map((item) => (
             <div
               key={item._id}
-              className="flex flex-col gap-3 rounded-2xl bg-[#fffdf8] px-6 py-4 shadow-sm ring-1 ring-[#e7dfcc] md:flex-row md:items-center md:justify-between"
+              className="flex flex-col gap-3 rounded-2xl border border-[#dcebdd] bg-white/90 px-5 py-4 shadow-[0_12px_28px_rgba(31,58,47,0.07)] transition hover:-translate-y-0.5 md:flex-row md:items-center md:justify-between"
             >
               <div>
                 <h3 className="font-semibold">{getClientName(item.clientId)}</h3>
@@ -209,8 +212,8 @@ function CompanyMessageContent() {
               </div>
 
               <div className="flex items-center gap-4 text-[#1f5a49]">
-                <Eye className="cursor-pointer text-[#2d6b58]" onClick={() => handleViewMessage(item._id)} />
-                <Trash className="cursor-pointer text-red-600" onClick={() => handleDelete(item._id)} />
+                <button type="button" aria-label="View message" className="rounded-lg p-2 text-[#2d6b58] hover:bg-emerald-50" onClick={() => handleViewMessage(item._id)}><Eye size={18}/></button>
+                <button type="button" aria-label="Delete message" className="rounded-lg p-2 text-red-600 hover:bg-red-50" onClick={() => handleDelete(item._id)}><Trash size={18}/></button>
               </div>
             </div>
           ))}

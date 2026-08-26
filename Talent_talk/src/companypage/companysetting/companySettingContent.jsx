@@ -26,9 +26,9 @@ function CompanySettingsContent() {
   }
 
   return (
-    <div className="min-h-screen flex-1 bg-[#f7f4ea] p-5 text-slate-900 sm:p-10">
+    <div className="company-content min-h-screen flex-1 p-5 text-slate-900 sm:p-8 lg:p-10">
 
-      <h2 className="text-lg font-semibold mb-6">Setting</h2>
+      <div className="mb-7"><p className="text-xs font-bold uppercase tracking-[0.2em] text-[#2d6b58]">Workspace preferences</p><h2 className="mt-2 text-3xl font-bold tracking-tight">Settings</h2><p className="mt-2 text-sm text-slate-500">Personalize your company workspace and account access.</p></div>
 
       {/* Dark Mode */}
       <div className="mb-6 flex w-full max-w-96 items-center justify-between rounded-xl bg-[#fffdf8] px-5 py-4 shadow-sm ring-1 ring-[#e7dfcc]">

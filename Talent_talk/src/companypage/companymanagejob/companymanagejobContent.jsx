@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Search, Pencil, Calendar, Users } from "lucide-react";
+import { Search, Pencil, Calendar, Users, BriefcaseBusiness, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function CompanyManageJobsContent() {
@@ -124,35 +124,39 @@ function CompanyManageJobsContent() {
     navigate("/company/postjob");
   };
 
+  const totalApplications = jobs.reduce((total, job) => total + (Array.isArray(job.clientid) ? job.clientid.length : 0), 0);
+
   return (
-    <div className="min-h-screen bg-[#f7f4ea] px-4 py-6 text-slate-900 sm:px-10 sm:py-8">
-      <div className="mb-6 flex items-center justify-between">
+    <div className="company-content min-h-screen px-4 py-7 text-slate-900 sm:px-8 sm:py-10">
+      <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">Manage Job Postings</h1>
-          <p className="text-sm text-slate-600">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#2d6b58]">Your opportunities</p>
+          <h1 className="mt-2 text-3xl font-bold text-slate-900">Manage Job Postings</h1>
+          <p className="mt-2 text-sm text-slate-600">
             Oversee your active listings and update your job details.
           </p>
         </div>
 
         <button
           onClick={goToPostJob}
-          className="rounded-full bg-gradient-to-r from-[#1f5a49] to-[#3c7a63] px-5 py-2 text-white"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#1f5a49] to-[#3c7a63] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-900/10 transition hover:-translate-y-0.5"
         >
-          + Post New Jobs
+          <Plus size={17} /> Post New Job
         </button>
       </div>
 
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row">
-        <div className="flex w-full max-w-[350px] items-center rounded bg-[#fffdf8] px-3 ring-1 ring-[#e7dfcc]">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex w-full max-w-xl items-center rounded-xl bg-white px-4 py-2 ring-1 ring-[#dcebdd] shadow-sm">
           <Search size={18} className="text-slate-500" />
           <input
             type="text"
             placeholder="Search for job title, keywords..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-transparent p-2 outline-none"
+            className="w-full bg-transparent p-2 text-sm outline-none"
           />
         </div>
+        <div className="flex gap-2 text-sm text-slate-500"><span className="rounded-full bg-white px-3 py-2 shadow-sm ring-1 ring-[#dcebdd]"><BriefcaseBusiness className="mr-1 inline text-[#2d6b58]" size={15}/>{jobs.length} jobs</span><span className="rounded-full bg-white px-3 py-2 shadow-sm ring-1 ring-[#dcebdd]"><Users className="mr-1 inline text-sky-600" size={15}/>{totalApplications} applicants</span></div>
       </div>
 
       {isLoading && (
@@ -171,12 +175,12 @@ function CompanyManageJobsContent() {
         filteredJobs.map((job) => (
           <div
             key={job._id}
-            className="mb-5 rounded-2xl bg-[#fffdf8] p-5 shadow-sm ring-1 ring-[#e7dfcc]"
+            className="mb-5 rounded-2xl border border-[#dcebdd] bg-white/90 p-5 shadow-[0_14px_32px_rgba(31,58,47,0.08)] transition hover:-translate-y-0.5 hover:shadow-lg"
           >
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="text-xl font-semibold">{job.title || "Untitled job"}</h2>
-                <div className="mt-2 flex gap-5 text-sm text-slate-600">
+                <div className="mt-2 flex flex-wrap gap-4 text-sm text-slate-600">
                   <span className="flex items-center gap-1">
                     <Calendar size={16} /> {formatDate(job.time)}
                   </span>
@@ -187,13 +191,13 @@ function CompanyManageJobsContent() {
               </div>
 
               <div className="flex flex-wrap items-center gap-4">
-                <span className="rounded-full bg-green-200 px-4 py-1 text-sm text-green-700">
+                <span className="rounded-full bg-emerald-50 px-4 py-1 text-xs font-semibold capitalize text-emerald-700 ring-1 ring-emerald-100">
                   {job.status || "initial"}
                 </span>
                 <button
                   type="button"
                   onClick={() => openEditor(job)}
-                  className="flex items-center gap-1 rounded bg-[#efe8d8] px-3 py-1 text-sm text-[#16362b]"
+                  className="flex items-center gap-1 rounded-lg bg-slate-100 px-3 py-2 text-sm font-semibold text-[#16362b] transition hover:bg-emerald-50"
                 >
                   <Pencil size={16} /> Edit
                 </button>
@@ -201,7 +205,7 @@ function CompanyManageJobsContent() {
             </div>
 
             {editJobId === job._id && (
-              <div className="mt-5 grid gap-3 rounded-xl bg-[#f7f4ea] p-4 ring-1 ring-[#e7dfcc]">
+              <div className="mt-5 grid gap-3 rounded-2xl bg-[#edf7f3] p-4 ring-1 ring-[#dcebdd] sm:grid-cols-2">
                 <input
                   type="text"
                   value={form.title}
@@ -234,9 +238,9 @@ function CompanyManageJobsContent() {
                   value={form.description}
                   onChange={(e) => setForm((prev) => ({ ...prev, description: e.target.value }))}
                   placeholder="Description"
-                  className="rounded bg-white p-2 outline-none ring-1 ring-[#e7dfcc]"
+                  className="rounded bg-white p-2 outline-none ring-1 ring-[#e7dfcc] sm:col-span-2"
                 />
-                <div className="flex gap-3">
+                <div className="flex gap-3 sm:col-span-2">
                   <button
                     type="button"
                     onClick={handleSave}
