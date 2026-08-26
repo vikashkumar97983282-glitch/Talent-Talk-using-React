@@ -55,7 +55,7 @@ function DashboardPage(){
     }, []);
 
     return (
-        <main className="h-screen min-w-0 flex-1 overflow-y-auto bg-[radial-gradient(circle_at_top_right,_#e0e7ff_0%,_transparent_32%),linear-gradient(135deg,_#f8fafc_0%,_#eef2ff_48%,_#f5f3ff_100%)] px-5 py-6 text-slate-700 sm:px-7 lg:px-9">
+        <main className="min-h-0 min-w-0 flex-1 bg-[radial-gradient(circle_at_top_right,_#e0e7ff_0%,_transparent_32%),linear-gradient(135deg,_#f8fafc_0%,_#eef2ff_48%,_#f5f3ff_100%)] px-5 py-6 text-slate-700 sm:px-7 lg:px-9 md:h-screen md:overflow-y-auto">
 
             <div className="text-2xl font-bold tracking-tight text-slate-950">
                 <h1>Dashboard</h1>
