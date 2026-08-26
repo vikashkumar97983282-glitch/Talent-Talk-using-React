@@ -22,13 +22,13 @@ function InvoiceBody() {
     return (
         <div className="flex min-h-full w-full justify-center px-5 py-6 sm:px-8">
             <div className="mb-10 w-full max-w-6xl">
-                <div className="flex flex-wrap justify-between mt-5 mb-5">
+                <div className="mb-6 mt-5 flex flex-wrap items-center justify-between gap-4">
                     <h1 className="text-2xl font-bold tracking-tight text-slate-950">Invoices</h1>
                     <button className="h-9 w-32 rounded-lg bg-indigo-600 text-sm font-semibold text-white shadow-sm transition hover:bg-violet-600">
                         create invoice
                     </button>
                 </div>
-                <div className="flex flex-wrap gap-5">
+                <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-5 sm:gap-6 lg:gap-7">
                     {invoices.map((item, index) => (
                         <InvoiceContainer key={index} invoice={item} />
                     ))}

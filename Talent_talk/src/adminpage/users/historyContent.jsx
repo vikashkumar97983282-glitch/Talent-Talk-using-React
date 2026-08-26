@@ -7,15 +7,8 @@ function HistoryContent(){
     
 
     return(
-        <div className="mt-5 flex h-11 w-full flex-wrap items-center rounded-t-2xl border border-indigo-100 bg-indigo-50/80 text-xs font-bold uppercase tracking-wider text-indigo-700">
-            <div className="h-50% w-[35%] flex flex-wrap gap-5 ml-5">
-                <p>User</p>
-                <p>Role</p>
-            </div>
-            <div className="flex flex-wrap gap-40 justify-center">
-                <p>Status</p>
-                <p>Actions</p>
-            </div>
+        <div className="hidden grid-cols-[minmax(220px,2fr)_minmax(120px,1fr)_minmax(110px,0.8fr)_minmax(120px,1fr)_minmax(100px,0.8fr)] gap-4 border-b border-slate-100 bg-slate-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-400 md:grid">
+                <p>User</p><p>Role</p><p>Status</p><p>Department</p><p>Joined</p>
         </div>
     )
 }

@@ -4,9 +4,11 @@ import DashCont from "./dashCont";
 import EarnOverview from "./earnOverview";
 import Graph from "./graph";
 import RecentActivity from "./recentActivity";
+import { useAdminTheme } from "../adminThemeHook";
 
 
 function DashboardPage(){
+    const { theme } = useAdminTheme();
     const [userCont, setUserCont] = useState([
         { user: "Total Users", count: 0, growth: "Live" },
         { user: "Active Users", count: 0, growth: "Live" },
@@ -55,10 +57,10 @@ function DashboardPage(){
     }, []);
 
     return (
-        <main className="min-h-0 min-w-0 flex-1 bg-[radial-gradient(circle_at_top_right,_#e0e7ff_0%,_transparent_32%),linear-gradient(135deg,_#f8fafc_0%,_#eef2ff_48%,_#f5f3ff_100%)] px-5 py-6 text-slate-700 sm:px-7 lg:px-9 md:h-screen md:overflow-y-auto">
+        <main className={`min-h-0 min-w-0 flex-1 px-5 py-6 sm:px-7 lg:px-9 md:h-screen md:overflow-y-auto ${theme === "dark" ? "bg-[#0b1220] text-slate-300" : "bg-[radial-gradient(circle_at_top_right,_#c4b5fd_0%,_transparent_32%),linear-gradient(135deg,_#f8fafc_0%,_#eef2ff_48%,_#ecfeff_100%)] text-slate-700"}`}>
 
             <div className="text-2xl font-bold tracking-tight text-slate-950">
-                <h1>Dashboard</h1>
+                <h1 className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">Dashboard</h1>
             </div>
 
             <div className="mt-6 flex flex-wrap gap-5">
