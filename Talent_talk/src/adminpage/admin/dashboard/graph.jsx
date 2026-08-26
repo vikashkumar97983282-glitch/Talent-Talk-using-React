@@ -28,7 +28,11 @@ function Graph() {
   });
 
   return (
+<<<<<<< HEAD
     <div className="min-h-[360px] w-full rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+=======
+    <div className="min-h-[360px] w-full rounded-2xl border border-white/80 bg-white/80 p-5 shadow-[0_12px_30px_rgba(79,70,229,0.10)] backdrop-blur">
+>>>>>>> 0cc237e (change css and structure in admin page.)
       <AgCharts options={chartOptions} />
     </div>
   );

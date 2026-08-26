@@ -129,25 +129,25 @@ function AccountSettings() {
   };
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden">
+    <div className="flex h-screen w-screen overflow-hidden bg-[radial-gradient(circle_at_top_right,_#e0e7ff_0%,_transparent_30%),linear-gradient(135deg,_#f8fafc_0%,_#eef2ff_48%,_#f5f3ff_100%)]">
         <AdminPanel />
 
     <div className="h-full flex-1 min-w-0 overflow-y-scroll">
-      <div className="min-h-full p-10 bg-white">
+      <div className="min-h-full p-10 text-slate-700">
         {/* Profile Header */}
-        <div className="flex items-center mb-10">
+        <div className="mb-10 flex items-center rounded-3xl border border-white/80 bg-white/75 p-6 shadow-[0_12px_30px_rgba(79,70,229,0.10)]">
           <img
             src={getAvatarUrl(avatar)}
             alt="profile"
-            className="w-16 h-16 rounded-full object-cover mr-6"
+            className="mr-6 h-16 w-16 rounded-full object-cover ring-3 ring-violet-200 ring-offset-3 ring-offset-white"
           />
           <div>
-            <h1 className="text-2xl font-bold">{formData.fullName || "Admin"}</h1>
-            <p className="text-gray-600">Admin</p>
-            <p className="text-gray-400 text-sm">
+            <h1 className="text-2xl font-bold tracking-tight text-slate-950">{formData.fullName || "Admin"}</h1>
+            <p className="font-medium text-violet-600">Admin</p>
+            <p className="text-sm text-slate-400">
               {createdAt ? `Joined in ${new Date(createdAt).getFullYear()}` : ""}
             </p>
-            <label className="mt-2 inline-block cursor-pointer rounded-md bg-indigo-600 px-3 py-1 text-sm text-white">
+            <label className="mt-2 inline-block cursor-pointer rounded-lg bg-indigo-600 px-3 py-1 text-sm font-semibold text-white shadow-sm transition hover:bg-violet-600">
               {isUploadingImage ? "Uploading..." : "Upload Photo"}
               <input
                 type="file"
@@ -161,15 +161,15 @@ function AccountSettings() {
         </div>
 
         {/* Form container */}
-        <form className="max-w-3xl space-y-10">
+        <form className="max-w-3xl space-y-10 rounded-3xl border border-white/80 bg-white/75 p-7 shadow-[0_12px_30px_rgba(79,70,229,0.10)]">
           {/* Personal Information */}
           <section>
-            <h2 className="font-semibold mb-6 text-lg">Personal Information</h2>
+            <h2 className="mb-6 text-lg font-semibold text-slate-900">Personal Information</h2>
             <div className="space-y-6 max-w-md">
               <div>
                 <label
                   htmlFor="fullName"
-                  className="block mb-2 text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-slate-700"
                 >
                   Full Name
                 </label>
@@ -180,11 +180,11 @@ function AccountSettings() {
                   value={formData.fullName}
                   onChange={handleChange}
                   readOnly={!isEditing}
-                  className={`w-full rounded-md border border-gray-300 px-4 py-2
+                  className={`w-full rounded-xl border border-indigo-100 bg-white px-4 py-2 text-slate-700 shadow-sm
                     ${
                       isEditing
-                        ? "focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        : "bg-gray-100 cursor-not-allowed"
+                        ? "focus:outline-none focus:ring-4 focus:ring-violet-100 focus:border-violet-300"
+                        : "bg-slate-100 cursor-not-allowed"
                     }`}
                 />
               </div>
@@ -192,7 +192,7 @@ function AccountSettings() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-slate-700"
                 >
                   Email
                 </label>
@@ -203,14 +203,14 @@ function AccountSettings() {
                   value={formData.email}
                   readOnly
                   disabled
-                  className="w-full rounded-md border border-gray-300 px-4 py-2 bg-gray-100 cursor-not-allowed"
+                  className="w-full cursor-not-allowed rounded-xl border border-indigo-100 bg-slate-100 px-4 py-2 text-slate-500"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="phone"
-                  className="block mb-2 text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-slate-700"
                 >
                   Phone Number
                 </label>
@@ -221,11 +221,11 @@ function AccountSettings() {
                   value={formData.phone}
                   onChange={handleChange}
                   readOnly={!isEditing}
-                  className={`w-full rounded-md border border-gray-300 px-4 py-2
+                  className={`w-full rounded-xl border border-indigo-100 bg-white px-4 py-2 text-slate-700 shadow-sm
                     ${
                       isEditing
-                        ? "focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        : "bg-gray-100 cursor-not-allowed"
+                        ? "focus:outline-none focus:ring-4 focus:ring-violet-100 focus:border-violet-300"
+                        : "bg-slate-100 cursor-not-allowed"
                     }`}
                 />
               </div>
@@ -234,12 +234,12 @@ function AccountSettings() {
 
           {/* Security */}
           <section>
-            <h2 className="font-semibold mb-6 text-lg">Security</h2>
+            <h2 className="mb-6 text-lg font-semibold text-slate-900">Security</h2>
             <div className="space-y-6 max-w-md">
               <div>
                 <label
                   htmlFor="currentPassword"
-                  className="block mb-2 text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-slate-700"
                 >
                   Current Password
                 </label>
@@ -250,11 +250,11 @@ function AccountSettings() {
                   value={formData.currentPassword}
                   onChange={handleChange}
                   readOnly={!isEditing}
-                  className={`w-full rounded-md border border-gray-300 px-4 py-2
+                  className={`w-full rounded-xl border border-indigo-100 bg-white px-4 py-2 text-slate-700 shadow-sm
                     ${
                       isEditing
-                        ? "focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        : "bg-gray-100 cursor-not-allowed"
+                        ? "focus:outline-none focus:ring-4 focus:ring-violet-100 focus:border-violet-300"
+                        : "bg-slate-100 cursor-not-allowed"
                     }`}
                 />
               </div>
@@ -262,7 +262,7 @@ function AccountSettings() {
               <div>
                 <label
                   htmlFor="newPassword"
-                  className="block mb-2 text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-slate-700"
                 >
                   New Password
                 </label>
@@ -274,11 +274,11 @@ function AccountSettings() {
                   value={formData.newPassword}
                   onChange={handleChange}
                   readOnly={!isEditing}
-                  className={`w-full rounded-md border border-gray-300 px-4 py-2
+                  className={`w-full rounded-xl border border-indigo-100 bg-white px-4 py-2 text-slate-700 shadow-sm
                     ${
                       isEditing
-                        ? "focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        : "bg-gray-100 cursor-not-allowed"
+                        ? "focus:outline-none focus:ring-4 focus:ring-violet-100 focus:border-violet-300"
+                        : "bg-slate-100 cursor-not-allowed"
                     }`}
                 />
               </div>
@@ -286,7 +286,7 @@ function AccountSettings() {
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="block mb-2 text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-slate-700"
                 >
                   Confirm New Password
                 </label>
@@ -298,11 +298,11 @@ function AccountSettings() {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   readOnly={!isEditing}
-                  className={`w-full rounded-md border border-gray-300 px-4 py-2
+                  className={`w-full rounded-xl border border-indigo-100 bg-white px-4 py-2 text-slate-700 shadow-sm
                     ${
                       isEditing
-                        ? "focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        : "bg-gray-100 cursor-not-allowed"
+                        ? "focus:outline-none focus:ring-4 focus:ring-violet-100 focus:border-violet-300"
+                        : "bg-slate-100 cursor-not-allowed"
                     }`}
                 />
               </div>
@@ -315,7 +315,7 @@ function AccountSettings() {
               <button
                 type="button"
                 onClick={handleEdit}
-                className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700"
+                className="rounded-lg bg-indigo-600 px-6 py-2 font-semibold text-white shadow-sm transition hover:bg-violet-600"
               >
                 Edit Profile
               </button>
@@ -323,7 +323,7 @@ function AccountSettings() {
               <button
                 type="button"
                 onClick={handleSave}
-                className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700"
+                className="rounded-lg bg-indigo-600 px-6 py-2 font-semibold text-white shadow-sm transition hover:bg-violet-600"
               >
                 Save Changes
               </button>

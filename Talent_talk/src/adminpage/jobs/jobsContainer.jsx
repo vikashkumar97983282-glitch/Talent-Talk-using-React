@@ -2,17 +2,18 @@ import React from "react";
 
 
 function JobContainer(props){
+    const fallbackImage = "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=500&auto=format&fit=crop&q=60";
 
     return (
-        <div className="flex flex-wrap mb-8">
-            <div className="w-[68%] p-2">
-                <h3>{props.status}</h3>
-                <h1 className="font-bold">{props.title}</h1>
-                <p>{props.desc}</p>
-                <button className="bg-gray-200 h-8 w-30 rounded-2xl mt-2">{props.button}</button>
+        <div className="mb-5 flex flex-wrap overflow-hidden rounded-2xl border border-white/80 bg-white/75 shadow-[0_10px_24px_rgba(79,70,229,0.10)]">
+            <div className="w-[68%] p-5">
+                <h3 className="text-sm font-semibold text-violet-600">{props.status}</h3>
+                <h1 className="mt-1 font-bold text-slate-900">{props.title}</h1>
+                <p className="mt-1 text-sm text-slate-500">{props.desc}</p>
+                <button className="mt-3 h-9 w-30 rounded-lg bg-indigo-100 text-sm font-semibold text-indigo-700 transition hover:bg-violet-600 hover:text-white">{props.button}</button>
             </div>
             <div>
-                <img src={props.img} alt="" className="h-43.5 w-75 rounded-md" />
+                <img src={props.img || fallbackImage} alt="" className="h-43.5 w-75 object-cover" />
             </div>
         </div>
     )

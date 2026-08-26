@@ -71,6 +71,7 @@ function AdminPanel(){
       "Admin Panel";
 
     return (
+<<<<<<< HEAD
         <div className="h-screen w-[24vw] min-w-72 shrink-0 border-r border-slate-200 bg-white">
           <div className="flex h-full flex-col gap-6 px-4 py-5">
             <Link to="/admin/settings" className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
@@ -83,23 +84,42 @@ function AdminPanel(){
                   <h1 className="text-lg font-semibold text-slate-900">{adminName}</h1>
                   <p className="text-xs text-slate-500">Control center</p>
                 </div>
+=======
+        <aside className="h-screen w-72 shrink-0 border-r border-white/10 bg-gradient-to-b from-slate-950 via-indigo-950 to-violet-950 shadow-2xl shadow-indigo-950/20">
+          <div className="flex h-full flex-col gap-7 py-6">
+            <Link to="/admin/settings" className="mx-3 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.08] px-3 py-3 transition hover:bg-white/[0.12]">
+                <img
+                  src={getAvatarUrl(admin?.avatar)}
+                  alt="Admin profile"
+                  className="h-11 w-11 rounded-full object-cover ring-2 ring-violet-300/70 ring-offset-2 ring-offset-indigo-950"
+                />
+                <h1 className="truncate text-lg font-semibold tracking-tight text-white">{adminName}</h1>
+>>>>>>> 0cc237e (change css and structure in admin page.)
             </Link>
             <div className="flex flex-col gap-1.5">
                 {menu.map((elem,idx)=>{
                     return <AdminElement key={idx} name={elem.name} img={elem.img} path={elem.path}/>
                 })}
             </div>
+<<<<<<< HEAD
             <div className="mt-auto">
               <button type="button" className="h-11 w-full cursor-pointer rounded-lg border border-slate-200 bg-slate-50 px-3 text-left text-slate-700 transition-colors hover:bg-slate-100">
                 <span className="flex items-center gap-5">
                   <img src="https://cdn-icons-png.flaticon.com/512/471/471664.png" alt="" className="h-6 w-6"/>
                   <span>Help and Docs</span>
+=======
+            <div className="mt-auto flex justify-center px-3">
+              <button type="button" className="h-11 w-full cursor-pointer rounded-xl border border-white/10 bg-white/[0.08] px-3 text-left text-indigo-100 transition hover:bg-white/[0.15] hover:text-white">
+                <span className="flex items-center gap-4">
+                  <img src="https://cdn-icons-png.flaticon.com/512/471/471664.png" alt="" className="h-5 w-5 brightness-0 invert"/>
+                  <span className="text-sm font-medium">Help and Docs</span>
+>>>>>>> 0cc237e (change css and structure in admin page.)
                 </span>
               </button>
             </div>
           </div>
             
-        </div>
+        </aside>
     )
 }
 

@@ -38,9 +38,9 @@ const CompanyAdminPanel = () => {
   }, []);
 
   return (
-    <div className="w-64 h-screen bg-gradient-to-b from-[#0f2d24] via-[#18493a] to-[#276254] text-[#eef7f1] p-6 shadow-2xl">
+    <aside className="w-full shrink-0 bg-gradient-to-b from-[#0f2d24] via-[#18493a] to-[#276254] p-3 text-[#eef7f1] shadow-2xl md:h-screen md:w-64 md:p-6">
 
-      <NavLink to="/company/profile" className="mb-10 flex items-center gap-3 rounded-2xl border border-[#dcebdd]/20 bg-white/10 px-3 py-3 backdrop-blur-sm transition-colors hover:bg-white/15">
+      <NavLink to="/company/profile" className="mb-3 flex items-center gap-3 rounded-2xl border border-[#dcebdd]/20 bg-white/10 px-3 py-2 backdrop-blur-sm transition-colors hover:bg-white/15 md:mb-10 md:py-3">
         <img
           src={getCompanyAvatarUrl(company?.avatar)}
           alt="Company profile"
@@ -49,16 +49,16 @@ const CompanyAdminPanel = () => {
         <span className="font-semibold">{company?.name || "Company Profile"}</span>
       </NavLink>
 
-      <ul className="space-y-4 text-sm">
+      <ul className="flex gap-2 overflow-x-auto pb-1 text-sm md:block md:space-y-4 md:overflow-visible">
 
         {panel.map((elem,idx)=>{
           const Icon = elem.icon
           return (
-            <li key={idx}>
+            <li key={idx} className="shrink-0">
               <NavLink
                 to={elem.path}
                 className={({ isActive }) =>
-                  `flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 transition-all duration-200 ${
+                  `flex w-full items-center gap-3 whitespace-nowrap rounded-xl border px-3 py-2.5 transition-all duration-200 ${
                     isActive
                       ? "border-[#e6f1e8] bg-[#f3efe3] text-[#16362b] font-semibold shadow-lg shadow-slate-950/20"
                       : "border-transparent text-[#eef7f1] hover:border-[#dcebdd]/20 hover:bg-white/10"
@@ -73,7 +73,7 @@ const CompanyAdminPanel = () => {
 
       </ul>
 
-    </div>
+    </aside>
   );
 };
 

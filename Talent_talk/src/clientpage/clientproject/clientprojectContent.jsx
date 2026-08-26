@@ -93,7 +93,7 @@ function ClientProjectContent() {
   return (
     <div className="min-h-screen bg-slate-50 px-8 py-6 text-slate-900">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">My Applied Jobs</h1>
+        <h1 className="text-3xl font-bold ">My Applied Jobs</h1>
         <p className="mt-2 text-slate-500">
           Track the jobs you have applied for and check their current status.
         </p>

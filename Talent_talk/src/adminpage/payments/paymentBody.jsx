@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Filter from "../users/filter";
 import PaymentStatus from "./paymentStatus";
 import PaymentHeader from "./paymenHeader";
@@ -6,110 +7,42 @@ import PaymentHistory from "./paymentHistory";
 
 
 function PaymentsBody(){
-
-    const status = [{title:"Total Revinue", amount:"$1,250,000"},{title:"Pending Payouts", amount:"$25,000"}]
+    const [status, setStatus] = useState([
+        { title: "Total Revenue", amount: "0 INR" },
+        { title: "Pending Payouts", amount: "0 INR" },
+    ]);
+    const [transactions, setTransactions] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const paymentHistory=["Transaction","Client","Freelancer","Amount","Date","Status"]
 
-    const getTransaction = [
-    {
-      id: "TXN12345",
-      sender: "Ava Harper",
-      receiver: "Ethan Bennett",
-      amount: 5000,
-      currency: "USD",
-      date: "2023-08-15",
-      status: "Completed"
-    },
-    {
-      id: "TXN12346",
-      sender: "Liam Johnson",
-      receiver: "Olivia Smith",
-      amount: 3200,
-      currency: "USD",
-      date: "2023-08-16",
-      status: "Pending"
-    },
-    {
-      id: "TXN12347",
-      sender: "Noah Williams",
-      receiver: "Emma Brown",
-      amount: 1500,
-      currency: "USD",
-      date: "2023-08-17",
-      status: "Failed"
-    },
-    {
-      id: "TXN12348",
-      sender: "Sophia Davis",
-      receiver: "James Miller",
-      amount: 2750,
-      currency: "USD",
-      date: "2023-08-18",
-      status: "Completed"
-    },
-    {
-      id: "TXN12349",
-      sender: "Benjamin Wilson",
-      receiver: "Mia Moore",
-      amount: 4200,
-      currency: "USD",
-      date: "2023-08-19",
-      status: "Pending"
-    },
-    {
-      id: "TXN12350",
-      sender: "Charlotte Taylor",
-      receiver: "Lucas Anderson",
-      amount: 890,
-      currency: "USD",
-      date: "2023-08-20",
-      status: "Completed"
-    },
-    {
-      id: "TXN12351",
-      sender: "Amelia Thomas",
-      receiver: "Henry Jackson",
-      amount: 6400,
-      currency: "USD",
-      date: "2023-08-21",
-      status: "Failed"
-    },
-    {
-      id: "TXN12352",
-      sender: "Elijah White",
-      receiver: "Harper Martin",
-      amount: 2100,
-      currency: "USD",
-      date: "2023-08-22",
-      status: "Completed"
-    },
-    {
-      id: "TXN12353",
-      sender: "Evelyn Thompson",
-      receiver: "Daniel Garcia",
-      amount: 5300,
-      currency: "USD",
-      date: "2023-08-23",
-      status: "Pending"
-    },
-    {
-      id: "TXN12354",
-      sender: "Michael Martinez",
-      receiver: "Abigail Robinson",
-      amount: 7600,
-      currency: "USD",
-      date: "2023-08-24",
-      status: "Completed"
-    }
-  ];
+    useEffect(() => {
+        const getPayments = async () => {
+            try {
+                const res = await axios.get("/admin/payments", { withCredentials: true });
+                const summary = res.data?.summary || {};
+                setStatus([
+                    { title: "Total Revenue", amount: `${Number(summary.totalRevenue || 0)} INR` },
+                    { title: "Pending Payouts", amount: `${Number(summary.pendingPayouts || 0)} INR` },
+                ]);
+                setTransactions(res.data?.payments || []);
+            } catch (err) {
+                console.log(err);
+                setTransactions([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        getPayments();
+    }, []);
 
     return (
-        <div className="h-100% w-full flex flex-wrap justify-center">
-            <div className="h-100% w-[70%] mb-10">
+        <div className="flex min-h-full w-full justify-center px-5 py-6 sm:px-8">
+            <div className="mb-10 w-full max-w-6xl">
                 <div className="">
-                <h1 className="font-bold text-2xl mt-5 mb-5">User Management</h1>
-                <input type="text" placeholder="enter the value" className="h-10 w-full bg-gray-200 rounded-md p-5"/>
+                <h1 className="mb-5 mt-5 text-2xl font-bold tracking-tight text-slate-950">User Management</h1>
+                <input type="text" placeholder="enter the value" className="h-11 w-full rounded-xl border border-indigo-100 bg-white/80 px-5 text-slate-700 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-violet-300 focus:ring-4 focus:ring-violet-100"/>
                 </div>
                 <div className="h-100% w-full mt-5">
                     <Filter/>
@@ -119,14 +52,16 @@ function PaymentsBody(){
                         return <PaymentStatus key={idx} title={elem.title} amt={elem.amount}/>
                     })}
                 </div>
-                <div className="h-10 w-full mt-5  flex flex-wrap items-center border rounded-t-2xl gap-20">
+                <div className="mt-5 flex h-11 w-full flex-wrap items-center gap-20 rounded-t-2xl border border-indigo-100 bg-indigo-50/80 text-xs font-bold uppercase tracking-wider text-indigo-700">
                     {paymentHistory.map((elem,idx)=>{
                         return <PaymentHeader key={idx} header={elem}/>
                     })}
                 </div>
-                <div className=" w-full  flex flex-wrap items-center">
-                    {getTransaction.map((elem,idx)=>{
-                        return <PaymentHistory key={idx} id={elem.id} client={elem.sender} freelancer={elem.receiver} amount={elem.amount} cur={elem.currency} date={elem.date} status={elem.status}/>
+                <div className="flex w-full flex-wrap items-center">
+                    {loading && <p className="p-4 text-sm text-slate-500">Loading payments...</p>}
+                    {!loading && transactions.length === 0 && <p className="p-4 text-sm text-slate-500">No payments found.</p>}
+                    {transactions.map((elem,idx)=>{
+                        return <PaymentHistory key={idx} id={elem.transactionId} client={elem.client} freelancer={elem.freelancer} amount={elem.amount} cur={elem.currency} date={new Date(elem.date).toLocaleDateString()} status={elem.status}/>
                     })}
                 </div>
 

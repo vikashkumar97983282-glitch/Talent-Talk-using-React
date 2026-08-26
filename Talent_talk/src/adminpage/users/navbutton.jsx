@@ -3,14 +3,14 @@ import { NavLink } from "react-router-dom";
 
 function NavButton({ elem, path }){
     return (
-        <div className="ml-5 cursor-pointer">
+        <div className="ml-1 cursor-pointer">
             <NavLink
                 to={path}
                 className={({ isActive }) =>
-                    `m-5 inline-block rounded-md px-3 py-2 font-medium transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-300 ${
+                    `m-1 inline-block rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-violet-300 ${
                         isActive
-                            ? "bg-indigo-300 text-slate-900"
-                            : "text-slate-700 hover:bg-indigo-100 hover:text-slate-900"
+                            ? "bg-white/15 text-white shadow-sm"
+                            : "text-indigo-100/75 hover:bg-white/10 hover:text-white"
                     }`
                 }
             >

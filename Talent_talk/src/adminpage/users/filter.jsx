@@ -7,7 +7,7 @@ function Filter(){
         <div>
             <div className="">
                 <label for="user"></label>
-                <select id="user" name="user" className="w-20 bg-gray-300 rounded-2xl text-center">
+                <select id="user" name="user" className="h-9 w-24 rounded-lg border border-indigo-100 bg-white/80 text-center text-sm font-medium text-slate-600 outline-none focus:border-violet-300">
                     <option value="vikash">vikash</option>
                     <option value="ram">ram</option>
                     <option value="filter" selected>filter</option>

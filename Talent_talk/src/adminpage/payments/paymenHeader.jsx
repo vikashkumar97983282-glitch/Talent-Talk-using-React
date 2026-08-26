@@ -4,7 +4,7 @@ function PaymentHeader(props){
 
     return (
         <div className="">
-            <div className="h-50% w-full flex flex-wrap gap-5 ml-5">
+            <div className="ml-5 flex h-50% w-full flex-wrap gap-5">
                 <p>{props.header}</p>
             </div>
         </div>
