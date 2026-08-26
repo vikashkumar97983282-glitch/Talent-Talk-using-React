@@ -5,16 +5,12 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const isLogin = require('../utils/registerCookies');
 const { TOKEN_COOKIE_BY_ROLE } = require('../utils/registerCookies');
-<<<<<<< HEAD
-const upload = require('../middleware/fileupload')
-=======
 const upload = require('../middleware/fileupload');
 const ClientModel = require('../models/clientmodels');
 const CompanyModel = require('../models/companymodels');
 const JobModel = require('../models/jobsmodel');
 const PaymentModel = require('../models/paymentmodel');
 const mongoose = require('mongoose');
->>>>>>> 0cc237e (change css and structure in admin page.)
 
 
 router.get('/', (req,res)=>{
