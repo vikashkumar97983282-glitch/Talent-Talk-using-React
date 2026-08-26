@@ -43,6 +43,7 @@ import ClientSetting from "./clientpage/clientSetting/clientSetting";
 import ClientProfile from "./clientpage/clientProfile/clientProfile";
 import ClientProfileEdit from "./clientpage/clientProfileEdit/clientProfileEdit";
 import FreelanceFooter from "./components/FreelanceFooter";
+import { AdminThemeProvider } from "./adminpage/admin/adminTheme";
 
 function App() {
   const location = useLocation();
@@ -59,6 +60,7 @@ function App() {
     currentPath === "/client/forget-password";
 
   return (
+    <AdminThemeProvider>
     <div className="flex min-h-screen flex-col">
       <main className="flex-1">
         <Routes>
@@ -119,6 +121,7 @@ function App() {
       {showFooter && <FreelanceFooter />}
       <ToastContainer />
     </div>
+    </AdminThemeProvider>
   );
 }
 

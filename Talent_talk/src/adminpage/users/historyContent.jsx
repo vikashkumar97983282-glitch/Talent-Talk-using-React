@@ -7,7 +7,7 @@ function HistoryContent(){
     
 
     return(
-        <div className="mt-5 flex h-11 w-full flex-wrap items-center rounded-t-2xl border border-indigo-100 bg-indigo-50/80 text-xs font-bold uppercase tracking-wider text-indigo-700">
+        <div className="mt-5 flex h-11 w-full flex-wrap items-center rounded-t-2xl border border-sky-100 bg-sky-50/80 text-xs font-bold uppercase tracking-wider text-sky-700">
             <div className="h-50% w-[35%] flex flex-wrap gap-5 ml-5">
                 <p>User</p>
                 <p>Role</p>

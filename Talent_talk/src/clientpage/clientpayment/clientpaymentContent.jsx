@@ -105,12 +105,10 @@ function ClientPaymentContent() {
                   <td className="p-3">{pay.description || "Company payout"}</td>
                   <td className="p-3">{formatCurrency(pay.amount)}</td>
                   <td className="p-3">
-                    {new Date(
-                      (normalizePaymentStatus(pay.status) === "Success" ? pay.paidAt : pay.createdAt) ||
-                        Date.now()
-                    )
-                      .toISOString()
-                      .slice(0, 10)}
+                    {(() => {
+                      const paymentDate = normalizePaymentStatus(pay.status) === "Success" ? pay.paidAt : pay.createdAt;
+                      return paymentDate ? new Date(paymentDate).toISOString().slice(0, 10) : "N/A";
+                    })()}
                   </td>
                   <td className="p-3">
                     <span className={statusStyle(normalizePaymentStatus(pay.status))}>

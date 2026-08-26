@@ -1,21 +1,20 @@
 import React from "react";
+import { useAdminTheme } from "../adminThemeHook";
 
 function EarnOverview(){
+    const { theme } = useAdminTheme();
     return (
-<<<<<<< HEAD
-        <div className="w-full rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h1 className="text-sm font-medium text-slate-500">Total Earning</h1>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight">$89,012</h2>
-            <div className="mt-3 flex items-center gap-2 text-xs">
-                <span className="rounded-full bg-emerald-50 px-2 py-1 font-semibold text-emerald-700">+25%</span>
-                <span className="text-slate-500">Last 30 Days</span>
+        <div className={`w-full rounded-xl border p-5 shadow-[0_12px_30px_rgba(14,165,233,0.10)] ${theme === "dark" ? "border-slate-700/70 bg-[#142033]" : "border-sky-100 bg-white/90"}`}>
+            <div className="flex items-start justify-between">
+                <div>
+                    <h1 className={`text-xs font-medium ${theme === "dark" ? "text-zinc-500" : "text-slate-500"}`}>Total revenue</h1>
+                    <h2 className={`mt-2 text-3xl font-semibold tracking-tight ${theme === "dark" ? "text-white" : "text-slate-950"}`}>$89,012</h2>
+                    <h3 className="mt-2 text-xs font-medium text-emerald-400" >+25.0% from last month</h3>
+                </div>
+                <div className="h-10 w-20 text-emerald-400" aria-hidden="true">
+                    <svg viewBox="0 0 80 36" className="h-full w-full" fill="none"><path d="M2 29C13 27 16 15 25 20C34 25 37 28 45 17C53 6 57 18 65 11C71 6 74 7 78 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+                </div>
             </div>
-=======
-        <div className="w-full rounded-2xl border border-white/80 bg-white/80 p-5 shadow-[0_12px_30px_rgba(79,70,229,0.10)] backdrop-blur">
-            <h1 className="text-sm font-medium text-slate-500">Earning</h1>
-            <h2 className="mt-1 text-3xl font-bold tracking-tight text-slate-900">$89,012</h2>
-            <h3 className="mt-2 text-xs font-bold uppercase tracking-wider text-violet-600" >Last 30 Days +25%</h3>
->>>>>>> 0cc237e (change css and structure in admin page.)
         </div>
     )
 }
