@@ -39,8 +39,10 @@ const companyRoutes = require('./routes/companyroutes');
 const clientRoutes = require('./routes/clientroutes');
 const jobRoutes = require('./routes/jobroutes');
 
-app.get('/', (req, res) => {
-  res.send('welcome to the backend');
+app.get("/", (req, res) => {
+    res.json({
+        message: "Talent Talk Backend is running!"
+    });
 });
 
 app.use('/admin', adminRoutes);
@@ -53,6 +55,6 @@ app.use((req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+app.listen(PORT,"0.0.0.0", () => {
   console.log(`server is running on address http://localhost:${PORT}`);
 });
